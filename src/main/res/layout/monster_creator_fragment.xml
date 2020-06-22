@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".cardformulars.MonsterCreatorFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/monsterformulier"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#70ADD9">
+
+        <TextView
+            android:id="@+id/monsteraddtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/monster_create_label"
+            app:layout_constraintBottom_toTopOf="@+id/monstertable"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TableLayout
+            android:id="@+id/monstertable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TableRow
+                android:id="@+id/titlerow"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="4dp">
+
+                <TextView
+                    android:id="@+id/titleText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/title_label" />
+
+                <EditText
+                    android:id="@+id/titletextfield"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="Put the name you want to give to the card here"
+                    android:background="#FFFFFF"
+                    android:ems="0"
+                    android:inputType="textPersonName"
+                    tools:ignore="LabelFor"
+                    tools:targetApi="o" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/manarow"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="4dp">
+
+                <TextView
+                    android:id="@+id/manatext"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/mana_label" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/manaselections"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    />
+
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/liferow"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="4dp">
+
+                <TextView
+                    android:id="@+id/lifelabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:text="@string/life_label" />
+
+                <EditText
+                    android:id="@+id/lifetextfield"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="Put the amount of life points you want to give to your monster here"
+                    android:background="#FFFFFF"
+                    android:ems="10"
+                    android:inputType="number"
+                    tools:ignore="LabelFor"
+                    tools:targetApi="o" />
+
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/attackrow"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="4dp">
+
+                <TextView
+                    android:id="@+id/attacklabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/attack_label" />
+
+                <EditText
+                    android:id="@+id/attacktextfield"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="Your monster will give that amount of damage to the opposing monster"
+                    android:background="#FFFFFF"
+                    android:ems="10"
+                    android:inputType="number"
+                    tools:ignore="LabelFor"
+                    tools:targetApi="o" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/defenserow"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="4dp">
+
+                <TextView
+                    android:id="@+id/defenselabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/defense_label" />
+
+                <EditText
+                    android:id="@+id/defensetextfield"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="To defend your monster against incoming attacks."
+                    android:background="#FFFFFF"
+                    android:ems="10"
+                    android:inputType="number"
+                    tools:ignore="LabelFor"
+                    tools:targetApi="o" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/magicattackrow"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="4dp">
+
+                <TextView
+                    android:id="@+id/magicattacklabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/magic_attack_label" />
+
+                <EditText
+                    android:id="@+id/magicattacktextfield"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="To control how powerful your spells are"
+                    android:background="#FFFFFF"
+                    android:ems="10"
+                    android:inputType="number"
+                    tools:ignore="LabelFor"
+                    tools:targetApi="o" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/magicdefenserow"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="4dp">
+
+                <TextView
+                    android:id="@+id/magicdefenselabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/magic_defense_label" />
+
+                <EditText
+                    android:id="@+id/magicdefensefield"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="To defend well against incoming spells"
+                    android:background="#FFFFFF"
+                    android:ems="10"
+                    android:inputType="number"
+                    tools:ignore="LabelFor"
+                    tools:targetApi="o" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/mprow"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="4dp">
+
+                <TextView
+                    android:id="@+id/mplabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/mp_label" />
+
+                <EditText
+                    android:id="@+id/mptextfield"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="Regulates how much spells you can throw"
+                    android:background="#FFFFFF"
+                    android:ems="10"
+                    android:inputType="number"
+                    tools:ignore="LabelFor"
+                    tools:targetApi="o" />
+
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/spellsrow"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="4dp">
+
+                <TextView
+                    android:id="@+id/spelllabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/spell_label" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/spellfield"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </TableRow>
+
+        </TableLayout>
+
+        <Button
+            android:id="@+id/submitmonster"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/monster_add"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/monstertable" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

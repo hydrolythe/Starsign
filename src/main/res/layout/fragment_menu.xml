@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".menu.MenuFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/restrictedLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#F8E8D0">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="@string/menutitle"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/cardcreatorbutton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="200dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginRight="50dp"
+            android:background="@android:drawable/btn_default"
+            android:drawableStart="#0F360B"
+            android:drawableLeft="#0F360B"
+            android:drawableTop="#0F360B"
+            android:drawableEnd="#0F360B"
+            android:drawableRight="#0F360B"
+            android:drawableBottom="#0F360B"
+            android:drawablePadding="2dp"
+            android:text="@string/cardcreatorlabel"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+        <Button
+            android:id="@+id/deckcreatorbutton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="100dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginRight="50dp"
+            android:background="@android:drawable/btn_default"
+            android:drawableStart="#0F360B"
+            android:drawableLeft="#0F360B"
+            android:drawableTop="#0F360B"
+            android:drawableEnd="#0F360B"
+            android:drawableRight="#0F360B"
+            android:drawableBottom="#0F360B"
+            android:drawablePadding="2dp"
+            android:text="@string/deckcreatorlabel"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardcreatorbutton" />
+
+        <Button
+            android:id="@+id/playbutton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginRight="50dp"
+            android:background="@android:drawable/btn_default"
+            android:drawableStart="#0F360B"
+            android:drawableLeft="#0F360B"
+            android:drawableTop="#0F360B"
+            android:drawableEnd="#0F360B"
+            android:drawableRight="#0F360B"
+            android:drawableBottom="#0F360B"
+            android:text="@string/versusmatch"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/deckcreatorbutton" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

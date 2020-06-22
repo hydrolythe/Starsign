@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation">
+
+    <fragment
+        android:id="@+id/menuFragment"
+        android:name="com.example.starsign.menu.MenuFragment"
+        android:label="fragment_menu"
+        tools:layout="@layout/fragment_menu" >
+        <action
+            android:id="@+id/action_menuFragment_to_cardCreatorBox"
+            app:destination="@id/cardCreatorBox" />
+    </fragment>
+    <fragment
+        android:id="@+id/cardCreatorBox"
+        android:name="com.example.starsign.cardcreator.CardCreatorFragment"
+        android:label="fragment_card_creator_box"
+        tools:layout="@layout/fragment_card_creator_box" >
+        <action
+            android:id="@+id/action_cardCreatorBox_to_menuFragment"
+            app:destination="@id/menuFragment"
+            app:popUpTo="@+id/menuFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/rulesFragment"
+        android:name="com.example.starsign.rules.RulesFragment"
+        android:label="fragment_rules"
+        tools:layout="@layout/fragment_rules" />
+</navigation>

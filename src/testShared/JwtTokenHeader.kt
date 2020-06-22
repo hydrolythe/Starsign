@@ -1,0 +1,1 @@
+data class JwtTokenHeader(val alg: String, val typ: String) {}

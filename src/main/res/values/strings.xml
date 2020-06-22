@@ -1,0 +1,69 @@
+<resources>
+    <string name="app_name">Starsign</string>
+    <string name="registrationlabel">Register</string>
+    <string name="usernamelabel">Username</string>
+    <string name="passwordlabel">Password</string>
+    <string name="registerlabel">Register</string>
+    <string name="usernamehints">Write your username here.</string>
+    <string name="passwordhints">Use a sequence of common words for your password. </string>
+    <string name="repeatpassword">Repeat password</string>
+    <string name="menutitle">Main menu</string>
+    <string name="cardcreatorlabel">Manage cards</string>
+    <string name="deckcreatorlabel">Manage deck</string>
+    <string name="versusmatch">Play against another player</string>
+    <string name="createcard">Create new card</string>
+    <string name="removecard">Remove cards</string>
+    <string name="returntomenu">Back to menu</string>
+    <string name="ruletitle">Rules</string>
+    <string name="rules">
+        This is a turn based card game. \n \n
+        You start out with a certain amount of life points (both are equal for each player). The goal is to decrease the opponent\'s life points to 0. \n \n
+        The game starts by each player drawing a certain amount of cards in their hand. Each time it is the player\'s turn it starts by the selected player drawing a card. \n \n
+        There are 5 types of cards: Monsters, Equipment, Fields, Events and Sources. \n \n
+        Monsters are cards that can be summoned on the field. There is a certain amount of mana that needs to be sacrificed in order for them to get summoned, which is given by the amount of mana. Once on the field they have a certain amount of attack that they can use to attack directly when there are no monsters on the opposing side. The damage will then be equal to the attack value on the card. When there are monsters on the opposing side the attack points will get substracted by the defense points of the opposing monster. The result will be taken away from the life points of the monster. When the life points of a monster get to 0 the monster is sent to the graveyard and the rest of the attack points get substracted from the owner\'s life points. When the defense of the opposing monster is higher than the attack points of the attacking monster the result is substracted from the life points of the owner of the attacking monster\'s life points. \n \n
+        Monsters may also be capable of using spells. Spells cost a certain amount of magic points from the monster in order for them to be able to use it. The magical attack and magical defense regulate the way magic spells interact with the field. \n \n
+        There is also equipment are cards that can be equipped on a monster. Once equipped they can manipulate the stats of the monster or allow the monster to use more spells. \n \n
+        Fields are cards that influence the field on which is played. The effects of a field can be used by you, but also by your opponent. \n \n
+        Sources are cards that also activate on the field. However, unlike fields, only you are allowed to use the effect of a source. \n \n
+        Events are cards that activate an effect and get discarded after that effect has been used on the field.
+    </string>
+    <string name="ruleitem">Rules</string>
+    <string name="header_text">Obtained cards</string>
+    <string name="type_card_title">Select what type of card you want to make</string>
+    <string name="create_monster">Monster</string>
+    <string name="create_spell">Spell</string>
+    <string name="create_source">Source</string>
+    <string name="monster_create_label">Create Monster</string>
+    <string name="title_label">Title</string>
+    <string name="mana_label">Mana</string>
+    <string name="life_label">Life</string>
+    <string name="attack_label">Attack</string>
+    <string name="defense_label">Defense</string>
+    <string name="magic_attack_label">Magic Attack</string>
+    <string name="magic_defense_label">Magic Defense</string>
+    <string name="mp_label">MP</string>
+    <string name="spell_label">Spell</string>
+    <string name="monster_add">Add Monster</string>
+    <string name="spell_creator_label">Create Spell</string>
+    <string name="spelltype_label">Type of spell</string>
+    <string name="spell_effect">Effect and power of spell</string>
+    <string name="spell_add">Add Spell</string>
+    <string name="source_create_label">Create Source</string>
+    <string name="source_type">What and how many mana it will generate</string>
+    <string name="source_add">Add Source</string>
+    <string name="manaamount">Amount of mana:</string>
+    <string name="repeat_password">Repeat Password</string>
+    <string name="title_activity_login">Sign in</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="register_failed">Registration failed</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

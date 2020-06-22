@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="registerViewModel"
+            type="com.example.starsign.register.RegisterViewModel"/>
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="729dp"
+        android:background="#283E97"
+        tools:context=".register.RegisterFragment">
+
+        <TextView
+            android:id="@+id/registratielabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="@string/registrationlabel"
+            android:textColor=" #FCFFFC"
+            android:textColorLink="#FCFFFC"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:fontFamily="sans-serif-light"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="385dp"
+            android:layout_marginTop="350dp"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="0dp">
+
+            <TextView
+                android:id="@+id/usernamelabel"
+                android:layout_width="411dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:gravity="center"
+                android:text="@string/usernamelabel"
+                android:textColor="#FCFFFC"
+                android:textColorHint="#F3FFF3"
+                app:fontFamily="sans-serif-condensed-light"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/usernamefield"
+                android:layout_width="411dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:autofillHints="@string/usernamehints"
+                android:background="#FBEAF1"
+                android:ems="10"
+                android:gravity="start"
+                android:hint="@string/usernamelabel"
+                android:inputType="textPersonName"
+                android:textColor="#04150E"
+                android:textColorLink="#D81B60"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/usernamelabel"
+                tools:targetApi="o" />
+
+            <TextView
+                android:id="@+id/passwordlabel"
+                android:layout_width="411dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:gravity="center"
+                android:text="@string/passwordlabel"
+                android:textColor="#FCFFFC"
+                android:textColorHint="#F3FFF3"
+                app:fontFamily="sans-serif-condensed-light"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/usernamefield" />
+
+            <Button
+                android:id="@+id/registrationbutton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="40dp"
+                android:background="#CC924E"
+                android:text="@string/registerlabel"
+                android:textColor="#000000"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/passwordfield"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <EditText
+                android:id="@+id/passwordfield"
+                android:layout_width="411dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:autofillHints="@string/passwordhints"
+                android:background="#FBEAF1"
+                android:ems="10"
+                android:hint="@string/passwordlabel"
+                android:inputType="textPassword"
+                android:textColor="#030003"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/passwordlabel"
+                tools:targetApi="o" />
+
+            <TextView
+                android:id="@+id/repeatpasswordlabel"
+                android:layout_width="411dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/repeatpassword"
+                android:textColor="#FCFFFC"
+                app:layout_constraintBottom_toTopOf="@+id/registrationbutton"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/passwordfield"
+                app:layout_constraintVertical_bias="0.24" />
+
+            <EditText
+                android:id="@+id/repeatpasswordfield"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:autofillHints="Repeat Password"
+                android:background="#FBEAF1"
+                android:ems="10"
+                android:hint="@string/repeat_password"
+                android:inputType="textPassword"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/repeatpasswordlabel" />
+
+            <TextView
+                android:id="@+id/errortext"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textColor="#FFFFAA"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toTopOf="@+id/registrationbutton"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/repeatpasswordfield" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
+</layout>
