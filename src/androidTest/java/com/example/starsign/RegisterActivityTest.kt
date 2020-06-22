@@ -19,7 +19,7 @@ import org.koin.test.KoinTest
 @RunWith(AndroidJUnit4::class)
 class RegisterActivityTest : KoinTest {
     @Test
-    fun LoginActivity_register_CorrectParameters_SwitchesScreens(){
+    fun RegisterActivity_register_CorrectParameters_SwitchesScreens(){
         stopKoin()
         startKoin{modules(fakeUserModule)}
         val scenario = launchActivity<RegisterActivity>()
@@ -29,21 +29,21 @@ class RegisterActivityTest : KoinTest {
             .perform(ViewActions.replaceText("NedZuckerman23"))
         Espresso.onView(ViewMatchers.withId(R.id.repeatpasswordfield))
             .perform(ViewActions.replaceText("NedZuckerman23"))
-        Espresso.onView(ViewMatchers.withId(R.id.registrationbutton)).perform(ViewActions.click())
+        Espresso.onView(ViewMatchers.withId(R.id.registratebutton)).perform(ViewActions.click())
         ViewMatchers.assertThat(Activity.RESULT_OK, Is.`is`(scenario.result.resultCode))
     }
 
     @Test
-    fun LoginActivity_register_FalseParameters_ShowsErrorWarning(){
+    fun RegisterActivity_register_FalseParameters_ShowsErrorWarning(){
         stopKoin()
         startKoin{modules(fakeUserModule)}
-        val scenario = launchActivity<LoginActivity>()
+        val scenario = launchActivity<RegisterActivity>()
         scenario.moveToState(Lifecycle.State.RESUMED)
         Espresso.onView(ViewMatchers.withId(R.id.usernamefield))
             .perform(ViewActions.replaceText("Valsegebruiker"))
         Espresso.onView(ViewMatchers.withId(R.id.passwordfield))
             .perform(ViewActions.replaceText("Valswachtwoord"))
-        Espresso.onView(ViewMatchers.withId(R.id.registrationbutton)).perform(ViewActions.click())
+        Espresso.onView(ViewMatchers.withId(R.id.registratebutton)).perform(ViewActions.click())
         Espresso.onView(ViewMatchers.withId(R.id.errortext))
             .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
     }

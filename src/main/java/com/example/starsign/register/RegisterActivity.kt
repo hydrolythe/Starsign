@@ -33,7 +33,7 @@ class RegisterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this,
             R.layout.fragment_register)
-        registrationbutton.setOnClickListener{view:View ->
+        registratebutton.setOnClickListener{view:View ->
             viewModel.voegRegistratieToe(binding.usernamefield.text.toString(), binding.passwordfield.text.toString(), binding.repeatpasswordfield.text.toString())
         }
         viewModel.jwtResponse.observe(this, Observer{
