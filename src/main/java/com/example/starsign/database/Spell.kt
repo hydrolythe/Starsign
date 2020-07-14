@@ -3,7 +3,7 @@ package com.example.starsign.database
 import androidx.room.Entity
 
 @Entity(tableName = "Spell")
-enum class Spell{
+enum class Spell(){
     DAMAGE,
     HEAL,
     BOOSTHEALTH,
@@ -19,11 +19,10 @@ enum class Spell{
     SKIPTURN,
     DRAW,
     DISCARD,
-    COLLECTCARD,
     DESTROYFIELD,
     RECOVERFIELD,
     RECOVERHAND,
     RECOVERDECK,
     DESTROYDECK,
-    RECOVERMP
+    RECOVERMP;
 }

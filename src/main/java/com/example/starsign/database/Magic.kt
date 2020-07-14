@@ -6,12 +6,9 @@ import androidx.room.PrimaryKey
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-@Entity(tableName = "Spell")
 data class Magic(
-    @PrimaryKey
     override val title: String,
-    @ColumnInfo(name = "species")
     val species: SpellSpecies,
-    @ColumnInfo(name = "spells")
-    val spells: Map<Spell, Int>
+    val spells: Map<Spell, Int>,
+    val manaamount: Map<Mana, Int>
 ):Card(title) {}

@@ -2,7 +2,8 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/navigation">
+    android:id="@+id/navigation"
+    app:startDestination="@id/monsterDetailFragment">
 
     <fragment
         android:id="@+id/menuFragment"
@@ -19,14 +20,116 @@
         android:label="fragment_card_creator_box"
         tools:layout="@layout/fragment_card_creator_box" >
         <action
-            android:id="@+id/action_cardCreatorBox_to_menuFragment"
-            app:destination="@id/menuFragment"
-            app:popUpTo="@+id/menuFragment"
-            app:popUpToInclusive="true" />
+            android:id="@+id/action_cardCreatorBox_to_typeOfCardFragment"
+            app:destination="@id/typeOfCardFragment" />
+        <action
+            android:id="@+id/action_cardCreatorBox_to_spellDetailFragment"
+            app:destination="@id/spellDetailFragment" />
+        <action
+            android:id="@+id/action_cardCreatorBox_to_sourceDetailFragment"
+            app:destination="@id/sourceDetailFragment" />
+        <action
+            android:id="@+id/action_cardCreatorBox_to_monsterDetailFragment"
+            app:destination="@id/monsterDetailFragment" />
+        <action
+            android:id="@+id/action_cardCreatorBox_to_carddeleteFragment"
+            app:destination="@id/carddeleteFragment" />
     </fragment>
     <fragment
         android:id="@+id/rulesFragment"
         android:name="com.example.starsign.rules.RulesFragment"
         android:label="fragment_rules"
         tools:layout="@layout/fragment_rules" />
+    <fragment
+        android:id="@+id/typeOfCardFragment"
+        android:name="com.example.starsign.typeofcardmenu.TypeOfCardFragment"
+        android:label="type_of_card_fragment"
+        tools:layout="@layout/type_of_card_fragment" >
+        <action
+            android:id="@+id/action_typeOfCardFragment_to_spellCreator"
+            app:destination="@id/spellCreator" />
+        <action
+            android:id="@+id/action_typeOfCardFragment_to_sourceCreator"
+            app:destination="@id/sourceCreator" />
+        <action
+            android:id="@+id/action_typeOfCardFragment_to_monsterCreatorFragment"
+            app:destination="@id/monsterCreatorFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/monsterCreatorFragment"
+        android:name="com.example.starsign.cardformulars.MonsterCreatorFragment"
+        android:label="monster_creator_fragment"
+        tools:layout="@layout/monster_creator_fragment" />
+    <fragment
+        android:id="@+id/sourceCreator"
+        android:name="com.example.starsign.cardformulars.SourceCreator"
+        android:label="SourceCreator" />
+    <fragment
+        android:id="@+id/spellCreator"
+        android:name="com.example.starsign.cardformulars.SpellCreator"
+        android:label="SpellCreator" />
+    <fragment
+        android:id="@+id/sourceDetailFragment"
+        android:name="com.example.starsign.carddetail.SourceDetailFragment"
+        android:label="fragment_source_detail"
+        tools:layout="@layout/fragment_source_detail" >
+        <argument
+            android:name="card"
+            app:argType="com.example.starsign.database.Source" />
+        <action
+            android:id="@+id/action_sourceDetailFragment_to_sourceEditorFragment"
+            app:destination="@id/sourceEditorFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/spellDetailFragment"
+        android:name="com.example.starsign.carddetail.SpellDetailFragment"
+        android:label="fragment_spell_detail"
+        tools:layout="@layout/fragment_spell_detail" >
+        <argument
+            android:name="card"
+            app:argType="com.example.starsign.database.Magic" />
+        <action
+            android:id="@+id/action_spellDetailFragment_to_spellEditorFragment"
+            app:destination="@id/spellEditorFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/monsterDetailFragment"
+        android:name="com.example.starsign.carddetail.MonsterDetailFragment"
+        android:label="monster_detail_fragment"
+        tools:layout="@layout/monster_detail_fragment" >
+        <argument
+            android:name="card"
+            app:argType="com.example.starsign.database.Monster" />
+        <action
+            android:id="@+id/action_monsterDetailFragment_to_monsterEditorFragment"
+            app:destination="@id/monsterEditorFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/monsterEditorFragment"
+        android:name="com.example.starsign.cardformulars.MonsterEditorFragment"
+        android:label="MonsterEditorFragment" >
+        <argument
+            android:name="card"
+            app:argType="com.example.starsign.database.Monster" />
+    </fragment>
+    <fragment
+        android:id="@+id/sourceEditorFragment"
+        android:name="com.example.starsign.cardformulars.SourceEditorFragment"
+        android:label="SourceEditorFragment" >
+        <argument
+            android:name="card"
+            app:argType="com.example.starsign.database.Source" />
+    </fragment>
+    <fragment
+        android:id="@+id/spellEditorFragment"
+        android:name="com.example.starsign.cardformulars.SpellEditorFragment"
+        android:label="SpellEditorFragment" >
+        <argument
+            android:name="card"
+            app:argType="com.example.starsign.database.Magic" />
+    </fragment>
+    <fragment
+        android:id="@+id/carddeleteFragment"
+        android:name="com.example.starsign.cardcreator.CarddeleteFragment"
+        android:label="CarddeleteFragment" />
 </navigation>

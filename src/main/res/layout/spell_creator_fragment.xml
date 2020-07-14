@@ -9,21 +9,10 @@
         android:layout_height="match_parent"
         android:background="#70ADD9">
 
-        <TextView
-            android:id="@+id/spelltitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="@string/spell_creator_label"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <EditText
             android:id="@+id/spelltitletext"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:autofillHints="Put the title of your spell here"
             android:ems="10"
             android:inputType="textPersonName"
@@ -34,10 +23,18 @@
             tools:targetApi="o" />
 
         <TextView
+            android:id="@+id/spelltitle"
+            android:layout_width="85dp"
+            android:layout_height="18dp"
+            android:text="@string/spell_creator_label"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
             android:id="@+id/spelltypelabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
             android:text="@string/spelltype_label"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -45,36 +42,30 @@
 
         <RadioGroup
             android:id="@+id/radioGroup2"
-            android:layout_width="47dp"
-            android:layout_height="201dp"
+            android:layout_width="40dp"
+            android:layout_height="202dp"
+            android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/spelltypelabel">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:id="@+id/spellspeciesoptions"
+                android:layout_width="40dp"
+                android:layout_height="197dp" />
         </RadioGroup>
 
         <TextView
             android:id="@+id/spelleffectlabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
             android:text="@string/spell_effect"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/radioGroup2" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/spelleffectlabel" />
+            app:layout_constraintStart_toEndOf="@+id/spelltypelabel"
+            app:layout_constraintTop_toBottomOf="@+id/spelltitletext" />
 
         <Button
             android:id="@+id/addspellbutton"
@@ -84,7 +75,37 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/recyclerView3" />
+            app:layout_constraintTop_toBottomOf="@+id/radioGroup2" />
+
+        <TextView
+            android:id="@+id/manacosttitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/mana_cost"
+            app:layout_constraintEnd_toStartOf="@+id/spelltypelabel"
+            app:layout_constraintHorizontal_bias="0.51"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spelltitletext" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/effectspells"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toStartOf="@+id/radioGroup2"
+            app:layout_constraintHorizontal_bias="0.42"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/manacosttitle" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/manacost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.534"
+            app:layout_constraintStart_toEndOf="@+id/radioGroup2"
+            app:layout_constraintTop_toBottomOf="@+id/spelleffectlabel" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

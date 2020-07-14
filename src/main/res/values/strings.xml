@@ -46,7 +46,7 @@
     <string name="monster_add">Add Monster</string>
     <string name="spell_creator_label">Create Spell</string>
     <string name="spelltype_label">Type of spell</string>
-    <string name="spell_effect">Effect and power of spell</string>
+    <string name="spell_effect">Effect and power</string>
     <string name="spell_add">Add Spell</string>
     <string name="source_create_label">Create Source</string>
     <string name="source_type">What and how many mana it will generate</string>
@@ -63,7 +63,11 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="register_failed">Registration failed</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="mana_cost">Mana cost</string>
+    <string name="required_mana">Required Mana:</string>
+    <string name="edit">Edit</string>
+    <string name="power">Power:</string>
+    <string name="effects_and_power">Effects and power</string>
+    <string name="mana_generated">Mana generated:</string>
+    <string name="select_cards_to_remove">Select cards to remove</string>
 </resources>

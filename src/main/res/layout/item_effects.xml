@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+    <data>
+        <variable
+            name="effect"
+            type="com.example.starsign.database.Spell"/>
+        <variable
+            name="cost"
+            type="Integer"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/spellname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{effect.toString()}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/effectdescriptor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/power"
+            app:layout_constraintBottom_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/powerlabel"/>
+
+        <TextView
+            android:id="@+id/powerlabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{cost.toString()}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </LinearLayout>
+</layout>

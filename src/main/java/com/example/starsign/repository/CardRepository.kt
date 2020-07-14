@@ -1,23 +1,69 @@
 package com.example.starsign.repository
 
-import com.example.starsign.database.Card
-import com.example.starsign.database.StarsignDatabase
-import com.example.starsign.database.User
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Transformations
+import com.example.starsign.database.*
+import com.example.starsign.network.Network
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import okhttp3.Challenge
+import okhttp3.ResponseBody
 
-class CardRepository(): ICardRepository {
-    override suspend fun addCard(card: Card) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+class CardRepository(private val database: StarsignDatabase): ICardRepository {
+
+    val cards: LiveData<List<Card>> = Transformations.map(database.cardDao.getCards()){
+        it.asDomainModel()
     }
 
-    override suspend fun getCards(cards: List<Card>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override suspend fun addCard(card: Card): DatabaseCard {
+        return withContext(Dispatchers.IO) {
+            val insertProgress = Network.cardApiService.addCard(card)
+            try {
+                val brandedCard = insertProgress.await()
+                database.cardDao.insert(brandedCard)
+                brandedCard
+            } catch (e: Exception) {
+                throw e
+            }
+        }
     }
 
-    override suspend fun getCard(card: Card) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override suspend fun refreshCards(){
+        withContext(Dispatchers.IO){
+            val cards = Network.cardApiService.getCards().await()
+            database.cardDao.insertAll(cards)
+        }
     }
 
-    override suspend fun removeCards(cards: List<Card>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun getCardOnDetail(title: String): DatabaseCard? {
+        return database.cardDao.getCard(title)
+    }
+
+    override fun getCards(): List<Card>? {
+        return cards.value
+    }
+
+    override suspend fun removeCards(cards: List<Card>):List<DatabaseCard> {
+        return withContext(Dispatchers.IO){
+            try{
+                val result = Network.cardApiService.deleteCards(cards.map{it.title}).await()
+                database.cardDao.deleteCards(result.map{it.cardid})
+                result
+            } catch(e:Exception){
+                throw e
+            }
+        }
+    }
+
+    override suspend fun editCard(card: DatabaseCard):ResponseBody {
+        return withContext(Dispatchers.IO){
+            try {
+                val result = Network.cardApiService.updateCard(card).await()
+                database.cardDao.update(card)
+                result
+            } catch(e:Exception){
+                throw e
+            }
+        }
     }
 }

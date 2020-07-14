@@ -6,15 +6,18 @@
 <data>
     <variable
         name="spellattribute"
-        type="com.example.starsign.database.Mana"/>
+        type="com.example.starsign.database.Mana" />
+    <variable
+        name="amount"
+        type="Integer"/>
 </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="50dp">
 
-        <CheckBox
-            android:id="@+id/manacheckBox"
+        <TextView
+            android:id="@+id/manalabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{spellattribute.toString()}"
@@ -22,27 +25,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/manaamountlabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/manaamount"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/manacheckBox"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <EditText
             android:id="@+id/manaamounttext"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:autofillHints="Set here how much of that mana is required"
             android:ems="10"
             android:inputType="number"
+            android:text="@{amount.toString()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/manaamountlabel"
+            app:layout_constraintStart_toEndOf="@+id/manalabel"
             app:layout_constraintTop_toTopOf="parent"
-            android:autofillHints="Set here how much of that mana is required"
             tools:ignore="LabelFor"
             tools:targetApi="o" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 </layout>

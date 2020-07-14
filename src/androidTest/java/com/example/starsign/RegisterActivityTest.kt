@@ -2,6 +2,7 @@ package com.example.starsign
 
 import android.app.Activity
 import androidx.lifecycle.Lifecycle
+import androidx.test.core.app.ActivityScenario
 import androidx.test.core.app.launchActivity
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.action.ViewActions
@@ -11,6 +12,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.example.starsign.register.RegisterActivity
 import com.example.starsign.ui.login.LoginActivity
 import org.hamcrest.core.Is
+import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.koin.core.context.startKoin
@@ -18,12 +20,18 @@ import org.koin.core.context.stopKoin
 import org.koin.test.KoinTest
 @RunWith(AndroidJUnit4::class)
 class RegisterActivityTest : KoinTest {
-    @Test
-    fun RegisterActivity_register_CorrectParameters_SwitchesScreens(){
+
+    private lateinit var scenario: ActivityScenario<RegisterActivity>
+
+    @Before
+    fun init(){
         stopKoin()
         startKoin{modules(fakeUserModule)}
-        val scenario = launchActivity<RegisterActivity>()
+        scenario = launchActivity()
         scenario.moveToState(Lifecycle.State.RESUMED)
+    }
+    @Test
+    fun RegisterActivity_register_CorrectParameters_SwitchesScreens(){
         Espresso.onView(ViewMatchers.withId(R.id.usernamefield)).perform(ViewActions.replaceText("abc"))
         Espresso.onView(ViewMatchers.withId(R.id.passwordfield))
             .perform(ViewActions.replaceText("NedZuckerman23"))
@@ -35,10 +43,6 @@ class RegisterActivityTest : KoinTest {
 
     @Test
     fun RegisterActivity_register_FalseParameters_ShowsErrorWarning(){
-        stopKoin()
-        startKoin{modules(fakeUserModule)}
-        val scenario = launchActivity<RegisterActivity>()
-        scenario.moveToState(Lifecycle.State.RESUMED)
         Espresso.onView(ViewMatchers.withId(R.id.usernamefield))
             .perform(ViewActions.replaceText("Valsegebruiker"))
         Espresso.onView(ViewMatchers.withId(R.id.passwordfield))

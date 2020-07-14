@@ -7,8 +7,15 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.starsign.database.Mana
 import com.example.starsign.databinding.ListItemManaBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
-class AttributeAdapter(): ListAdapter<Mana, RecyclerView.ViewHolder>(AttributeDiffCallback()){
+class AttributeAdapter(val attributerequirements: Map<Mana, Int>?=null): ListAdapter<Mana, RecyclerView.ViewHolder>(AttributeDiffCallback()){
+
+    private val adapterScope = CoroutineScope(Dispatchers.Default)
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return AttributeViewHolder.from(parent)
     }
@@ -17,17 +24,37 @@ class AttributeAdapter(): ListAdapter<Mana, RecyclerView.ViewHolder>(AttributeDi
         when(holder){
             is AttributeViewHolder -> {
                 val selectItem = getItem(position) as Mana
-                holder.bind(selectItem)
+                if(attributerequirements!=null && attributerequirements.containsKey(selectItem)){
+                    holder.bind(selectItem, attributerequirements[selectItem] ?: error("The attribute does have no value"))
+                }
+                else {
+                    holder.bind(selectItem)
+                }
             }
         }
     }
 }
 
 class AttributeViewHolder private constructor(val binding: ListItemManaBinding):RecyclerView.ViewHolder(binding.root){
-    fun bind(item:Mana){
+
+    fun bind(item:Mana, amount:Int = 0){
         binding.spellattribute = item
+        binding.amount = amount
         binding.executePendingBindings()
     }
+
+    fun getManaAmount(): Int{
+        return Integer.parseInt(binding.manaamounttext.text.toString())
+    }
+
+    fun getMana(): Mana?{
+        return binding.spellattribute
+    }
+
+    fun cleartext(){
+        binding.manaamounttext.text.clear()
+    }
+
     companion object{
         fun from(parent: ViewGroup):AttributeViewHolder{
             val layoutInflater = LayoutInflater.from(parent.context)

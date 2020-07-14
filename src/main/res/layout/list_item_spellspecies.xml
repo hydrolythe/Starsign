@@ -5,10 +5,14 @@
     <variable
         name="spellspecie"
         type="com.example.starsign.database.SpellSpecies"/>
+    <variable
+        name="clickListener"
+        type="com.example.starsign.cardformulars.SpellSpeciesListener"/>
 </data>
     <RadioButton
         android:id="@+id/spellitem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@{spellspecie.toString()}" />
+        android:text="@{spellspecie.toString()}"
+        android:onClick="@{() -> clickListener.onClick(spellspecie)}"/>
 </layout>

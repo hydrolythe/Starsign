@@ -44,20 +44,8 @@ class CardCreatorAdapter(val cardListener: CardListener):
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                var binding = ListItemCardBinding.inflate(layoutInflater, parent, false)
+                val binding = ListItemCardBinding.inflate(layoutInflater, parent, false)
                 return ViewHolder(binding)
-            }
-        }
-    }
-
-    fun addHeaderAndSubmitList(list: List<Card>){
-        adapterScope.launch{
-            var items = when(list){
-                null -> listOf(DataItem.Header)
-                else -> listOf(DataItem.Header) + list.map{DataItem.CardItem(it)}
-            }
-            withContext(Dispatchers.Main){
-                submitList(items)
             }
         }
     }
@@ -68,10 +56,22 @@ class CardCreatorAdapter(val cardListener: CardListener):
             is DataItem.CardItem -> ITEM_VIEW_TYPE_ITEM
         }
     }
+
+    fun addHeaderAndSubmitList(list:List<Card>?){
+        adapterScope.launch{
+            val items = when(list){
+                null -> listOf(DataItem.Header)
+                else -> listOf(DataItem.Header) + list.map{DataItem.CardItem(it)}
+            }
+            withContext(Dispatchers.Main){
+                submitList(items)
+            }
+        }
+    }
 }
 
-class CardListener(val cardListener: (cardName: String) -> Unit){
-    fun onClick(card:Card) = cardListener(card.title)
+class CardListener(val cardListener: (card: Card) -> Unit){
+    fun onClick(card:Card) = cardListener(card)
 }
 
 sealed class DataItem{

@@ -106,7 +106,7 @@
                 android:layout_margin="4dp">
 
                 <TextView
-                    android:id="@+id/attacklabel"
+                    android:id="@+id/attacktext"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/attack_label" />

@@ -6,6 +6,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
+import androidx.test.core.app.ActivityScenario
 import androidx.test.core.app.launchActivity
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
@@ -30,16 +31,17 @@ import org.mockito.Mockito.mock
 @LargeTest
 class LoginActivityTest : KoinTest{
 
+    private lateinit var scenario: ActivityScenario<LoginActivity>
     @Before
     fun init(){
+        stopKoin()
+        startKoin{modules(fakeUserModule)}
+        scenario = launchActivity()
+        scenario.moveToState(Lifecycle.State.RESUMED)
     }
 
     @Test
     fun LoginActivity_login_CorrectParameters_SwitchesScreens(){
-        stopKoin()
-        startKoin{modules(fakeUserModule)}
-        val scenario = launchActivity<LoginActivity>()
-        scenario.moveToState(Lifecycle.State.RESUMED)
         onView(withId(R.id.username)).perform(replaceText("Nedl"))
         onView(withId(R.id.password)).perform(replaceText("Globoesporte"))
         onView(withId(R.id.login)).perform(click())
@@ -48,10 +50,6 @@ class LoginActivityTest : KoinTest{
 
     @Test
     fun LoginActivity_login_FalseParameters_ShowsErrorWarning(){
-        stopKoin()
-        startKoin{modules(fakeUserModule)}
-        val scenario = launchActivity<LoginActivity>()
-        scenario.moveToState(Lifecycle.State.RESUMED)
         onView(withId(R.id.username)).perform(replaceText("Valsegebruiker"))
         onView(withId(R.id.password)).perform(replaceText("Valswachtwoord"))
         onView(withId(R.id.login)).perform(click())
@@ -60,10 +58,6 @@ class LoginActivityTest : KoinTest{
 
     @Test
     fun LoginActivity_registration_RedirectsToRegister(){
-        stopKoin()
-        startKoin{modules(fakeUserModule)}
-        val scenario = launchActivity<LoginActivity>()
-        scenario.moveToState(Lifecycle.State.RESUMED)
         onView(withId(R.id.registerbutton)).perform(click())
         assertThat(Lifecycle.State.DESTROYED, `is`(scenario.state))
     }

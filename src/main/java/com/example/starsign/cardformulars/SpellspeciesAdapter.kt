@@ -8,7 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.starsign.database.SpellSpecies
 import com.example.starsign.databinding.ListItemSpellspeciesBinding
 
-class SpellspeciesAdapter(): ListAdapter<SpellSpecies, RecyclerView.ViewHolder>(SpellDiffCallback()){
+class SpellspeciesAdapter(val clickListener: SpellSpeciesListener, val specie: SpellSpecies? = null): ListAdapter<SpellSpecies, RecyclerView.ViewHolder>(SpellDiffCallback()){
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return SpellspeciesViewHolder.from(parent)
     }
@@ -17,7 +18,10 @@ class SpellspeciesAdapter(): ListAdapter<SpellSpecies, RecyclerView.ViewHolder>(
         when(holder) {
             is SpellspeciesViewHolder -> {
                 val selectItem = getItem(position) as SpellSpecies
-                holder.bind(selectItem)
+                holder.bind(clickListener, selectItem)
+                if(selectItem == specie){
+                    holder.check()
+                }
             }
         }
     }
@@ -25,9 +29,16 @@ class SpellspeciesAdapter(): ListAdapter<SpellSpecies, RecyclerView.ViewHolder>(
 
 class SpellspeciesViewHolder private constructor(val binding: ListItemSpellspeciesBinding):
     RecyclerView.ViewHolder(binding.root){
-    fun bind(item:SpellSpecies){
+    fun bind(clickListener: SpellSpeciesListener, item:SpellSpecies){
         binding.spellspecie = item
+        binding.clickListener = clickListener
         binding.executePendingBindings()
+    }
+    fun check(){
+        binding.spellitem.isChecked = true
+    }
+    fun uncheck(){
+        binding.spellitem.isChecked = false
     }
     companion object {
         fun from(parent: ViewGroup):SpellspeciesViewHolder{
@@ -46,4 +57,8 @@ class SpellDiffCallback: DiffUtil.ItemCallback<SpellSpecies>(){
     override fun areContentsTheSame(oldItem: SpellSpecies, newItem: SpellSpecies): Boolean {
         return oldItem == newItem
     }
+}
+
+class SpellSpeciesListener(val clickListener: ((species : SpellSpecies) -> Unit)){
+    fun onClick(specie: SpellSpecies) = clickListener(specie)
 }

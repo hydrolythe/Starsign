@@ -12,7 +12,6 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import com.example.starsign.MainActivity
 import com.example.starsign.R
@@ -33,12 +32,12 @@ class RegisterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this,
             R.layout.fragment_register)
-        registratebutton.setOnClickListener{view:View ->
+        registratebutton.setOnClickListener{_:View ->
             viewModel.voegRegistratieToe(binding.usernamefield.text.toString(), binding.passwordfield.text.toString(), binding.repeatpasswordfield.text.toString())
         }
         viewModel.jwtResponse.observe(this, Observer{
-            if(it.error!=null){
-                errortext.text = it.error.message
+            if(it!=null){
+                errortext.text = it.error?.message
                 errortext.visibility = View.VISIBLE
             }
             if(it.success!=null){

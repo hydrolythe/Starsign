@@ -13,4 +13,5 @@ object Network {
         Retrofit.Builder().addConverterFactory(MoshiConverterFactory.create(moshi))
             .addCallAdapterFactory(CoroutineCallAdapterFactory()).baseUrl(BASE_URL).build()
     val userApiService = retrofit.create(UserApiService::class.java)
+    val cardApiService = retrofit.create(CardApiService::class.java)
 }

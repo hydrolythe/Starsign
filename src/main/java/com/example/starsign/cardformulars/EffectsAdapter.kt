@@ -5,10 +5,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.starsign.data.Resulting
 import com.example.starsign.database.Spell
 import com.example.starsign.databinding.ListItemEffectsBinding
 
-class EffectsAdapter(): ListAdapter<Spell, RecyclerView.ViewHolder>(EffectDiffCallback()){
+class EffectsAdapter(val effects: Map<Spell, Int>?=null): ListAdapter<Spell, RecyclerView.ViewHolder>(EffectDiffCallback()){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return EffectViewHolder.from(parent)
     }
@@ -17,16 +18,31 @@ class EffectsAdapter(): ListAdapter<Spell, RecyclerView.ViewHolder>(EffectDiffCa
         when(holder){
             is EffectViewHolder -> {
                 val selectItem = getItem(position) as Spell
-                holder.bind(selectItem)
+                if(effects!=null && effects.containsKey(selectItem)){
+                    holder.bind(selectItem, effects[selectItem]?:error("This effect has no power."))
+                }
+                else {
+                    holder.bind(selectItem)
+                }
             }
         }
     }
 }
 
 class EffectViewHolder private constructor(val binding: ListItemEffectsBinding):RecyclerView.ViewHolder(binding.root){
-    fun bind(item: Spell){
+    fun bind(item: Spell, power: Int=0){
         binding.spelleffect = item
+        binding.power = power
         binding.executePendingBindings()
+    }
+    fun getMpAmount(): Int{
+        return Integer.parseInt(binding.spellamounttext.text.toString())
+    }
+    fun getSpell(): Spell?{
+        return binding.spelleffect
+    }
+    fun clearText(){
+        binding.spellamounttext.text.clear()
     }
     companion object {
         fun from(parent: ViewGroup): EffectViewHolder{
