@@ -15,5 +15,5 @@ data class Monster(
     val magicattack: Int,
     val magicdefense: Int,
     val mp: Int,
-    val spells: Map<Spell,Int>
+    val spells: Map<Spell,Int>?
 ):Card(title) {}

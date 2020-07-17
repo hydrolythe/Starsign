@@ -32,10 +32,6 @@ class RegisterViewModelTest {
         registerViewModel = RegisterViewModel(userRepository)
     }
 
-    @After
-    fun tearDown() {
-    }
-
     @ExperimentalStdlibApi
     @Test
     fun voegRegistratieToe_IsCorrect_RegistreertGebruiker() {

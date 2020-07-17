@@ -8,6 +8,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.Challenge
 import okhttp3.ResponseBody
+import retrofit2.Response
 
 class CardRepository(private val database: StarsignDatabase): ICardRepository {
 
@@ -39,7 +40,7 @@ class CardRepository(private val database: StarsignDatabase): ICardRepository {
         return database.cardDao.getCard(title)
     }
 
-    override fun getCards(): List<Card>? {
+    override fun getDomainCards(): List<Card>? {
         return cards.value
     }
 
@@ -55,7 +56,7 @@ class CardRepository(private val database: StarsignDatabase): ICardRepository {
         }
     }
 
-    override suspend fun editCard(card: DatabaseCard):ResponseBody {
+    override suspend fun editCard(card: DatabaseCard): Response<Any> {
         return withContext(Dispatchers.IO){
             try {
                 val result = Network.cardApiService.updateCard(card).await()

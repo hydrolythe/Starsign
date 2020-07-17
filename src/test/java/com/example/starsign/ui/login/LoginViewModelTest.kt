@@ -30,10 +30,6 @@ class LoginViewModelTest {
         loginViewModel = LoginViewModel(userRepository)
     }
 
-    @After
-    fun tearDown() {
-    }
-
     @ExperimentalStdlibApi
     @Test
     fun login_Werkt_GeeftSleutelTerug() {
