@@ -40,8 +40,8 @@ class CardRepository(private val database: StarsignDatabase): ICardRepository {
         return database.cardDao.getCard(title)
     }
 
-    override fun getDomainCards(): List<Card>? {
-        return cards.value
+    override fun getDomainCards(): List<Card> {
+        return cards.value!!
     }
 
     override suspend fun removeCards(cards: List<Card>):List<DatabaseCard> {

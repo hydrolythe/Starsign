@@ -66,6 +66,9 @@ class MonsterDetailFragment() : Fragment(), Observer {
             spellAdapter.submitList(monster.spells.keys.toList())
             binding.spelllist.adapter = spellAdapter
         }
+        else{
+            binding.spellrow.isEnabled = false
+        }
         binding.editbutton.setOnClickListener { MonsterDetailFragmentDirections.actionMonsterDetailFragmentToMonsterEditorFragment(monster) }
     }
 

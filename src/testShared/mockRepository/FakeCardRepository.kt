@@ -1,6 +1,8 @@
 package mockRepository
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import com.example.starsign.database.*
 import com.example.starsign.repository.ICardRepository
 import okhttp3.MediaType
@@ -50,8 +52,9 @@ class FakeCardRepository(private val listdbCard: MutableList<DatabaseCard>) : IC
         return cards.value!!.get(cards.value!!.map{it.title}.indexOf(title))
     }
 
-    override fun getDomainCards(): List<Card>? {
-        return cards.value!!.map{it.asDomainModel()}
+    override fun getDomainCards(): List<Card> {
+        val result = cards.value?.asDomainModel()!!
+        return cards.value?.asDomainModel()!!
     }
 
     private fun fromCardToDatabaseCard(card:Card):DatabaseCard{

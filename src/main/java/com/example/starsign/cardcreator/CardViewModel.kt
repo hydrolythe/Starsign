@@ -20,13 +20,14 @@ class CardViewModel(val cardRepository:ICardRepository): ViewModel() {
     init{
         uiScope.launch {
             cardRepository.refreshCards()
-            cards = cardRepository.getDomainCards()!!
+            cards = cardRepository.getDomainCards()
         }
     }
-    fun deleteCards(cards:List<Card>){
+    fun deleteCards(cardstodelete:List<Card>){
         uiScope.launch{
             try{
-                val result = cardRepository.removeCards(cards)
+                val result = cardRepository.removeCards(cardstodelete)
+                cards = cardRepository.getDomainCards()
                 _cardResult.value = CardResult(success=result)
             }
             catch(e:Exception){
