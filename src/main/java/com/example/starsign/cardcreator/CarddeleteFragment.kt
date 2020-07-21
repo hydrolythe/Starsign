@@ -36,10 +36,10 @@ class CarddeleteFragment : Fragment() {
                 deletionList.remove(it)
             }
         })
-        adapter.addHeaderAndSubmitList(viewModel.cards)
+        adapter.addHeaderAndSubmitList(viewModel.cardList.value)
         binding.cardView.adapter = adapter
         binding.cardRemovalbutton.setOnClickListener {
-            it -> viewModel.deleteCards(deletionList)
+            viewModel.deleteCards(deletionList)
         }
         viewModel.cardResult.observe(viewLifecycleOwner, Observer{
             if(it.exception != null){

@@ -1,25 +1,20 @@
 package com.example.starsign.carddetail
 
 import android.os.Bundle
-import android.text.Editable
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import com.example.starsign.R
 import com.example.starsign.cardformulars.EditorViewModel
-import com.example.starsign.database.Card
-import com.example.starsign.database.Mana
-import com.example.starsign.database.Monster
-import com.example.starsign.database.Spell
-import com.example.starsign.databinding.MonsterCreatorFragmentBinding
+import com.example.starsign.database.*
 import com.example.starsign.databinding.MonsterDetailFragmentBinding
-import com.example.starsign.observers.Observer
 import org.koin.android.ext.android.inject
-import java.util.*
 
-class MonsterDetailFragment() : Fragment(), Observer {
+class MonsterDetailFragment() : Fragment() {
 
     private lateinit var binding : MonsterDetailFragmentBinding
     private val viewModel: EditorViewModel by inject()
@@ -31,23 +26,18 @@ class MonsterDetailFragment() : Fragment(), Observer {
         val args = arguments?.let{MonsterDetailFragmentArgs.fromBundle(it)}
         val monster = args?.card!!
         createView(monster)
+        viewModel.newCard.observe(viewLifecycleOwner, Observer{
+            if(it is Monster){
+                createView(it)
+            }
+            else{
+                Toast.makeText(context, String.format("Error: The name of the monster got modified while you tried to modify it."), Toast.LENGTH_SHORT)
+                    .show()
+                getActivity()?.supportFragmentManager?.beginTransaction()?.remove(this)
+                    ?.commit()
+            }
+        })
         return inflater.inflate(R.layout.monster_detail_fragment, container, false)
-    }
-
-    override fun update(card: Card) {
-        if(card is Monster){
-            createView(card)
-        }
-    }
-
-    override fun onPause() {
-        viewModel.registerObserver(this)
-        super.onPause()
-    }
-
-    override fun onResume() {
-        viewModel.removeObserver(this)
-        super.onResume()
     }
 
     private fun createView(monster:Monster){
@@ -69,7 +59,20 @@ class MonsterDetailFragment() : Fragment(), Observer {
         else{
             binding.spellrow.isEnabled = false
         }
-        binding.editbutton.setOnClickListener { MonsterDetailFragmentDirections.actionMonsterDetailFragmentToMonsterEditorFragment(monster) }
+        val dbMonster = viewModel.getDbCard<DatabaseMonster>(monster.title)
+        binding.editbutton.setOnClickListener {
+            if(dbMonster != null) {
+                MonsterDetailFragmentDirections.actionMonsterDetailFragmentToMonsterEditorFragment(
+                    dbMonster
+                )
+            }
+            else{
+                Toast.makeText(context, String.format("Error: The name of the monster got modified while you tried to modify it."), Toast.LENGTH_SHORT)
+                    .show()
+                getActivity()?.supportFragmentManager?.beginTransaction()?.remove(this)
+                    ?.commit()
+            }
+        }
     }
 
 }

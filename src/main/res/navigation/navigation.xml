@@ -110,7 +110,7 @@
         android:label="MonsterEditorFragment" >
         <argument
             android:name="card"
-            app:argType="com.example.starsign.database.Monster" />
+            app:argType="com.example.starsign.database.DatabaseMonster" />
     </fragment>
     <fragment
         android:id="@+id/sourceEditorFragment"
@@ -118,7 +118,7 @@
         android:label="SourceEditorFragment" >
         <argument
             android:name="card"
-            app:argType="com.example.starsign.database.Source" />
+            app:argType="com.example.starsign.database.DatabaseSource" />
     </fragment>
     <fragment
         android:id="@+id/spellEditorFragment"
@@ -126,7 +126,7 @@
         android:label="SpellEditorFragment" >
         <argument
             android:name="card"
-            app:argType="com.example.starsign.database.Magic" />
+            app:argType="com.example.starsign.database.DatabaseMagic" />
     </fragment>
     <fragment
         android:id="@+id/carddeleteFragment"

@@ -70,4 +70,6 @@
     <string name="effects_and_power">Effects and power</string>
     <string name="mana_generated">Mana generated:</string>
     <string name="select_cards_to_remove">Select cards to remove</string>
+    <string name="the_card_has_been_modified_while_you_were_trying_to_edit_it">The card has been modified while you were trying to edit it.</string>
+    <string name="return_to_menu">Return to menu</string>
 </resources>

@@ -80,7 +80,7 @@ class CardViewModelTest {
     @ExperimentalCoroutinesApi
     @Test
     fun haalKaartenOp_RetourneertAanwezigeKaarten(){
-        assertThat(cardViewModel.cards.size, `is`(listDbCards.size))
+        assertThat(LiveDataTestUtil.getValue(cardViewModel.cardList).size, `is`(listDbCards.size))
     }
 
     @ExperimentalCoroutinesApi
@@ -104,6 +104,6 @@ class CardViewModelTest {
         val size1 = listDbCards.size
         cardViewModel.deleteCards(trueCards)
         assertThat(LiveDataTestUtil.getValue(cardViewModel.cardResult).success?.size, `is`(trueCards.size))
-        assertThat(cardViewModel.cards.size, `is`(size1-trueCards.size))
+        assertThat(LiveDataTestUtil.getValue(cardViewModel.cardList).size, `is`(size1-trueCards.size))
     }
 }

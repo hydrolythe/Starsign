@@ -31,21 +31,31 @@ class SourceEditorFragment : Fragment() {
         binding.sourcetitletext.text.insert(0, source.title)
         binding.sourcecreatorbutton.setOnClickListener {
             val attributeRequirements = mutableMapOf<Mana, Int>()
-            for(index in 0 until (binding.sourcetypes.adapter as AttributeAdapter).itemCount){
-                val viewHolder = binding.sourcetypes.findViewHolderForAdapterPosition(index) as AttributeViewHolder
-                if(viewHolder.getMana()!=null) {
-                    attributeRequirements[viewHolder.getMana()?: Mana.APEIRON] = viewHolder.getManaAmount()
+            for (index in 0 until (binding.sourcetypes.adapter as AttributeAdapter).itemCount) {
+                val viewHolder =
+                    binding.sourcetypes.findViewHolderForAdapterPosition(index) as AttributeViewHolder
+                if (viewHolder.getMana() != null) {
+                    attributeRequirements[viewHolder.getMana() ?: Mana.APEIRON] =
+                        viewHolder.getManaAmount()
                 }
             }
-            viewModel.updateCard(DatabaseSource(viewModel.getDbCard(source)?.cardid!!,binding.sourcetitletext.text.toString(), attributeRequirements))
+            viewModel.updateCard(
+                DatabaseSource(
+                    source.cardid,
+                    binding.sourcetitletext.text.toString(),
+                    attributeRequirements
+                )
+            )
         }
-        viewModel.cardEditResult.observe(viewLifecycleOwner, Observer{
-            if(it.exception != null){
+        viewModel.cardEditResult.observe(viewLifecycleOwner, Observer {
+            if (it.exception != null) {
                 Toast.makeText(context, it.exception.message, Toast.LENGTH_SHORT).show()
             }
-            if(it.success != null){
-                Toast.makeText(context, String.format("Succesful edit."), Toast.LENGTH_SHORT).show()
-                getActivity()?.supportFragmentManager?.beginTransaction()?.remove(this)?.commit()
+            if (it.success != null) {
+                Toast.makeText(context, String.format("Succesful edit."), Toast.LENGTH_SHORT)
+                    .show()
+                getActivity()?.supportFragmentManager?.beginTransaction()?.remove(this)
+                    ?.commit()
             }
         })
         return inflater.inflate(R.layout.source_creator_fragment, container, false)

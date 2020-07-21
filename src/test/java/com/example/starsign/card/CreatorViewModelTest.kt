@@ -4,9 +4,9 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.example.starsign.LiveDataTestUtil
 import com.example.starsign.MainCoroutineRule
 import com.example.starsign.cardcreator.CardViewModel
+import com.example.starsign.cardformulars.CardCreatorViewModel
 import com.example.starsign.cardformulars.EditorViewModel
 import com.example.starsign.database.*
-import com.example.starsign.repository.CardRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import mockRepository.FakeCardRepository
 import org.hamcrest.CoreMatchers.*
@@ -16,9 +16,9 @@ import org.junit.Rule
 import org.junit.Test
 
 @ExperimentalCoroutinesApi
-class EditorViewModelTest {
+class CreatorViewModelTest {
     private lateinit var cardRepository : FakeCardRepository
-    private lateinit var viewModel: EditorViewModel
+    private lateinit var viewModel: CardCreatorViewModel
     private lateinit var cvm : CardViewModel
     private var listDbCards = mutableListOf(
         DatabaseMonster(
@@ -75,55 +75,26 @@ class EditorViewModelTest {
     fun setUp(){
         cardRepository = FakeCardRepository(listDbCards)
         cvm = CardViewModel(cardRepository)
-        viewModel = EditorViewModel(cardRepository)
+        viewModel = CardCreatorViewModel(cardRepository)
     }
 
     @ExperimentalCoroutinesApi
     @Test
-    fun getDbCard_ValidTitle_ReturnsDbCard(){
-        val selectedCard = listDbCards[1]
-        val title = selectedCard.title
-        val result = viewModel.getDbCard<DatabaseCard>(title)
-        assertThat(result, `is`(selectedCard))
+    fun addCard_BadInput_ReturnsErrorMessage(){
+        val existingCard = listDbCards[1]
+        val size1 = listDbCards.size
+        viewModel.insertCard(existingCard.asDomainModel())
+        assertThat(LiveDataTestUtil.getValue(viewModel.cardCreationResult).exception, not(nullValue()))
+        assertThat(LiveDataTestUtil.getValue(cvm.cardList).size, `is`(size1))
     }
 
     @ExperimentalCoroutinesApi
     @Test
-    fun getDbCard_InvalidTitle_ReturnsNull(){
-        val fakeCard = Monster(title="Irrat", manarequirements = mapOf(Pair(Mana.VOID, 2)), life=15, attack = 5, defense = 5, magicdefense = 8, magicattack = 10, mp = 5, spells = null)
-        val title = fakeCard.title
-        val result = viewModel.getDbCard<DatabaseCard>(title)
-        assertThat(result, nullValue())
-    }
-
-    @ExperimentalCoroutinesApi
-    @Test
-    fun updateCard_invalidId_returnsIncorrectResultAndDoesNotUpdate(){
-        val fakeCard = DatabaseMonster(cardid = 10, title="Irrat", manarequirements = mapOf(Pair(Mana.VOID, 2)), life=15, attack = 5, defense = 5, magicdefense = 8, magicattack = 10, mp = 5, spells = null)
-        viewModel.updateCard(fakeCard)
-        assertThat(LiveDataTestUtil.getValue(viewModel.cardEditResult).exception, not(nullValue()))
-        assertThat(LiveDataTestUtil.getValue(viewModel.newCard), nullValue())
-    }
-
-    @ExperimentalCoroutinesApi
-    @Test
-    fun updateCard_validId_returnsCorrectResultAndDoesUpdate(){
-        val trueCard = DatabaseMonster(
-            cardid = 0,
-            title = "Epeak",
-            manarequirements = mapOf(Pair(Mana.ATOM, 5)),
-            life = 10,
-            attack = 3,
-            defense = 5,
-            magicattack = 7,
-            magicdefense = 2,
-            mp = 15,
-            spells = mapOf(
-                Pair(Spell.DESTROYFIELD, 2)
-            )
-        )
-        viewModel.updateCard(trueCard)
-        assertThat(LiveDataTestUtil.getValue(viewModel.cardEditResult).success, not(nullValue()))
-        assertThat(LiveDataTestUtil.getValue(viewModel.newCard), `is`(trueCard.asDomainModel()))
+    fun addCard_CorrectInput_ReturnsCorrectMessageAndPersists(){
+        val newCard = Monster(title="Chaos", manarequirements = mapOf(Pair(Mana.VOID, 5)), life=30, attack = 10, defense = 5, magicdefense = 15, magicattack = 20, mp = 50, spells = mapOf(Pair(Spell.DAMAGE, 3), Pair(Spell.DESTROYFIELD, 5), Pair(Spell.DRAW, 15)))
+        val size1 = listDbCards.size
+        viewModel.insertCard(newCard)
+        assertThat(LiveDataTestUtil.getValue(viewModel.cardCreationResult).success?.title, `is`(newCard.title))
+        assertThat(LiveDataTestUtil.getValue(cvm.cardList).size, `is`(size1+1))
     }
 }

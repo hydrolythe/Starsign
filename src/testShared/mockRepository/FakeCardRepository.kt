@@ -12,8 +12,14 @@ import java.lang.NullPointerException
 
 class FakeCardRepository(private val listdbCard: MutableList<DatabaseCard>) : ICardRepository {
     private val cards = MutableLiveData<MutableList<DatabaseCard>>()
+    val lcards: LiveData<List<Card>> = Transformations.map(cards){
+        it.asDomainModel()
+    }
 
     override suspend fun addCard(card: Card): DatabaseCard {
+        if(cards.value?.asDomainModel()?.contains(card)!!){
+            throw IllegalArgumentException()
+        }
         val dbCard = fromCardToDatabaseCard(card)
         cards.value!!.add(dbCard)
         return dbCard
@@ -36,10 +42,10 @@ class FakeCardRepository(private val listdbCard: MutableList<DatabaseCard>) : IC
 
     override suspend fun editCard(card: DatabaseCard): Response<Any> {
         if(!cards.value!!.map{it.cardid}.contains(card.cardid)){
-            return Response.error(400, ResponseBody.create(MediaType.get("Bad Request"), "Bad request"))
+            return Response.error(400, ResponseBody.create(MediaType.get("application/json"), "Bad request"))
         }
         cards.value!!.set(cards.value!!.map{it.cardid}.get(card.cardid), card)
-        return Response.success(204, ResponseBody.create(MediaType.get("No Content"), "No content"))
+        return Response.success(204, ResponseBody.create(MediaType.get("application/json"), "No content"))
     }
 
     override suspend fun refreshCards() {
@@ -49,12 +55,17 @@ class FakeCardRepository(private val listdbCard: MutableList<DatabaseCard>) : IC
     }
 
     override fun getCardOnDetail(title: String): DatabaseCard? {
-        return cards.value!!.get(cards.value!!.map{it.title}.indexOf(title))
+        val index = cards.value!!.map{it.title}.indexOf(title)
+        if(index>=0) {
+            return cards.value!!.get(index)
+        }
+        else{
+            return null
+        }
     }
 
-    override fun getDomainCards(): List<Card> {
-        val result = cards.value?.asDomainModel()!!
-        return cards.value?.asDomainModel()!!
+    override fun getDomainCards(): LiveData<List<Card>> {
+        return lcards
     }
 
     private fun fromCardToDatabaseCard(card:Card):DatabaseCard{

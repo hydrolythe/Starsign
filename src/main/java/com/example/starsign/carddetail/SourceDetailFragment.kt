@@ -6,15 +6,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import com.example.starsign.R
 import com.example.starsign.cardformulars.EditorViewModel
-import com.example.starsign.database.Card
-import com.example.starsign.database.Mana
-import com.example.starsign.database.Monster
-import com.example.starsign.database.Source
+import com.example.starsign.database.*
 import com.example.starsign.databinding.SourceCreatorFragmentBinding
-import com.example.starsign.observers.Observer
 import org.koin.android.ext.android.inject
 
 /**
@@ -22,7 +20,7 @@ import org.koin.android.ext.android.inject
  * Use the [SourceDetailFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class SourceDetailFragment : Fragment(), Observer {
+class SourceDetailFragment : Fragment() {
     private lateinit var binding : SourceCreatorFragmentBinding
     private val viewModel: EditorViewModel by inject()
     override fun onCreateView(
@@ -33,23 +31,18 @@ class SourceDetailFragment : Fragment(), Observer {
         val args = arguments?.let{SourceDetailFragmentArgs.fromBundle(it)}
         val source = args?.card!!
         createView(source)
+        viewModel.newCard.observe(viewLifecycleOwner, Observer{
+            if(it is Source){
+                createView(it)
+            }
+            else{
+                Toast.makeText(context, String.format("Error: The name of the spell got modified while you tried to modify it."), Toast.LENGTH_SHORT)
+                    .show()
+                getActivity()?.supportFragmentManager?.beginTransaction()?.remove(this)
+                    ?.commit()
+            }
+        })
         return inflater.inflate(R.layout.fragment_source_detail, container, false)
-    }
-
-    override fun update(card: Card) {
-        if(card is Source){
-            createView(card)
-        }
-    }
-
-    override fun onPause() {
-        viewModel.registerObserver(this)
-        super.onPause()
-    }
-
-    override fun onResume() {
-        viewModel.removeObserver(this)
-        super.onResume()
     }
 
     private fun createView(source:Source){
@@ -57,7 +50,18 @@ class SourceDetailFragment : Fragment(), Observer {
         val manaAdapter = source.source.let{ManaDetailAdapter(it)}
         manaAdapter.submitList(source.source.keys.toList())
         binding.sourcetypes.adapter = manaAdapter
-        binding.sourcecreatorbutton.setOnClickListener { SourceDetailFragmentDirections.actionSourceDetailFragmentToSourceEditorFragment(source) }
+        val dbSource = viewModel.getDbCard<DatabaseSource>(source.title)
+        binding.sourcecreatorbutton.setOnClickListener {
+            if(dbSource!=null){
+                SourceDetailFragmentDirections.actionSourceDetailFragmentToSourceEditorFragment(dbSource)
+            }
+            else{
+                Toast.makeText(context, String.format("Error: The name of the monster got modified while you tried to modify it."), Toast.LENGTH_SHORT)
+                    .show()
+                getActivity()?.supportFragmentManager?.beginTransaction()?.remove(this)
+                    ?.commit()
+            }
+        }
     }
 
 }

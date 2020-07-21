@@ -41,7 +41,7 @@ class CardCreatorFragment : Fragment() {
                 is Source -> CardCreatorFragmentDirections.actionCardCreatorBoxToSourceDetailFragment(card)
             }
         });
-        adapter.addHeaderAndSubmitList(viewModel.cards)
+        adapter.addHeaderAndSubmitList(viewModel.cardList.value)
         binding.cardlist.adapter = adapter
         binding.deletecardsbutton.setOnClickListener {
             CardCreatorFragmentDirections.actionCardCreatorBoxToCarddeleteFragment()

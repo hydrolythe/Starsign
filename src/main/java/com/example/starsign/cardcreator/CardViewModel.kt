@@ -14,20 +14,19 @@ class CardViewModel(val cardRepository:ICardRepository): ViewModel() {
     private var _cardResult = MutableLiveData<CardResult>()
     val cardResult : LiveData<CardResult>
         get() = _cardResult
-    lateinit var cards : List<Card>
+    val cardList : LiveData<List<Card>>
+    get() = cardRepository.getDomainCards()
     private val viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
     init{
         uiScope.launch {
             cardRepository.refreshCards()
-            cards = cardRepository.getDomainCards()
         }
     }
     fun deleteCards(cardstodelete:List<Card>){
         uiScope.launch{
             try{
                 val result = cardRepository.removeCards(cardstodelete)
-                cards = cardRepository.getDomainCards()
                 _cardResult.value = CardResult(success=result)
             }
             catch(e:Exception){
