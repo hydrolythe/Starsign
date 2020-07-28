@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/monsterDetailFragment">
+    app:startDestination="@id/menuFragment">
 
     <fragment
         android:id="@+id/menuFragment"
         android:name="com.example.starsign.menu.MenuFragment"
         android:label="fragment_menu"
-        tools:layout="@layout/fragment_menu" >
+        tools:layout="@layout/fragment_menu">
         <action
             android:id="@+id/action_menuFragment_to_cardCreatorBox"
             app:destination="@id/cardCreatorBox" />
@@ -18,7 +18,7 @@
         android:id="@+id/cardCreatorBox"
         android:name="com.example.starsign.cardcreator.CardCreatorFragment"
         android:label="fragment_card_creator_box"
-        tools:layout="@layout/fragment_card_creator_box" >
+        tools:layout="@layout/fragment_card_creator">
         <action
             android:id="@+id/action_cardCreatorBox_to_typeOfCardFragment"
             app:destination="@id/typeOfCardFragment" />
@@ -44,7 +44,7 @@
         android:id="@+id/typeOfCardFragment"
         android:name="com.example.starsign.typeofcardmenu.TypeOfCardFragment"
         android:label="type_of_card_fragment"
-        tools:layout="@layout/type_of_card_fragment" >
+        tools:layout="@layout/type_of_card_fragment">
         <action
             android:id="@+id/action_typeOfCardFragment_to_spellCreator"
             app:destination="@id/spellCreator" />
@@ -72,7 +72,7 @@
         android:id="@+id/sourceDetailFragment"
         android:name="com.example.starsign.carddetail.SourceDetailFragment"
         android:label="fragment_source_detail"
-        tools:layout="@layout/fragment_source_detail" >
+        tools:layout="@layout/fragment_source_detail">
         <argument
             android:name="card"
             app:argType="com.example.starsign.database.Source" />
@@ -84,7 +84,7 @@
         android:id="@+id/spellDetailFragment"
         android:name="com.example.starsign.carddetail.SpellDetailFragment"
         android:label="fragment_spell_detail"
-        tools:layout="@layout/fragment_spell_detail" >
+        tools:layout="@layout/fragment_spell_detail">
         <argument
             android:name="card"
             app:argType="com.example.starsign.database.Magic" />
@@ -96,7 +96,7 @@
         android:id="@+id/monsterDetailFragment"
         android:name="com.example.starsign.carddetail.MonsterDetailFragment"
         android:label="monster_detail_fragment"
-        tools:layout="@layout/monster_detail_fragment" >
+        tools:layout="@layout/monster_detail_fragment">
         <argument
             android:name="card"
             app:argType="com.example.starsign.database.Monster" />
@@ -107,7 +107,7 @@
     <fragment
         android:id="@+id/monsterEditorFragment"
         android:name="com.example.starsign.cardformulars.MonsterEditorFragment"
-        android:label="MonsterEditorFragment" >
+        android:label="MonsterEditorFragment">
         <argument
             android:name="card"
             app:argType="com.example.starsign.database.DatabaseMonster" />
@@ -115,7 +115,7 @@
     <fragment
         android:id="@+id/sourceEditorFragment"
         android:name="com.example.starsign.cardformulars.SourceEditorFragment"
-        android:label="SourceEditorFragment" >
+        android:label="SourceEditorFragment">
         <argument
             android:name="card"
             app:argType="com.example.starsign.database.DatabaseSource" />
@@ -123,7 +123,7 @@
     <fragment
         android:id="@+id/spellEditorFragment"
         android:name="com.example.starsign.cardformulars.SpellEditorFragment"
-        android:label="SpellEditorFragment" >
+        android:label="SpellEditorFragment">
         <argument
             android:name="card"
             app:argType="com.example.starsign.database.DatabaseMagic" />

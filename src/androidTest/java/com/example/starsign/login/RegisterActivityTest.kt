@@ -1,4 +1,4 @@
-package com.example.starsign
+package com.example.starsign.login
 
 import android.app.Activity
 import androidx.lifecycle.Lifecycle
@@ -9,8 +9,9 @@ import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.example.starsign.R
+import com.example.starsign.fakeUserModule
 import com.example.starsign.register.RegisterActivity
-import com.example.starsign.ui.login.LoginActivity
 import org.hamcrest.core.Is
 import org.junit.Before
 import org.junit.Test

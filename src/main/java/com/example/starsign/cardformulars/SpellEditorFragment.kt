@@ -27,7 +27,7 @@ class SpellEditorFragment : Fragment() {
         selectedSpellspecie = spell.species
         val spelladapter = SpellspeciesAdapter(SpellSpeciesListener { species ->
             selectedSpellspecie = species
-        }, spell.species)
+        })
         spelladapter.submitList(SpellSpecies.values().asList())
         binding.spellspeciesoptions.adapter = spelladapter
         val magicadapter = EffectsAdapter(spell.spells)
@@ -76,6 +76,6 @@ class SpellEditorFragment : Fragment() {
                     ?.commit()
             }
         })
-        return inflater.inflate(R.layout.spell_creator_fragment, container, false)
+        return binding.root
     }
 }

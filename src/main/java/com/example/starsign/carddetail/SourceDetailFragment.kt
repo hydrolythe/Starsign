@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
 import com.example.starsign.R
 import com.example.starsign.cardformulars.EditorViewModel
 import com.example.starsign.database.*
@@ -42,7 +43,7 @@ class SourceDetailFragment : Fragment() {
                     ?.commit()
             }
         })
-        return inflater.inflate(R.layout.fragment_source_detail, container, false)
+        return binding.root
     }
 
     private fun createView(source:Source){
@@ -53,7 +54,7 @@ class SourceDetailFragment : Fragment() {
         val dbSource = viewModel.getDbCard<DatabaseSource>(source.title)
         binding.sourcecreatorbutton.setOnClickListener {
             if(dbSource!=null){
-                SourceDetailFragmentDirections.actionSourceDetailFragmentToSourceEditorFragment(dbSource)
+                it.findNavController().navigate(SourceDetailFragmentDirections.actionSourceDetailFragmentToSourceEditorFragment(dbSource))
             }
             else{
                 Toast.makeText(context, String.format("Error: The name of the monster got modified while you tried to modify it."), Toast.LENGTH_SHORT)

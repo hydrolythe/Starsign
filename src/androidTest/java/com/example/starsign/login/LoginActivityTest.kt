@@ -1,11 +1,8 @@
-package com.example.starsign
+package com.example.starsign.login
 
 import android.app.Activity
-import android.widget.Button
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
-import androidx.navigation.findNavController
 import androidx.test.core.app.ActivityScenario
 import androidx.test.core.app.launchActivity
 import androidx.test.espresso.Espresso.onView
@@ -15,11 +12,11 @@ import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
-import com.example.starsign.menu.MenuFragment
+import com.example.starsign.R
+import com.example.starsign.fakeUserModule
 import com.example.starsign.ui.login.LoginActivity
 import org.hamcrest.core.Is.`is`
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.koin.core.context.startKoin
@@ -32,12 +29,15 @@ import org.mockito.Mockito.mock
 class LoginActivityTest : KoinTest{
 
     private lateinit var scenario: ActivityScenario<LoginActivity>
+    private lateinit var navController : NavController
+
     @Before
     fun init(){
         stopKoin()
         startKoin{modules(fakeUserModule)}
         scenario = launchActivity()
         scenario.moveToState(Lifecycle.State.RESUMED)
+        navController = mock(NavController::class.java)
     }
 
     @Test

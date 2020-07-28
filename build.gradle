@@ -6,6 +6,8 @@ apply plugin: 'kotlin-android-extensions'
 
 apply plugin: 'androidx.navigation.safeargs'
 
+apply plugin: 'kotlin-kapt'
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
@@ -16,6 +18,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -69,13 +72,13 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.2.0'
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.2.2'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.2.2'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.0'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.3.0'
     implementation 'com.jakewharton.timber:timber:4.7.1'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     implementation "com.google.android.material:material:$version_material"
     implementation 'androidx.room:room-runtime:2.2.5'
-    annotationProcessor 'androidx.room:room-compiler:2.2.5'
+    kapt 'androidx.room:room-compiler:2.2.5'
     implementation "com.squareup.retrofit2:retrofit: $version_retrofit"
     implementation "com.squareup.retrofit2:converter-moshi:$version_retrofit"
     implementation "com.squareup.moshi:moshi:$version_moshi"
@@ -87,7 +90,7 @@ dependencies {
     // Koin for Kotlin apps
     implementation "org.koin:koin-core:$koin_version"
     // Testing
-    androidTestImplementation "org.koin:koin-test:$koin_version"
+    androidTestImplementation ("org.koin:koin-test:$koin_version") { exclude group: 'org.mockito' }
     // Koin for Android
     implementation "org.koin:koin-android:$koin_version"
     implementation "org.koin:koin-android-viewmodel:$koin_version"
@@ -95,13 +98,16 @@ dependencies {
     //Testing
     testImplementation "org.hamcrest:hamcrest-all:$hamcrestVersion"
     testImplementation "androidx.test:core-ktx:$androidXTestCoreVersion"
-    testImplementation "org.robolectric:robolectric:$robolectricVersion"
     testImplementation "androidx.test.ext:junit-ktx:$androidXTestExtKotlinRunnerVersion"
     testImplementation "androidx.arch.core:core-testing:$archTestingVersion"
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$version_kotlin_coroutines"
+    testImplementation "org.robolectric:robolectric:$robolectricVersion"
 
     //Mockito
-    androidTestImplementation "androidx.test:core-ktx:$androidXTestCoreVersion"
-}
+    debugImplementation "androidx.fragment:fragment-testing:$fragmentVersion"
+    debugImplementation "androidx.test:core-ktx:$androidXTestCoreVersion"
+    debugImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$version_kotlin_coroutines"
+    androidTestImplementation "org.mockito:mockito-android:3.4.4"
 
-apply plugin: "org.jetbrains.kotlin.kapt"
+    implementation 'com.android.support:multidex:1.0.3'
+}

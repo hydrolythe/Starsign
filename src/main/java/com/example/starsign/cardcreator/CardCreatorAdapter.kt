@@ -13,24 +13,18 @@ import com.example.starsign.databinding.ListItemCardBinding
 import kotlinx.coroutines.*
 import org.w3c.dom.Text
 
-private const val ITEM_VIEW_TYPE_HEADER = 0
-private const val ITEM_VIEW_TYPE_ITEM = 1
 class CardCreatorAdapter(val cardListener: CardListener):
-    ListAdapter<DataItem, RecyclerView.ViewHolder>(CardDiffCallback()) {
+    ListAdapter<Card, RecyclerView.ViewHolder>(CardDiffCallback()) {
     private val adapterScope = CoroutineScope(Dispatchers.Default)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return when(viewType){
-            ITEM_VIEW_TYPE_HEADER -> TextViewHolder.from(parent)
-            ITEM_VIEW_TYPE_ITEM -> ViewHolder.from(parent)
-            else -> throw ClassCastException("Unkown viewType ${viewType}")
-        }
+        return ViewHolder.from(parent)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when(holder){
             is ViewHolder -> {
-                val selectItem = getItem(position) as DataItem.CardItem
-                holder.bind(selectItem.card, cardListener)
+                val selectedItem = getItem(position) as Card
+                holder.bind(selectedItem, cardListener)
             }
         }
     }
@@ -44,29 +38,14 @@ class CardCreatorAdapter(val cardListener: CardListener):
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = ListItemCardBinding.inflate(layoutInflater, parent, false)
+                var binding = ListItemCardBinding.inflate(layoutInflater, parent, false)
                 return ViewHolder(binding)
             }
         }
     }
 
-    override fun getItemViewType(position: Int): Int {
-        return when(getItem(position)){
-            is DataItem.Header -> ITEM_VIEW_TYPE_HEADER
-            is DataItem.CardItem -> ITEM_VIEW_TYPE_ITEM
-        }
-    }
-
     fun addHeaderAndSubmitList(list:List<Card>?){
-        adapterScope.launch{
-            val items = when(list){
-                null -> listOf(DataItem.Header)
-                else -> listOf(DataItem.Header) + list.map{DataItem.CardItem(it)}
-            }
-            withContext(Dispatchers.Main){
-                submitList(items)
-            }
-        }
+        submitList(list)
     }
 }
 
@@ -74,32 +53,13 @@ class CardListener(val cardListener: (card: Card) -> Unit){
     fun onClick(card:Card) = cardListener(card)
 }
 
-sealed class DataItem{
-    abstract val id: String
-    data class CardItem(val card:Card) : DataItem(){
-        override val id = card.title
-    }
-    object Header: DataItem(){
-        override val id = "Cards"
-    }
-}
-
-class CardDiffCallback: DiffUtil.ItemCallback<DataItem>(){
-    override fun areItemsTheSame(oldItem: DataItem, newItem: DataItem): Boolean {
-        return oldItem.id.equals(newItem.id)
+class CardDiffCallback: DiffUtil.ItemCallback<Card>(){
+    override fun areItemsTheSame(oldItem: Card, newItem: Card): Boolean {
+        return oldItem.equals(newItem)
     }
 
-    override fun areContentsTheSame(oldItem: DataItem, newItem: DataItem): Boolean {
+    override fun areContentsTheSame(oldItem: Card, newItem: Card): Boolean {
         return oldItem.equals(newItem)
     }
 }
 
-class TextViewHolder(view: View): RecyclerView.ViewHolder(view){
-    companion object{
-        fun from(parent: ViewGroup): TextViewHolder{
-            val layoutInflater = LayoutInflater.from(parent.context)
-            val view = layoutInflater.inflate(R.layout.header, parent, false)
-            return TextViewHolder(view)
-        }
-    }
-}

@@ -24,10 +24,10 @@ class MenuFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater,
             R.layout.fragment_menu, container, false)
         binding.cardcreatorbutton.setOnClickListener{
-            view:View -> view.findNavController().navigate(MenuFragmentDirections.actionMenuFragmentToCardCreatorBox())
+            it.findNavController().navigate(MenuFragmentDirections.actionMenuFragmentToCardCreatorBox())
         }
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_menu, container, false)
+        return binding.root
     }
 
 

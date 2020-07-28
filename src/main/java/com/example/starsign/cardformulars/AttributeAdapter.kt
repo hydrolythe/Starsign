@@ -12,9 +12,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class AttributeAdapter(val attributerequirements: Map<Mana, Int>?=null): ListAdapter<Mana, RecyclerView.ViewHolder>(AttributeDiffCallback()){
-
-    private val adapterScope = CoroutineScope(Dispatchers.Default)
+class AttributeAdapter(val manalist: Map<Mana,Int>?=null): ListAdapter<Mana, RecyclerView.ViewHolder>(AttributeDiffCallback()){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return AttributeViewHolder.from(parent)
@@ -24,12 +22,12 @@ class AttributeAdapter(val attributerequirements: Map<Mana, Int>?=null): ListAda
         when(holder){
             is AttributeViewHolder -> {
                 val selectItem = getItem(position) as Mana
-                if(attributerequirements!=null && attributerequirements.containsKey(selectItem)){
-                    holder.bind(selectItem, attributerequirements[selectItem] ?: error("The attribute does have no value"))
+                if(manalist!=null) {
+                    if (manalist.containsKey(selectItem)){
+                        holder.bind(selectItem, manalist.get(selectItem)!!)
+                    }
                 }
-                else {
-                    holder.bind(selectItem)
-                }
+                holder.bind(selectItem)
             }
         }
     }
@@ -43,16 +41,14 @@ class AttributeViewHolder private constructor(val binding: ListItemManaBinding):
         binding.executePendingBindings()
     }
 
-    fun getManaAmount(): Int{
-        return Integer.parseInt(binding.manaamounttext.text.toString())
-    }
-
     fun getMana(): Mana?{
         return binding.spellattribute
     }
-
     fun cleartext(){
-        binding.manaamounttext.text.clear()
+        binding.amount = 0
+    }
+    fun getManaAmount(): Int{
+        return Integer.parseInt(binding.manaamounttext.text.toString())
     }
 
     companion object{

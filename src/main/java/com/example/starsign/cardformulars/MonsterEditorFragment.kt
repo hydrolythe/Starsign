@@ -101,6 +101,6 @@ class MonsterEditorFragment : Fragment()  {
                     ?.commit()
             }
         })
-        return inflater.inflate(R.layout.monster_creator_fragment, container, false)
+        return binding.root
     }
 }

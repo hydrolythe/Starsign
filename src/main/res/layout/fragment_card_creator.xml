@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
-
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".cardcreator.CardCreatorFragment">
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/frameLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#67F910"
-        tools:context=".cardcreator.CardCreatorFragment">
+        android:background="#67F910">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/cardlist"
+            android:layout_width="357dp"
+            android:layout_height="392dp"
+            android:layout_marginTop="50dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/createcardButton"
@@ -35,14 +41,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cardlist" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/cardlist"
-            android:layout_width="409dp"
-            android:layout_height="681dp"
-            android:layout_marginBottom="100dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
+
+

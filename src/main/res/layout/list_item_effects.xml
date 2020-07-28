@@ -13,24 +13,29 @@
     </data>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:weightSum="2.5">
 
         <TextView
             android:id="@+id/powertext"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="start"
             android:text="@{spelleffect.toString()}"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/spellamounttext"
+            app:layout_constraintEnd_toStartOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
             android:id="@+id/spellamounttext"
-            android:layout_width="178dp"
-            android:layout_height="33dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.5"
             android:autofillHints="Set here the quantity of the effect"
+            android:background="#FFFFFF"
             android:ems="10"
             android:inputType="number"
             android:text="@{power.toString()}"
@@ -39,5 +44,6 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="LabelFor"
             tools:targetApi="o" />
+
     </LinearLayout>
 </layout>

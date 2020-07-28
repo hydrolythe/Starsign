@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.example.starsign.R
 import com.example.starsign.database.*
@@ -15,8 +17,7 @@ import com.example.starsign.databinding.SpellCreatorFragmentBinding
 import org.koin.android.ext.android.inject
 
 class SpellCreator : Fragment() {
-
-    private lateinit var selectedSpellspecie: SpellSpecies
+    private var selectedSpellspecie = MutableLiveData<SpellSpecies>()
     private lateinit var binding: SpellCreatorFragmentBinding
     private val viewModel: CardCreatorViewModel by inject()
     override fun onCreateView(
@@ -25,15 +26,25 @@ class SpellCreator : Fragment() {
     ): View? {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.spell_creator_fragment, container, false)
-        val spelladapter = SpellspeciesAdapter(SpellSpeciesListener { species -> selectedSpellspecie = species })
+        val layoutManager = LinearLayoutManager(this.context)
+        binding.spellspeciesoptions.layoutManager = layoutManager
+        val spelladapter = SpellspeciesAdapter(SpellSpeciesListener { species -> selectedSpellspecie.value = species })
         spelladapter.submitList(SpellSpecies.values().asList())
         binding.spellspeciesoptions.adapter = spelladapter
+        val layoutManager2 = LinearLayoutManager(this.context)
+        binding.effectspells.layoutManager = layoutManager2
         val magicadapter = EffectsAdapter()
         magicadapter.submitList(Spell.values().asList())
         binding.effectspells.adapter = magicadapter
+        val layoutManager3 = LinearLayoutManager(this.context)
+        binding.manacost.layoutManager = layoutManager3
         val requirementAdapter = AttributeAdapter()
         requirementAdapter.submitList(Mana.values().asList())
         binding.manacost.adapter = requirementAdapter
+        binding.addspellbutton.isEnabled = false
+        selectedSpellspecie.observe(viewLifecycleOwner, Observer{
+            binding.addspellbutton.isEnabled = true
+        })
         binding.addspellbutton.setOnClickListener {
             val attributeRequirements = mutableMapOf<Mana, Int>()
             for(index in 0 until (binding.manacost.adapter as AttributeAdapter).itemCount){
@@ -49,7 +60,8 @@ class SpellCreator : Fragment() {
                     spells[viewHolder.getSpell()?:Spell.BOOSTATTACK] = viewHolder.getMpAmount()
                 }
             }
-            viewModel.insertCard(Magic(binding.spelltitletext.text.toString(), selectedSpellspecie, spells, attributeRequirements))
+            viewModel.insertCard(Magic(binding.spelltitletext.text.toString(),
+                selectedSpellspecie.value!!, spells, attributeRequirements))
         }
         viewModel.cardCreationResult.observe(viewLifecycleOwner, Observer{
             if(it.exception != null){
@@ -70,7 +82,6 @@ class SpellCreator : Fragment() {
                 Toast.makeText(context, String.format("Spell %s was successfully created.", it.success.title), Toast.LENGTH_SHORT).show()
             }
         })
-        return inflater.inflate(R.layout.spell_creator_fragment, container, false)
+        return binding.root
     }
-
 }

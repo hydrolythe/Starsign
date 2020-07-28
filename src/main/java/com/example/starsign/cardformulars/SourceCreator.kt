@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.example.starsign.R
 import com.example.starsign.database.Card
@@ -27,8 +28,10 @@ class SourceCreator : Fragment(){
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.source_creator_fragment, container, false)
+        val layoutManager = LinearLayoutManager(this.context)
         val requirementAdapter = AttributeAdapter()
         requirementAdapter.submitList(Mana.values().asList())
+        binding.sourcetypes.layoutManager = layoutManager
         binding.sourcetypes.adapter = requirementAdapter
         binding.sourcecreatorbutton.setOnClickListener {
             val attributeRequirements = mutableMapOf<Mana, Int>()
@@ -39,21 +42,20 @@ class SourceCreator : Fragment(){
                 }
             }
             viewModel.insertCard(Source(binding.sourcetitletext.text.toString(), attributeRequirements))
-    }
-    viewModel.cardCreationResult.observe(viewLifecycleOwner, Observer{
-        if(it.exception != null){
-            Toast.makeText(context, it.exception.message, Toast.LENGTH_SHORT).show()
         }
-        if(it.success != null){
-            for(index in 0 until (binding.sourcetypes.adapter as AttributeAdapter).itemCount){
-                val viewHolder = binding.sourcetypes.findViewHolderForAdapterPosition(index) as AttributeViewHolder
-                viewHolder.cleartext()
+        viewModel.cardCreationResult.observe(viewLifecycleOwner, Observer{
+            if(it.exception != null){
+                Toast.makeText(context, it.exception.message, Toast.LENGTH_SHORT).show()
             }
-            binding.sourcetitletext.text.clear()
-            Toast.makeText(context, String.format("Source %s was successfully created.", it.success.title), Toast.LENGTH_SHORT).show()
-        }
-    })
-    return inflater.inflate(R.layout.source_creator_fragment, container, false)
+            if(it.success != null){
+                for(index in 0 until (binding.sourcetypes.adapter as AttributeAdapter).itemCount){
+                    val viewHolder = binding.sourcetypes.findViewHolderForAdapterPosition(index) as AttributeViewHolder
+                    viewHolder.cleartext()
+                }
+                binding.sourcetitletext.text.clear()
+                Toast.makeText(context, String.format("Source %s was successfully created.", it.success.title), Toast.LENGTH_SHORT).show()
+            }
+        })
+        return binding.root
     }
-
 }

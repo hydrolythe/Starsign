@@ -22,19 +22,12 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
         <TextView
-            android:id="@+id/costdescriptor"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/manaamount"
-            app:layout_constraintBottom_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/amountlabel"/>
-
-        <TextView
             android:id="@+id/amountlabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{amount.toString()}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
     </LinearLayout>
 </layout>

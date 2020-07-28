@@ -6,7 +6,6 @@ import com.example.starsign.MainCoroutineRule
 import com.example.starsign.cardcreator.CardViewModel
 import com.example.starsign.cardformulars.EditorViewModel
 import com.example.starsign.database.*
-import com.example.starsign.repository.CardRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import mockRepository.FakeCardRepository
 import org.hamcrest.CoreMatchers.*
@@ -33,7 +32,7 @@ class EditorViewModelTest {
             mp = 10,
             spells = mapOf(
                 Pair(Spell.BOOSTSPECIALATTACK, 3),
-                Pair(Spell.DESTROYFIELD, 2)
+                Pair(Spell.DRAW, 2)
             )
         ),
         DatabaseMagic(
@@ -59,7 +58,7 @@ class EditorViewModelTest {
             magicdefense = 2,
             mp = 15,
             spells = mapOf(
-                Pair(Spell.DESTROYFIELD, 2)
+                Pair(Spell.DRAW, 2)
             )
         )
     )
@@ -119,7 +118,7 @@ class EditorViewModelTest {
             magicdefense = 2,
             mp = 15,
             spells = mapOf(
-                Pair(Spell.DESTROYFIELD, 2)
+                Pair(Spell.DRAW, 2)
             )
         )
         viewModel.updateCard(trueCard)

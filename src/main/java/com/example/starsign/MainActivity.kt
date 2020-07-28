@@ -17,7 +17,6 @@ import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var drawerLayout : DrawerLayout
     private lateinit var username: String
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,11 +36,9 @@ class MainActivity : AppCompatActivity() {
         else{
             startLogin()
         }
-        val navController = this.findNavController(R.id.menuFragment)
         val binding = DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
-        drawerLayout = binding.drawerLayout
-        NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout)
-        NavigationUI.setupWithNavController(binding.rulechecklist, navController)
+        val navController = this.findNavController(R.id.nav_host_fragment)
+        NavigationUI.setupActionBarWithNavController(this, navController)
     }
 
     fun startLogin(){
@@ -51,8 +48,4 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        val navController = this.findNavController(R.id.fragment_register)
-        return NavigationUI.navigateUp(navController, drawerLayout)
-    }
 }

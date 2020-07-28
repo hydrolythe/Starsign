@@ -5,7 +5,6 @@ import com.example.starsign.LiveDataTestUtil
 import com.example.starsign.MainCoroutineRule
 import com.example.starsign.cardcreator.CardViewModel
 import com.example.starsign.cardformulars.CardCreatorViewModel
-import com.example.starsign.cardformulars.EditorViewModel
 import com.example.starsign.database.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import mockRepository.FakeCardRepository
@@ -33,7 +32,7 @@ class CreatorViewModelTest {
             mp = 10,
             spells = mapOf(
                 Pair(Spell.BOOSTSPECIALATTACK, 3),
-                Pair(Spell.DESTROYFIELD, 2)
+                Pair(Spell.DRAW, 2)
             )
         ),
         DatabaseMagic(
@@ -59,7 +58,7 @@ class CreatorViewModelTest {
             magicdefense = 2,
             mp = 15,
             spells = mapOf(
-                Pair(Spell.DESTROYFIELD, 2)
+                Pair(Spell.DRAW, 2)
             )
         )
     )
@@ -91,7 +90,7 @@ class CreatorViewModelTest {
     @ExperimentalCoroutinesApi
     @Test
     fun addCard_CorrectInput_ReturnsCorrectMessageAndPersists(){
-        val newCard = Monster(title="Chaos", manarequirements = mapOf(Pair(Mana.VOID, 5)), life=30, attack = 10, defense = 5, magicdefense = 15, magicattack = 20, mp = 50, spells = mapOf(Pair(Spell.DAMAGE, 3), Pair(Spell.DESTROYFIELD, 5), Pair(Spell.DRAW, 15)))
+        val newCard = Monster(title="Chaos", manarequirements = mapOf(Pair(Mana.VOID, 5)), life=30, attack = 10, defense = 5, magicdefense = 15, magicattack = 20, mp = 50, spells = mapOf(Pair(Spell.DAMAGE, 3), Pair(Spell.DRAW, 5), Pair(Spell.DRAW, 15)))
         val size1 = listDbCards.size
         viewModel.insertCard(newCard)
         assertThat(LiveDataTestUtil.getValue(viewModel.cardCreationResult).success?.title, `is`(newCard.title))

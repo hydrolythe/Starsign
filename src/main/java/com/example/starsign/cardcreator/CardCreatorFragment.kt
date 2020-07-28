@@ -1,19 +1,19 @@
 package com.example.starsign.cardcreator
 
-
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.starsign.R
 import com.example.starsign.database.Magic
 import com.example.starsign.database.Monster
 import com.example.starsign.database.Source
-import com.example.starsign.databinding.FragmentCardCreatorBoxBinding
-import com.example.starsign.menu.MenuFragmentDirections
-import com.example.starsign.repository.CardRepository
+import com.example.starsign.databinding.FragmentCardCreatorBinding
 import org.koin.android.ext.android.inject
 
 /**
@@ -21,7 +21,7 @@ import org.koin.android.ext.android.inject
  */
 class CardCreatorFragment : Fragment() {
 
-    private lateinit var binding: FragmentCardCreatorBoxBinding
+    private lateinit var binding: FragmentCardCreatorBinding
     private val viewModel : CardViewModel by inject()
 
     override fun onCreateView(
@@ -29,24 +29,28 @@ class CardCreatorFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater,
-            R.layout.fragment_card_creator_box, container, false)
+            R.layout.fragment_card_creator, container, false)
         binding.createcardButton.setOnClickListener{
-            CardCreatorFragmentDirections.actionCardCreatorBoxToTypeOfCardFragment()
+            it.findNavController().navigate(CardCreatorFragmentDirections.actionCardCreatorBoxToTypeOfCardFragment())
         }
         val adapter = CardCreatorAdapter(CardListener
         { card ->
             when(card) {
-                is Monster -> CardCreatorFragmentDirections.actionCardCreatorBoxToMonsterDetailFragment(card)
-                is Magic -> CardCreatorFragmentDirections.actionCardCreatorBoxToSpellDetailFragment(card)
-                is Source -> CardCreatorFragmentDirections.actionCardCreatorBoxToSourceDetailFragment(card)
+                is Monster -> binding.root.findNavController().navigate(CardCreatorFragmentDirections.actionCardCreatorBoxToMonsterDetailFragment(card))
+                is Magic -> binding.root.findNavController().navigate(CardCreatorFragmentDirections.actionCardCreatorBoxToSpellDetailFragment(card))
+                is Source -> binding.root.findNavController().navigate(CardCreatorFragmentDirections.actionCardCreatorBoxToSourceDetailFragment(card))
             }
-        });
-        adapter.addHeaderAndSubmitList(viewModel.cardList.value)
+        })
+        val layoutManager = LinearLayoutManager(this.context)
+        binding.cardlist.layoutManager = layoutManager
+        viewModel.cardList.observe(viewLifecycleOwner, Observer{
+            adapter.submitList(it)
+        })
         binding.cardlist.adapter = adapter
         binding.deletecardsbutton.setOnClickListener {
-            CardCreatorFragmentDirections.actionCardCreatorBoxToCarddeleteFragment()
+            it.findNavController().navigate(CardCreatorFragmentDirections.actionCardCreatorBoxToCarddeleteFragment())
         }
-        return inflater.inflate(R.layout.fragment_card_creator_box, container, false)
+        return binding.root
     }
 
 }

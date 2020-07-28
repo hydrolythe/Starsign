@@ -17,11 +17,16 @@ class FakeCardRepository(private val listdbCard: MutableList<DatabaseCard>) : IC
     }
 
     override suspend fun addCard(card: Card): DatabaseCard {
-        if(cards.value?.asDomainModel()?.contains(card)!!){
-            throw IllegalArgumentException()
-        }
         val dbCard = fromCardToDatabaseCard(card)
-        cards.value!!.add(dbCard)
+        if (cards.value != null) {
+            if (cards.value?.asDomainModel()?.contains(card)!!) {
+                throw IllegalArgumentException()
+            }
+            else{
+                cards.value!!.add(dbCard)
+            }
+        }
+        cards.value = mutableListOf(dbCard)
         return dbCard
     }
 
@@ -71,7 +76,7 @@ class FakeCardRepository(private val listdbCard: MutableList<DatabaseCard>) : IC
     private fun fromCardToDatabaseCard(card:Card):DatabaseCard{
         return when (card) {
             is Monster -> DatabaseMonster(
-                cardid = cards.value!!.size,
+                cardid = cards.value?.size ?: 0,
                 title = card.title,
                 manarequirements = card.manarequirements,
                 life = card.life,
@@ -83,14 +88,14 @@ class FakeCardRepository(private val listdbCard: MutableList<DatabaseCard>) : IC
                 spells = card.spells
             )
             is Magic -> DatabaseMagic(
-                cardid = cards.value!!.size,
+                cardid = cards.value?.size ?: 0,
                 title = card.title,
                 manaamount = card.manaamount,
-                species = card.species,
+                species = card.species ?: throw NullPointerException(),
                 spells = card.spells
             )
             is Source ->
-                DatabaseSource(cardid = cards.value!!.size, title = card.title, source = card.source)
+                DatabaseSource(cardid = cards.value?.size ?: 0, title = card.title, source = card.source)
             else -> throw IllegalArgumentException("The type can not be converted")
         }
     }

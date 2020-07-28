@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.starsign.database.SpellSpecies
 import com.example.starsign.databinding.ListItemSpellspeciesBinding
 
-class SpellspeciesAdapter(val clickListener: SpellSpeciesListener, val specie: SpellSpecies? = null): ListAdapter<SpellSpecies, RecyclerView.ViewHolder>(SpellDiffCallback()){
+class SpellspeciesAdapter(val clickListener: SpellSpeciesListener): ListAdapter<SpellSpecies, RecyclerView.ViewHolder>(SpellDiffCallback()){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return SpellspeciesViewHolder.from(parent)
@@ -19,9 +19,6 @@ class SpellspeciesAdapter(val clickListener: SpellSpeciesListener, val specie: S
             is SpellspeciesViewHolder -> {
                 val selectItem = getItem(position) as SpellSpecies
                 holder.bind(clickListener, selectItem)
-                if(selectItem == specie){
-                    holder.check()
-                }
             }
         }
     }
@@ -62,3 +59,4 @@ class SpellDiffCallback: DiffUtil.ItemCallback<SpellSpecies>(){
 class SpellSpeciesListener(val clickListener: ((species : SpellSpecies) -> Unit)){
     fun onClick(specie: SpellSpecies) = clickListener(specie)
 }
+

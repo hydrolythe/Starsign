@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.example.starsign.R
 import com.example.starsign.data.Resulting
@@ -30,9 +31,13 @@ class MonsterCreatorFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.monster_creator_fragment, container, false)
+        val layoutManager = LinearLayoutManager(this.context)
+        binding.manaselections.layoutManager = layoutManager
         val attAdapter = AttributeAdapter()
         attAdapter.submitList(Mana.values().asList())
         binding.manaselections.adapter = attAdapter
+        val layoutManager2 = LinearLayoutManager(this.context)
+        binding.spellfield.layoutManager = layoutManager2
         val spellAdapter = EffectsAdapter()
         spellAdapter.submitList(Spell.values().asList())
         binding.spellfield.adapter = spellAdapter
@@ -40,15 +45,15 @@ class MonsterCreatorFragment : Fragment() {
             val attributeRequirements = mutableMapOf<Mana, Int>()
             for(index in 0 until (binding.manaselections.adapter as AttributeAdapter).itemCount){
                 val viewHolder = binding.manaselections.findViewHolderForAdapterPosition(index) as AttributeViewHolder
-                if(viewHolder.getMana()!=null) {
+/*                if(viewHolder.getMana()!=null) {
                     attributeRequirements[viewHolder.getMana()?:Mana.APEIRON] = viewHolder.getManaAmount()
                 }
-            }
+*/            }
             val spells = mutableMapOf<Spell, Int>()
             for(index in 0 until (binding.spellfield.adapter as EffectsAdapter).itemCount){
                 val viewHolder = binding.spellfield.findViewHolderForAdapterPosition(index) as EffectViewHolder
                 if(viewHolder.getSpell()!=null) {
-                    spells[viewHolder.getSpell()?:Spell.BOOSTATTACK] = viewHolder.getMpAmount()
+//                    spells[viewHolder.getSpell()?:Spell.BOOSTATTACK] = viewHolder.getMpAmount()
                 }
             }
             viewModel.insertCard(Monster(binding.titletextfield.text.toString(), attributeRequirements, Integer.parseInt(binding.lifetextfield.text.toString()), Integer.parseInt(binding.attacktextfield.text.toString()), Integer.parseInt(binding.defensetextfield.text.toString()), Integer.parseInt(binding.magicattacktextfield.text.toString()), Integer.parseInt(binding.magicdefensefield.text.toString()), Integer.parseInt(binding.mptextfield.text.toString()), spells))
@@ -60,17 +65,17 @@ class MonsterCreatorFragment : Fragment() {
             if(it.success != null){
                 for(index in 0 until (binding.manaselections.adapter as AttributeAdapter).itemCount){
                     val viewHolder = binding.manaselections.findViewHolderForAdapterPosition(index) as AttributeViewHolder
-                    viewHolder.cleartext()
+//                    viewHolder.cleartext()
                 }
                 for(index in 0 until (binding.spellfield.adapter as EffectsAdapter).itemCount){
                     val viewHolder = binding.spellfield.findViewHolderForAdapterPosition(index) as EffectViewHolder
-                    viewHolder.clearText()
+//                    viewHolder.clearText()
                 }
                 val texts = listOf<Editable>(binding.titletextfield.text, binding.lifetextfield.text, binding.attacktextfield.text, binding.defensetextfield.text, binding.magicattacktextfield.text, binding.magicdefensefield.text, binding.mptextfield.text)
                 texts.forEach { edit -> edit.clear() }
                 Toast.makeText(context, String.format("Monster %s was successfully created.", it.success.title), Toast.LENGTH_SHORT).show()
             }
         })
-        return inflater.inflate(R.layout.monster_creator_fragment, container, false)
+        return binding.root
     }
 }

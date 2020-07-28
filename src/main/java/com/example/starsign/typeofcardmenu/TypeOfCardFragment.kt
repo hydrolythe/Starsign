@@ -27,7 +27,7 @@ class TypeOfCardFragment : Fragment() {
         binding.sourcecreatorbutton.setOnClickListener {
             view : View -> view.findNavController().navigate(TypeOfCardFragmentDirections.actionTypeOfCardFragmentToSourceCreator())
         }
-        return inflater.inflate(R.layout.type_of_card_fragment, container, false)
+        return binding.root
     }
 
 }

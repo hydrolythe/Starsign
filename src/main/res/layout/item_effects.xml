@@ -23,15 +23,6 @@
             android:text="@{effect.toString()}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/effectdescriptor"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/power"
-            app:layout_constraintBottom_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/powerlabel"/>
-
         <TextView
             android:id="@+id/powerlabel"
             android:layout_width="wrap_content"

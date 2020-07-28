@@ -41,7 +41,7 @@ open class DatabaseCard(
 }
 
 fun List<DatabaseCard>.asDomainModel(): List<Card>{
-    return map{
+    val x = map{
         when(it){
             is DatabaseMonster -> Monster(title = it.title, manarequirements = it.manarequirements, life = it.life, attack = it.attack, defense = it.defense, magicattack = it.magicattack, magicdefense = it.magicdefense, mp = it.mp, spells = it.spells)
             is DatabaseMagic -> Magic(title = it.title, manaamount = it.manaamount, species = it.species, spells = it.spells)
@@ -49,4 +49,5 @@ fun List<DatabaseCard>.asDomainModel(): List<Card>{
             else -> throw IllegalArgumentException("The type can not be converted")
         }
     }
+    return x
 }

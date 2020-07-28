@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
 import com.example.starsign.R
 import com.example.starsign.cardformulars.EditorViewModel
 import com.example.starsign.database.*
@@ -42,12 +43,12 @@ class SpellDetailFragment : Fragment() {
                     ?.commit()
             }
         })
-        return inflater.inflate(R.layout.fragment_spell_detail, container, false)
+        return binding.root
     }
 
     private fun createView(spell: Magic){
         binding.titlelabel.text = spell.title
-        binding.spelltypetext.text = spell.species.name
+        binding.spelltypetext.text = spell.species?.name
         val manaAdapter = spell.manaamount.let{ManaDetailAdapter(it)}
         manaAdapter.submitList(spell.manaamount.keys.toList())
         binding.costlist.adapter = manaAdapter
@@ -57,7 +58,7 @@ class SpellDetailFragment : Fragment() {
         val dbSpell = viewModel.getDbCard<DatabaseMagic>(spell.title)
         binding.edittextbutton.setOnClickListener {
             if(dbSpell!=null){
-                SpellDetailFragmentDirections.actionSpellDetailFragmentToSpellEditorFragment(dbSpell)
+                it.findNavController().navigate(SpellDetailFragmentDirections.actionSpellDetailFragmentToSpellEditorFragment(dbSpell))
             }
             else{
                 Toast.makeText(context, String.format("Error: The name of the monster got modified while you tried to modify it."), Toast.LENGTH_SHORT)

@@ -9,7 +9,7 @@ import com.example.starsign.data.Resulting
 import com.example.starsign.database.Spell
 import com.example.starsign.databinding.ListItemEffectsBinding
 
-class EffectsAdapter(val effects: Map<Spell, Int>?=null): ListAdapter<Spell, RecyclerView.ViewHolder>(EffectDiffCallback()){
+class EffectsAdapter(val effectList: Map<Spell,Int>?=null): ListAdapter<Spell, RecyclerView.ViewHolder>(EffectDiffCallback()){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return EffectViewHolder.from(parent)
     }
@@ -18,12 +18,12 @@ class EffectsAdapter(val effects: Map<Spell, Int>?=null): ListAdapter<Spell, Rec
         when(holder){
             is EffectViewHolder -> {
                 val selectItem = getItem(position) as Spell
-                if(effects!=null && effects.containsKey(selectItem)){
-                    holder.bind(selectItem, effects[selectItem]?:error("This effect has no power."))
+                if(effectList!=null) {
+                    if (effectList.containsKey(selectItem)){
+                        holder.bind(selectItem, effectList.get(selectItem)!!)
+                    }
                 }
-                else {
-                    holder.bind(selectItem)
-                }
+                holder.bind(selectItem)
             }
         }
     }
@@ -35,15 +35,20 @@ class EffectViewHolder private constructor(val binding: ListItemEffectsBinding):
         binding.power = power
         binding.executePendingBindings()
     }
-    fun getMpAmount(): Int{
-        return Integer.parseInt(binding.spellamounttext.text.toString())
-    }
+
     fun getSpell(): Spell?{
         return binding.spelleffect
     }
-    fun clearText(){
-        binding.spellamounttext.text.clear()
+
+    fun getMpAmount(): Int{
+        return Integer.parseInt(binding.spellamounttext.text.toString())
     }
+    fun clearText(){
+        binding.power = 0
+    }
+
+
+
     companion object {
         fun from(parent: ViewGroup): EffectViewHolder{
             val layoutInflater = LayoutInflater.from(parent.context)

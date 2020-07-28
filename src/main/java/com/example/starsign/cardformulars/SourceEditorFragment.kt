@@ -58,6 +58,6 @@ class SourceEditorFragment : Fragment() {
                     ?.commit()
             }
         })
-        return inflater.inflate(R.layout.source_creator_fragment, container, false)
+        return binding.root
     }
 }
