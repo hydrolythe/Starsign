@@ -3,7 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
-
+    <data>
+        <variable name="spell"
+            type="com.example.starsign.database.DatabaseMagic"/>
+    </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -16,6 +19,7 @@
             android:autofillHints="Put the title of your spell here"
             android:ems="10"
             android:inputType="textPersonName"
+            android:text="@{spell.title}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/spelltitle"
@@ -100,7 +104,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/manacost"
             android:layout_width="100dp"
-            android:layout_height="500dp"
+            android:layout_height="300dp"
             android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.534"

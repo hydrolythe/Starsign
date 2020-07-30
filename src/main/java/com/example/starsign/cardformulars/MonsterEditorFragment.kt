@@ -10,6 +10,7 @@ import android.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.starsign.R
 import com.example.starsign.database.DatabaseMonster
 import com.example.starsign.database.Mana
@@ -34,9 +35,13 @@ class MonsterEditorFragment : Fragment()  {
             container,
             false
         )
+        val layoutManager = LinearLayoutManager(this.context)
+        binding.manaselections.layoutManager = layoutManager
         val attAdapter = AttributeAdapter(monster.manarequirements)
         attAdapter.submitList(Mana.values().asList())
         binding.manaselections.adapter = attAdapter
+        val layoutManager2 = LinearLayoutManager(this.context)
+        binding.spellfield.layoutManager = layoutManager2
         val spellAdapter = EffectsAdapter(monster.spells)
         spellAdapter.submitList(Spell.values().asList())
         binding.spellfield.adapter = spellAdapter

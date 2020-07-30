@@ -3,6 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
+    <data>
+        <variable
+            name="source"
+            type="com.example.starsign.database.DatabaseSource"/>
+    </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/monsterformulier"
         android:layout_width="match_parent"
@@ -37,6 +42,7 @@
             android:layout_marginTop="8dp"
             android:ems="10"
             android:inputType="textPersonName"
+            android:text="@{source.title}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/sourcetitlelabel"

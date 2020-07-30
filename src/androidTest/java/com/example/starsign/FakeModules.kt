@@ -18,7 +18,7 @@ val fakeUserModule = module{
     viewModel{LoginViewModel(get())}
     viewModel{RegisterViewModel(get())}
 }
-var listDbCards = mutableListOf(
+val listDbCards = mutableListOf(
     DatabaseMonster(
         cardid = 0,
         title = "Salamaximander",
@@ -42,12 +42,12 @@ var listDbCards = mutableListOf(
         spells = mapOf(Pair(Spell.BOOSTATTACK, 2))
     ),
     DatabaseSource(
-        cardid = 3,
+        cardid = 2,
         title = "Miletus",
         source = mapOf(Pair(Mana.APEIRON, 3))
     ),
     DatabaseMonster(
-        cardid = 4,
+        cardid = 3,
         title = "Epeak",
         manarequirements = mapOf(Pair(Mana.ATOM, 5)),
         life = 10,

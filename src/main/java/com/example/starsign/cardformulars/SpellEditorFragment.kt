@@ -7,14 +7,16 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.starsign.R
 import com.example.starsign.database.*
 import com.example.starsign.databinding.SpellCreatorFragmentBinding
 import org.koin.android.ext.android.inject
 
 class SpellEditorFragment : Fragment() {
-    private lateinit var selectedSpellspecie: SpellSpecies
+    private var selectedSpellspecie = MutableLiveData<SpellSpecies>()
     private lateinit var binding: SpellCreatorFragmentBinding
     private val viewModel: EditorViewModel by inject()
     override fun onCreateView(
@@ -24,15 +26,22 @@ class SpellEditorFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.spell_creator_fragment, container, false)
         val args = arguments?.let{SpellEditorFragmentArgs.fromBundle(it)}
         val spell = args?.card!!
-        selectedSpellspecie = spell.species
+        binding.spell = spell
+        val layoutManager = LinearLayoutManager(this.context)
+        binding.spellspeciesoptions.layoutManager = layoutManager
+        selectedSpellspecie.value = spell.species
         val spelladapter = SpellspeciesAdapter(SpellSpeciesListener { species ->
-            selectedSpellspecie = species
-        })
+            selectedSpellspecie.value = species
+        }, spell.species)
         spelladapter.submitList(SpellSpecies.values().asList())
         binding.spellspeciesoptions.adapter = spelladapter
+        val layoutManager2 = LinearLayoutManager(this.context)
+        binding.effectspells.layoutManager = layoutManager2
         val magicadapter = EffectsAdapter(spell.spells)
         magicadapter.submitList(Spell.values().asList())
         binding.effectspells.adapter = magicadapter
+        val layoutManager3 = LinearLayoutManager(this.context)
+        binding.manacost.layoutManager = layoutManager3
         val requirementAdapter = AttributeAdapter(spell.manaamount)
         requirementAdapter.submitList(Mana.values().asList())
         binding.manacost.adapter = requirementAdapter
@@ -59,7 +68,7 @@ class SpellEditorFragment : Fragment() {
                 DatabaseMagic(
                     spell.cardid,
                     binding.spelltitletext.text.toString(),
-                    selectedSpellspecie,
+                    selectedSpellspecie.value!!,
                     spells,
                     attributeRequirements
                 )

@@ -11,6 +11,7 @@
             type="com.example.starsign.cardcreator.CardListener"/>
     </data>
     <LinearLayout
+        android:id="@+id/cardlabel"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -23,7 +24,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:text="@{card.title}"/>
+            android:text="@{card.title}" />
 
         <TextView
             android:id="@+id/cardtype"

@@ -10,9 +10,11 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.starsign.R
 import com.example.starsign.cardformulars.EditorViewModel
 import com.example.starsign.database.*
+import com.example.starsign.databinding.FragmentSourceDetailBinding
 import com.example.starsign.databinding.SourceCreatorFragmentBinding
 import org.koin.android.ext.android.inject
 
@@ -22,7 +24,7 @@ import org.koin.android.ext.android.inject
  * create an instance of this fragment.
  */
 class SourceDetailFragment : Fragment() {
-    private lateinit var binding : SourceCreatorFragmentBinding
+    private lateinit var binding : FragmentSourceDetailBinding
     private val viewModel: EditorViewModel by inject()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,12 +49,14 @@ class SourceDetailFragment : Fragment() {
     }
 
     private fun createView(source:Source){
-        binding.sourcetitlelabel.text = source.title
+        binding.manatitletext.text = source.title
+        val layoutManager = LinearLayoutManager(this.context)
+        binding.manageneratorlist.layoutManager = layoutManager
         val manaAdapter = source.source.let{ManaDetailAdapter(it)}
         manaAdapter.submitList(source.source.keys.toList())
-        binding.sourcetypes.adapter = manaAdapter
+        binding.manageneratorlist.adapter = manaAdapter
         val dbSource = viewModel.getDbCard<DatabaseSource>(source.title)
-        binding.sourcecreatorbutton.setOnClickListener {
+        binding.editbutton.setOnClickListener {
             if(dbSource!=null){
                 it.findNavController().navigate(SourceDetailFragmentDirections.actionSourceDetailFragmentToSourceEditorFragment(dbSource))
             }

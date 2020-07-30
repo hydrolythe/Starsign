@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.starsign.R
 import com.example.starsign.cardformulars.EditorViewModel
 import com.example.starsign.database.*
@@ -43,6 +44,8 @@ class MonsterDetailFragment() : Fragment() {
 
     private fun createView(monster:Monster){
         binding.titlelabel.text = monster.title
+        val layoutManager = LinearLayoutManager(this.context)
+        binding.manarequirementslist.layoutManager = layoutManager
         val manaAdapter = monster.manarequirements.let { ManaDetailAdapter(it) }
         manaAdapter.submitList(monster.manarequirements.keys.toList())
         binding.manarequirementslist.adapter = manaAdapter
@@ -53,6 +56,8 @@ class MonsterDetailFragment() : Fragment() {
         binding.magicdefensetext.text = monster.magicdefense.toString()
         binding.mptext.text = monster.mp.toString()
         if(monster.spells!=null) {
+            val layoutManager2 = LinearLayoutManager(this.context)
+            binding.spelllist.layoutManager = layoutManager2
             val spellAdapter = monster.spells.let { SpellDetailAdapter(it) }
             spellAdapter.submitList(monster.spells.keys.toList())
             binding.spelllist.adapter = spellAdapter

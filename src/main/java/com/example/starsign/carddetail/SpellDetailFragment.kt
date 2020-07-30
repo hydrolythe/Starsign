@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.starsign.R
 import com.example.starsign.cardformulars.EditorViewModel
 import com.example.starsign.database.*
@@ -48,10 +49,14 @@ class SpellDetailFragment : Fragment() {
 
     private fun createView(spell: Magic){
         binding.titlelabel.text = spell.title
-        binding.spelltypetext.text = spell.species?.name
+        binding.spelltypetext.text = spell.species.name
+        val layoutManager = LinearLayoutManager(this.context)
+        binding.costlist.layoutManager = layoutManager
         val manaAdapter = spell.manaamount.let{ManaDetailAdapter(it)}
         manaAdapter.submitList(spell.manaamount.keys.toList())
         binding.costlist.adapter = manaAdapter
+        val layoutManager2 = LinearLayoutManager(this.context)
+        binding.effectlist.layoutManager = layoutManager2
         val spellAdapter = spell.spells.let{SpellDetailAdapter(it)}
         spellAdapter.submitList(spell.spells.keys.toList())
         binding.effectlist.adapter = spellAdapter

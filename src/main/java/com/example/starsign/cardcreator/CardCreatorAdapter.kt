@@ -1,8 +1,12 @@
 package com.example.starsign.cardcreator
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.databinding.adapters.CardViewBindingAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -15,7 +19,6 @@ import org.w3c.dom.Text
 
 class CardCreatorAdapter(val cardListener: CardListener):
     ListAdapter<Card, RecyclerView.ViewHolder>(CardDiffCallback()) {
-    private val adapterScope = CoroutineScope(Dispatchers.Default)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return ViewHolder.from(parent)
     }
@@ -30,6 +33,7 @@ class CardCreatorAdapter(val cardListener: CardListener):
     }
 
     class ViewHolder private constructor(val binding: ListItemCardBinding): RecyclerView.ViewHolder(binding.root){
+        var kleurvlag = false
         fun bind(item: Card, clickListener: CardListener){
             binding.card = item
             binding.cardListener = clickListener
@@ -38,14 +42,10 @@ class CardCreatorAdapter(val cardListener: CardListener):
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                var binding = ListItemCardBinding.inflate(layoutInflater, parent, false)
+                val binding = ListItemCardBinding.inflate(layoutInflater, parent, false)
                 return ViewHolder(binding)
             }
         }
-    }
-
-    fun addHeaderAndSubmitList(list:List<Card>?){
-        submitList(list)
     }
 }
 

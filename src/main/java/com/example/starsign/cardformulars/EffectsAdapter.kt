@@ -22,8 +22,13 @@ class EffectsAdapter(val effectList: Map<Spell,Int>?=null): ListAdapter<Spell, R
                     if (effectList.containsKey(selectItem)){
                         holder.bind(selectItem, effectList.get(selectItem)!!)
                     }
+                    else{
+                        holder.bind(selectItem)
+                    }
                 }
-                holder.bind(selectItem)
+                else {
+                    holder.bind(selectItem)
+                }
             }
         }
     }

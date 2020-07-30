@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.starsign.R
 import com.example.starsign.cardcreator.CardCreatorAdapter
 import com.example.starsign.cardcreator.CardListener
@@ -29,14 +30,18 @@ class CarddeleteFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_delete, container, false)
-        val adapter = CardCreatorAdapter(CardListener {
+        val layoutManager = LinearLayoutManager(this.context)
+        binding.cardView.layoutManager = layoutManager
+        val adapter = CardRemovalAdapter(CardListener {
             if(!deletionList.contains(it)){
                 deletionList.add(it)
             } else{
                 deletionList.remove(it)
             }
         })
-        adapter.addHeaderAndSubmitList(viewModel.cardList.value)
+        viewModel.cardList.observe(viewLifecycleOwner, Observer{
+            adapter.submitList(it)
+        })
         binding.cardView.adapter = adapter
         binding.cardRemovalbutton.setOnClickListener {
             viewModel.deleteCards(deletionList)
@@ -50,6 +55,6 @@ class CarddeleteFragment : Fragment() {
                 getActivity()?.supportFragmentManager?.beginTransaction()?.remove(this)?.commit()
             }
         })
-        return super.onCreateView(inflater, container, savedInstanceState)
+        return binding.root
     }
 }

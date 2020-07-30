@@ -9,6 +9,7 @@ import androidx.test.espresso.action.ViewActions.replaceText
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers.*
+import androidx.test.filters.MediumTest
 import com.example.starsign.MyViewAction
 import com.example.starsign.R
 import com.example.starsign.ToastMatcher
@@ -24,6 +25,7 @@ import org.junit.Test
 import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
 
+@MediumTest
 @ExperimentalCoroutinesApi
 class SpellCreatorTest {
     private lateinit var scenario: FragmentScenario<SpellCreator>
@@ -65,7 +67,7 @@ class SpellCreatorTest {
             )
         )
         onView(withId(R.id.manacost)).check(matches(
-            com.example.starsign.withText(
+            com.example.starsign.withRecyclerViewText(
                 1,
                 R.id.manaamounttext,
                 0.toString()
@@ -83,7 +85,7 @@ class SpellCreatorTest {
         )
         onView(withId(R.id.addspellbutton)).perform(click())
         onView(withId(R.id.manacost)).check(matches(
-            com.example.starsign.withText(
+            com.example.starsign.withRecyclerViewText(
                 2,
                 R.id.manaamounttext,
                 2.toString()

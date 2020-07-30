@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.starsign.R
 import com.example.starsign.database.DatabaseSource
 import com.example.starsign.database.Mana
@@ -25,10 +26,12 @@ class SourceEditorFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.source_creator_fragment, container, false)
         val args = arguments?.let{SourceEditorFragmentArgs.fromBundle(it)}
         val source = args?.card!!
+        binding.source = source
+        val layoutManager = LinearLayoutManager(this.context)
+        binding.sourcetypes.layoutManager = layoutManager
         val requirementAdapter = AttributeAdapter(source.source)
         requirementAdapter.submitList(Mana.values().asList())
         binding.sourcetypes.adapter = requirementAdapter
-        binding.sourcetitletext.text.insert(0, source.title)
         binding.sourcecreatorbutton.setOnClickListener {
             val attributeRequirements = mutableMapOf<Mana, Int>()
             for (index in 0 until (binding.sourcetypes.adapter as AttributeAdapter).itemCount) {

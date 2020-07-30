@@ -18,6 +18,7 @@ import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.BoundedMatcher
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.*
+import androidx.test.filters.MediumTest
 import com.example.starsign.*
 import com.example.starsign.cardcreator.CardCreatorFragment
 import com.example.starsign.cardformulars.AttributeViewHolder
@@ -34,7 +35,7 @@ import org.junit.Test
 import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
 
-
+@MediumTest
 @ExperimentalCoroutinesApi
 class SourceCreatorTest {
     private lateinit var scenario: FragmentScenario<SourceCreator>
@@ -74,7 +75,7 @@ class SourceCreatorTest {
         onView(withId(R.id.sourcetypes)).perform(
             RecyclerViewActions.scrollToPosition<AttributeViewHolder>(2)
         )
-        onView(withId(R.id.sourcetypes)).check(matches(withText(2, R.id.manaamounttext, 0.toString())))
+        onView(withId(R.id.sourcetypes)).check(matches(withRecyclerViewText(2, R.id.manaamounttext, 0.toString())))
     }
 
     @Test
@@ -85,6 +86,6 @@ class SourceCreatorTest {
         onView(withId(R.id.sourcetypes)).perform(
             RecyclerViewActions.actionOnItemAtPosition<AttributeViewHolder>(2, MyViewAction.typeOnViewWithId(R.id.manaamounttext, 2))
         )
-        onView(withId(R.id.sourcetypes)).check(matches(withText(2, R.id.manaamounttext, 2.toString())))
+        onView(withId(R.id.sourcetypes)).check(matches(withRecyclerViewText(2, R.id.manaamounttext, 2.toString())))
     }
 }

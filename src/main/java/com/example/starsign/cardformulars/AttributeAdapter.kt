@@ -26,8 +26,13 @@ class AttributeAdapter(val manalist: Map<Mana,Int>?=null): ListAdapter<Mana, Rec
                     if (manalist.containsKey(selectItem)){
                         holder.bind(selectItem, manalist.get(selectItem)!!)
                     }
+                    else{
+                        holder.bind(selectItem)
+                    }
                 }
-                holder.bind(selectItem)
+                else {
+                    holder.bind(selectItem)
+                }
             }
         }
     }

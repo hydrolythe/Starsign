@@ -7,10 +7,7 @@ import com.example.starsign.database.Card
 import com.example.starsign.database.DatabaseCard
 import com.example.starsign.repository.CardRepository
 import com.example.starsign.repository.ICardRepository
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import java.lang.IllegalArgumentException
 
 class EditorViewModel(val cardRepository: ICardRepository): ViewModel() {
@@ -24,6 +21,9 @@ class EditorViewModel(val cardRepository: ICardRepository): ViewModel() {
     get() = _cardEditResult
 
     inline fun <reified T:DatabaseCard?> getDbCard(title: String):T?{
+        runBlocking {
+            cardRepository.refreshCards()
+        }
         val dbCard = cardRepository.getCardOnDetail(title)
         if(dbCard is T){
             return dbCard
