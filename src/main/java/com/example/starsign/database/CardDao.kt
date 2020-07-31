@@ -8,7 +8,7 @@ interface CardDao {
     @Insert(onConflict = OnConflictStrategy.ABORT)
     fun insert(card: DatabaseCard)
     @Query("SELECT * FROM Card")
-    fun getCards() : LiveData<List<DatabaseCard>>
+    fun getCards() : List<DatabaseCard>
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(cards: List<DatabaseCard>)
     @Update(onConflict = OnConflictStrategy.ABORT)

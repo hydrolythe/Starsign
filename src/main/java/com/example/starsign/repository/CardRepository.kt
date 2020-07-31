@@ -1,6 +1,7 @@
 package com.example.starsign.repository
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import com.example.starsign.database.*
 import com.example.starsign.network.Network
@@ -12,9 +13,10 @@ import retrofit2.Response
 
 class CardRepository(private val database: StarsignDatabase): ICardRepository {
 
-    val cards: LiveData<List<Card>> = Transformations.map(database.cardDao.getCards()){
-        it.asDomainModel()
-    }
+    val cards = MutableLiveData<List<Card>>(database.cardDao.getCards().asDomainModel())
+
+    val lcards : LiveData<List<Card>>
+    get() = cards
 
     override suspend fun addCard(card: Card): DatabaseCard {
         return withContext(Dispatchers.IO) {
@@ -41,7 +43,7 @@ class CardRepository(private val database: StarsignDatabase): ICardRepository {
     }
 
     override fun getDomainCards(): LiveData<List<Card>> {
-        return cards
+        return lcards
     }
 
     override suspend fun removeCards(cards: List<Card>):List<DatabaseCard> {
