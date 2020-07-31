@@ -6,10 +6,12 @@ import androidx.fragment.app.testing.FragmentScenario
 import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.action.ViewActions.clearText
+import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers
+import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.filters.MediumTest
 import com.example.starsign.*
 import com.example.starsign.cardformulars.*
@@ -50,6 +52,7 @@ class SpellEditorFragmentTest {
             isEditTextValueEqualTo(title)
         ))
         Espresso.onView(ViewMatchers.withId(R.id.spelltitletext)).perform(clearText())
+        Espresso.onView(ViewMatchers.withId(R.id.addspellbutton)).perform(click())
         Espresso.onView(ViewMatchers.withId(R.id.spellspeciesoptions)).perform(
             RecyclerViewActions.scrollToPosition<SpellspeciesViewHolder>(SpellSpecies.EQUIPMENT.ordinal)
         )
@@ -78,6 +81,21 @@ class SpellEditorFragmentTest {
                     R.id.spellamounttext,
                     2.toString()
                 )
+            )
+        )
+    }
+    @Test
+    fun MakeSpell_Correct_SaysEdited(){
+        Espresso.onView(ViewMatchers.withId(R.id.addspellbutton)).perform(click())
+        Espresso.onView(
+            withText(
+                String.format(
+                    "Successful edit"
+                )
+            )
+        ).inRoot(ToastMatcher()).check(
+            matches(
+                ViewMatchers.isDisplayed()
             )
         )
     }

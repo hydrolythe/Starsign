@@ -44,33 +44,16 @@ class MonsterDetailFragment() : Fragment() {
 
     private fun createView(monster:Monster){
         binding.titlelabel.text = monster.title
-        val layoutManager = LinearLayoutManager(this.context)
-        binding.manarequirementslist.layoutManager = layoutManager
-        val manaAdapter = monster.manarequirements.let { ManaDetailAdapter(it) }
-        manaAdapter.submitList(monster.manarequirements.keys.toList())
-        binding.manarequirementslist.adapter = manaAdapter
         binding.healthtext.text = monster.life.toString()
         binding.attacktext.text = monster.attack.toString()
         binding.defensetext.text = monster.defense.toString()
         binding.magicattacktext.text = monster.magicattack.toString()
         binding.magicdefensetext.text = monster.magicdefense.toString()
         binding.mptext.text = monster.mp.toString()
-        if(monster.spells!=null) {
-            val layoutManager2 = LinearLayoutManager(this.context)
-            binding.spelllist.layoutManager = layoutManager2
-            val spellAdapter = monster.spells.let { SpellDetailAdapter(it) }
-            spellAdapter.submitList(monster.spells.keys.toList())
-            binding.spelllist.adapter = spellAdapter
-        }
-        else{
-            binding.spellrow.isEnabled = false
-        }
         val dbMonster = viewModel.getDbCard<DatabaseMonster>(monster.title)
         binding.editbutton.setOnClickListener {
             if(dbMonster != null) {
-                it.findNavController().navigate(MonsterDetailFragmentDirections.actionMonsterDetailFragmentToMonsterEditorFragment(
-                    dbMonster
-                ))
+                it.findNavController().navigate(MonsterDetailFragmentDirections.actionMonsterDetailFragmentToTrueMonsterFragment(dbMonster))
             }
             else{
                 Toast.makeText(context, String.format("Error: The name of the monster got modified while you tried to modify it."), Toast.LENGTH_SHORT)

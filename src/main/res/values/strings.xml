@@ -73,4 +73,8 @@
     <string name="the_card_has_been_modified_while_you_were_trying_to_edit_it">The card has been modified while you were trying to edit it.</string>
     <string name="return_to_menu">Return to menu</string>
     <string name="cards">Cards</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="submit">Submit monster</string>
+    <string name="effects_and_mp">Effects and mp</string>
 </resources>

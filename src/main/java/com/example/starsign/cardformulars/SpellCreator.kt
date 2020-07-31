@@ -49,7 +49,7 @@ class SpellCreator : Fragment() {
             val attributeRequirements = mutableMapOf<Mana, Int>()
             for(index in 0 until (binding.manacost.adapter as AttributeAdapter).itemCount){
                 val viewHolder = binding.manacost.findViewHolderForAdapterPosition(index) as AttributeViewHolder
-                if(viewHolder.getMana()!=null) {
+                if(viewHolder.getMana()!=null && viewHolder.getManaAmount()!=0) {
                     attributeRequirements[viewHolder.getMana()?:Mana.APEIRON] = viewHolder.getManaAmount()
                 }
             }

@@ -1,4 +1,4 @@
-package com.example.starsign.login
+package com.example.starsign.register
 
 import android.app.Activity
 import androidx.lifecycle.Lifecycle

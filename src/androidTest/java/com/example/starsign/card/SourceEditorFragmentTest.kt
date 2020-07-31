@@ -15,16 +15,13 @@ import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.filters.MediumTest
-import com.example.starsign.R
+import com.example.starsign.*
 import com.example.starsign.carddetail.SourceDetailFragment
 import com.example.starsign.cardformulars.AttributeViewHolder
 import com.example.starsign.cardformulars.SourceEditorFragment
 import com.example.starsign.database.DatabaseSource
 import com.example.starsign.database.Mana
 import com.example.starsign.database.Source
-import com.example.starsign.fakeCardModule
-import com.example.starsign.isEditTextValueEqualTo
-import com.example.starsign.withRecyclerViewText
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Before
 import org.junit.Test
@@ -68,6 +65,23 @@ class SourceEditorFragmentTest {
                     R.id.manaamounttext,
                     3.toString()
                 )
+            )
+        )
+    }
+
+    @Test
+    fun MakeSource_Correct_SaysSourceEdited(){
+        Espresso.onView(ViewMatchers.withId(R.id.sourcecreatorbutton)).perform(ViewActions.click())
+        Espresso.onView(ViewMatchers.withId(R.id.sourcecreatorbutton)).perform(ViewActions.click())
+        Espresso.onView(
+            withText(
+                String.format(
+                    "Successful edit"
+                )
+            )
+        ).inRoot(ToastMatcher()).check(
+            matches(
+                ViewMatchers.isDisplayed()
             )
         )
     }

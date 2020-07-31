@@ -37,7 +37,7 @@ class SourceEditorFragment : Fragment() {
             for (index in 0 until (binding.sourcetypes.adapter as AttributeAdapter).itemCount) {
                 val viewHolder =
                     binding.sourcetypes.findViewHolderForAdapterPosition(index) as AttributeViewHolder
-                if (viewHolder.getMana() != null) {
+                if (viewHolder.getMana() != null && viewHolder.getManaAmount()!=0) {
                     attributeRequirements[viewHolder.getMana() ?: Mana.APEIRON] =
                         viewHolder.getManaAmount()
                 }
@@ -57,8 +57,6 @@ class SourceEditorFragment : Fragment() {
             if (it.success != null) {
                 Toast.makeText(context, String.format("Succesful edit."), Toast.LENGTH_SHORT)
                     .show()
-                getActivity()?.supportFragmentManager?.beginTransaction()?.remove(this)
-                    ?.commit()
             }
         })
         return binding.root

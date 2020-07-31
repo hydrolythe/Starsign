@@ -59,7 +59,11 @@
         android:id="@+id/monsterCreatorFragment"
         android:name="com.example.starsign.cardformulars.MonsterCreatorFragment"
         android:label="monster_creator_fragment"
-        tools:layout="@layout/monster_creator_fragment" />
+        tools:layout="@layout/monster_creator_fragment" >
+        <action
+            android:id="@+id/action_monsterCreatorFragment_to_trueMonsterCreatorFragment"
+            app:destination="@id/trueMonsterCreatorFragment" />
+    </fragment>
     <fragment
         android:id="@+id/sourceCreator"
         android:name="com.example.starsign.cardformulars.SourceCreator"
@@ -101,8 +105,8 @@
             android:name="card"
             app:argType="com.example.starsign.database.Monster" />
         <action
-            android:id="@+id/action_monsterDetailFragment_to_monsterEditorFragment"
-            app:destination="@id/monsterEditorFragment" />
+            android:id="@+id/action_monsterDetailFragment_to_trueMonsterFragment"
+            app:destination="@id/trueMonsterFragment" />
     </fragment>
     <fragment
         android:id="@+id/monsterEditorFragment"
@@ -111,6 +115,9 @@
         <argument
             android:name="card"
             app:argType="com.example.starsign.database.DatabaseMonster" />
+        <action
+            android:id="@+id/action_monsterEditorFragment_to_trueMonsterEditorFragment"
+            app:destination="@id/trueMonsterEditorFragment" />
     </fragment>
     <fragment
         android:id="@+id/sourceEditorFragment"
@@ -132,4 +139,34 @@
         android:id="@+id/carddeleteFragment"
         android:name="com.example.starsign.cardcreator.CarddeleteFragment"
         android:label="CarddeleteFragment" />
+    <fragment
+        android:id="@+id/trueMonsterEditorFragment"
+        android:name="com.example.starsign.cardformulars.TrueMonsterEditorFragment"
+        android:label="TrueMonsterEditorFragment" >
+        <argument android:name="protomonster"
+            app:argType="com.example.starsign.database.ProtoMonster" />
+        <argument
+            android:name="dbMonster"
+            app:argType="com.example.starsign.database.DatabaseMonster" />
+    </fragment>
+    <fragment
+        android:id="@+id/trueMonsterFragment"
+        android:name="com.example.starsign.carddetail.TrueMonsterFragment"
+        android:label="TrueMonsterFragment" >
+        <action
+            android:id="@+id/action_trueMonsterFragment_to_monsterEditorFragment"
+            app:destination="@id/monsterEditorFragment" />
+        <argument
+            android:name="card"
+            app:argType="com.example.starsign.database.DatabaseMonster" />
+    </fragment>
+    <fragment
+        android:id="@+id/trueMonsterCreatorFragment"
+        android:name="com.example.starsign.cardformulars.TrueMonsterCreatorFragment"
+        android:label="fragment_true_monster_creator"
+        tools:layout="@layout/fragment_true_monster_creator" >
+        <argument
+            android:name="protomonster"
+            app:argType="com.example.starsign.database.ProtoMonster" />
+    </fragment>
 </navigation>

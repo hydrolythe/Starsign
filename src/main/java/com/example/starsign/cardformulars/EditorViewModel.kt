@@ -20,10 +20,13 @@ class EditorViewModel(val cardRepository: ICardRepository): ViewModel() {
     val cardEditResult : LiveData<CardEditResult>
     get() = _cardEditResult
 
-    inline fun <reified T:DatabaseCard?> getDbCard(title: String):T?{
+    init{
         runBlocking {
             cardRepository.refreshCards()
         }
+    }
+
+    inline fun <reified T:DatabaseCard?> getDbCard(title: String):T?{
         val dbCard = cardRepository.getCardOnDetail(title)
         if(dbCard is T){
             return dbCard

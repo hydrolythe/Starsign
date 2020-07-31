@@ -7,6 +7,7 @@ import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers.withId
@@ -14,13 +15,14 @@ import androidx.test.espresso.matcher.ViewMatchers.withText
 import com.example.starsign.R
 import com.example.starsign.carddetail.ManaDetailViewHolder
 import com.example.starsign.carddetail.MonsterDetailFragment
+import com.example.starsign.carddetail.MonsterDetailFragmentDirections
 import com.example.starsign.carddetail.SpellDetailViewHolder
 import com.example.starsign.cardformulars.AttributeViewHolder
 import com.example.starsign.cardformulars.CardCreatorViewModel
-import com.example.starsign.database.Mana
-import com.example.starsign.database.Monster
-import com.example.starsign.database.Spell
+import com.example.starsign.database.*
 import com.example.starsign.fakeCardModule
+import com.example.starsign.listDbCards
+import com.example.starsign.typeofcardmenu.TypeOfCardFragmentDirections
 import com.example.starsign.withRecyclerViewText
 import org.junit.Before
 import org.junit.Test
@@ -62,19 +64,19 @@ class MonsterDetailTest {
     @Test
     fun checkIfMonsterIsCorrectlyLoaded(){
         onView(withId(R.id.titlelabel)).check(matches(withText(title)))
-        manamap.keys.forEach {
-            onView(withId(R.id.manarequirementslist)).perform(RecyclerViewActions.scrollToPosition<ManaDetailViewHolder>(it.ordinal))
-            onView(withId(R.id.manarequirementslist)).check(matches(withRecyclerViewText(it.ordinal, R.id.amountlabel, manamap[it].toString())))
-        }
-        onView(withId(R.id.healthtext)).check(matches(withText(life)))
-        onView(withId(R.id.attacktext)).check(matches(withText(attack)))
-        onView(withId(R.id.defensetext)).check(matches(withText(defense)))
-        onView(withId(R.id.magicattacktext)).check(matches(withText(magicattack)))
-        onView(withId(R.id.magicdefensetext)).check(matches(withText(magicdefense)))
-        onView(withId(R.id.mptext)).check(matches(withText(mp)))
-        spellmap.keys.forEach{
-            onView(withId(R.id.spelllist)).perform(RecyclerViewActions.scrollToPosition<SpellDetailViewHolder>(it.ordinal))
-            onView(withId(R.id.spelllist)).check(matches(withRecyclerViewText(it.ordinal, R.id.powerlabel, spellmap[it].toString())))
-        }
+        onView(withId(R.id.healthtext)).check(matches(withText(life.toString())))
+        onView(withId(R.id.attacktext)).check(matches(withText(attack.toString())))
+        onView(withId(R.id.defensetext)).check(matches(withText(defense.toString())))
+        onView(withId(R.id.magicattacktext)).check(matches(withText(magicattack.toString())))
+        onView(withId(R.id.magicdefensetext)).check(matches(withText(magicdefense.toString())))
+        onView(withId(R.id.mptext)).check(matches(withText(mp.toString())))
+    }
+
+    @Test
+    fun onNavigation_navigatesToCorrectFragment(){
+        onView(withId(R.id.editbutton)).perform(click())
+        Mockito.verify(navController).navigate(
+            MonsterDetailFragmentDirections.actionMonsterDetailFragmentToTrueMonsterFragment(listDbCards[3] as DatabaseMonster)
+        )
     }
 }

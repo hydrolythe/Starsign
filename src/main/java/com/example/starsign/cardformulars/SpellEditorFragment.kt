@@ -50,7 +50,7 @@ class SpellEditorFragment : Fragment() {
             for (index in 0 until (binding.manacost.adapter as AttributeAdapter).itemCount) {
                 val viewHolder =
                     binding.manacost.findViewHolderForAdapterPosition(index) as AttributeViewHolder
-                if (viewHolder.getMana() != null) {
+                if (viewHolder.getMana() != null && viewHolder.getManaAmount()!=0) {
                     attributeRequirements[viewHolder.getMana() ?: Mana.APEIRON] =
                         viewHolder.getManaAmount()
                 }
@@ -59,7 +59,7 @@ class SpellEditorFragment : Fragment() {
             for (index in 0 until (binding.effectspells.adapter as EffectsAdapter).itemCount) {
                 val viewHolder =
                     binding.effectspells.findViewHolderForAdapterPosition(index) as EffectViewHolder
-                if (viewHolder.getSpell() != null) {
+                if (viewHolder.getSpell() != null && viewHolder.getMpAmount()!=0) {
                     spells[viewHolder.getSpell() ?: Spell.BOOSTATTACK] =
                         viewHolder.getMpAmount()
                 }
@@ -79,10 +79,8 @@ class SpellEditorFragment : Fragment() {
                 Toast.makeText(context, it.exception.message, Toast.LENGTH_SHORT).show()
             }
             if (it.success != null) {
-                Toast.makeText(context, String.format("Succesful edit."), Toast.LENGTH_SHORT)
+                Toast.makeText(context, String.format("Successful edit."), Toast.LENGTH_SHORT)
                     .show()
-                getActivity()?.supportFragmentManager?.beginTransaction()?.remove(this)
-                    ?.commit()
             }
         })
         return binding.root
