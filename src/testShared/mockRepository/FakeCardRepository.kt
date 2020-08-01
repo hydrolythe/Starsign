@@ -95,7 +95,7 @@ class FakeCardRepository(private val listdbCard: MutableList<DatabaseCard>) : IC
                 spells = card.spells
             )
             is Source ->
-                DatabaseSource(cardid = cards.value?.size?.toLong() ?: 0, title = card.title, source = card.source)
+                DatabaseSource(cardid = cards.value?.size?.toLong() ?: 0, title = card.title, manas = card.manas)
             else -> throw IllegalArgumentException("The type can not be converted")
         }
     }

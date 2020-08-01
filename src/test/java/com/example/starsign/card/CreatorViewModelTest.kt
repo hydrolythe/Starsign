@@ -45,7 +45,7 @@ class CreatorViewModelTest {
         DatabaseSource(
             cardid = 3,
             title = "Miletus",
-            source = mapOf(Pair(Mana.APEIRON, 3))
+            manas = mapOf(Pair(Mana.APEIRON, 3))
         ),
         DatabaseMonster(
             cardid = 4,

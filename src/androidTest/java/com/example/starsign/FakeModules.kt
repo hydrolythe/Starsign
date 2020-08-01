@@ -44,7 +44,7 @@ val listDbCards = mutableListOf(
     DatabaseSource(
         cardid = 2,
         title = "Miletus",
-        source = mapOf(Pair(Mana.APEIRON, 3))
+        manas = mapOf(Pair(Mana.APEIRON, 3))
     ),
     DatabaseMonster(
         cardid = 3,
