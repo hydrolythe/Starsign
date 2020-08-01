@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val sharedPreferences = this.getSharedPreferences("user", Context.MODE_PRIVATE)
+/*        val sharedPreferences = this.getSharedPreferences("user", Context.MODE_PRIVATE)
         if(sharedPreferences.contains("currentUser")) {
             val key = sharedPreferences.getString("currentUser", "")
             val expiration = JwtUtils.getExpiracyDate(key ?: "")
@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
         }
         else{
             startLogin()
-        }
+        }*/
         val binding = DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
         val navController = this.findNavController(R.id.nav_host_fragment)
         NavigationUI.setupActionBarWithNavController(this, navController)

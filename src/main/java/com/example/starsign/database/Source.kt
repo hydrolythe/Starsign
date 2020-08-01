@@ -5,5 +5,5 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class Source(
     override val title : String,
-    val source: Map<Mana, Int>
+    val manas: Map<Mana, Int>
 ):Card(title) {}

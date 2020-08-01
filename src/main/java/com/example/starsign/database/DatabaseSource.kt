@@ -8,5 +8,5 @@ import kotlinx.android.parcel.Parcelize
 class DatabaseSource(
     override val cardid:Long,
     override val title : String,
-    val source: Map<Mana, Int>
+    val manas: Map<Mana, Int>
 ): DatabaseCard(cardid, title) {}

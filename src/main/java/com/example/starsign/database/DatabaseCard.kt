@@ -34,7 +34,7 @@ open class DatabaseCard(
                 species = this.species,
                 spells = this.spells
             )
-            is DatabaseSource -> Source(title = this.title, source = this.source)
+            is DatabaseSource -> Source(title = this.title, manas = this.manas)
             else -> throw IllegalArgumentException("The type can not be converted")
         }
     }
@@ -45,7 +45,7 @@ fun List<DatabaseCard>.asDomainModel(): List<Card>{
         when(it){
             is DatabaseMonster -> Monster(title = it.title, manarequirements = it.manarequirements, life = it.life, attack = it.attack, defense = it.defense, magicattack = it.magicattack, magicdefense = it.magicdefense, mp = it.mp, spells = it.spells)
             is DatabaseMagic -> Magic(title = it.title, manaamount = it.manaamount, species = it.species, spells = it.spells)
-            is DatabaseSource -> Source(title = it.title, source = it.source)
+            is DatabaseSource -> Source(title = it.title, manas = it.manas)
             else -> throw IllegalArgumentException("The type can not be converted")
         }
     }

@@ -52,8 +52,8 @@ class SourceDetailFragment : Fragment() {
         binding.manatitletext.text = source.title
         val layoutManager = LinearLayoutManager(this.context)
         binding.manageneratorlist.layoutManager = layoutManager
-        val manaAdapter = source.source.let{ManaDetailAdapter(it)}
-        manaAdapter.submitList(source.source.keys.toList())
+        val manaAdapter = source.manas.let{ManaDetailAdapter(it)}
+        manaAdapter.submitList(source.manas.keys.toList())
         binding.manageneratorlist.adapter = manaAdapter
         val dbSource = viewModel.getDbCard<DatabaseSource>(source.title)
         binding.editbutton.setOnClickListener {
