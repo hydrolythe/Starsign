@@ -11,7 +11,7 @@ import kotlinx.android.parcel.Parcelize
 @Entity(tableName="Card", indices = arrayOf(Index(value = ["title"], unique=true)))
 open class DatabaseCard(
     @PrimaryKey
-    open val cardid: Int,
+    open val cardid: Long,
     @ColumnInfo(name="title")
     open val title: String
 ): Parcelable {

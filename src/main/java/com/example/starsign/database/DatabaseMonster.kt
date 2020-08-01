@@ -8,7 +8,7 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 class DatabaseMonster(
     @PrimaryKey
-    override val cardid: Int,
+    override val cardid: Long,
     override val title: String,
     val manarequirements: Map<Mana,Int>,
     val life: Int,

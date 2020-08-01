@@ -16,5 +16,5 @@ interface CardDao {
     @Query("SELECT * FROM Card WHERE title=:title")
     fun getCard(title: String): DatabaseCard?
     @Query("DELETE FROM Card WHERE cardid in (:cardids)")
-    fun deleteCards(cardids: List<Int>)
+    fun deleteCards(cardids: List<Long>)
 }

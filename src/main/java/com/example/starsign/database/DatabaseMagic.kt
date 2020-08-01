@@ -8,7 +8,7 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 class DatabaseMagic(
     @PrimaryKey
-    override val cardid: Int,
+    override val cardid: Long,
     override val title: String,
     val species: SpellSpecies,
     val spells: Map<Spell, Int>,

@@ -15,5 +15,5 @@ interface CardApiService {
     @PUT()
     fun updateCard(@Body card: DatabaseCard):Deferred<Response<Any>>
     @DELETE()
-    fun deleteCards(@Body cards: List<String>):Deferred<List<DatabaseCard>>
+    fun deleteCards(@Body titles: List<String>):Deferred<List<DatabaseCard>>
 }
