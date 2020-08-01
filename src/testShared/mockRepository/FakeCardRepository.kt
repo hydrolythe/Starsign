@@ -49,7 +49,7 @@ class FakeCardRepository(private val listdbCard: MutableList<DatabaseCard>) : IC
         if(!cards.value!!.map{it.cardid}.contains(card.cardid)){
             return Response.error(400, ResponseBody.create(MediaType.get("application/json"), "Bad request"))
         }
-        cards.value!!.set(cards.value!!.map{it.cardid}.get(card.cardid), card)
+        cards.value!!.set(cards.value!!.map{it.cardid}.get(card.cardid.toInt()).toInt(), card)
         return Response.success(204, ResponseBody.create(MediaType.get("application/json"), "No content"))
     }
 
@@ -76,7 +76,7 @@ class FakeCardRepository(private val listdbCard: MutableList<DatabaseCard>) : IC
     private fun fromCardToDatabaseCard(card:Card):DatabaseCard{
         return when (card) {
             is Monster -> DatabaseMonster(
-                cardid = cards.value?.size ?: 0,
+                cardid = cards.value?.size?.toLong() ?: 0,
                 title = card.title,
                 manarequirements = card.manarequirements,
                 life = card.life,
@@ -88,14 +88,14 @@ class FakeCardRepository(private val listdbCard: MutableList<DatabaseCard>) : IC
                 spells = card.spells
             )
             is Magic -> DatabaseMagic(
-                cardid = cards.value?.size ?: 0,
+                cardid = cards.value?.size?.toLong() ?: 0,
                 title = card.title,
                 manaamount = card.manaamount,
                 species = card.species ?: throw NullPointerException(),
                 spells = card.spells
             )
             is Source ->
-                DatabaseSource(cardid = cards.value?.size ?: 0, title = card.title, source = card.source)
+                DatabaseSource(cardid = cards.value?.size?.toLong() ?: 0, title = card.title, source = card.source)
             else -> throw IllegalArgumentException("The type can not be converted")
         }
     }
