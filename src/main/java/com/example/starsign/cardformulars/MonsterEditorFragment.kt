@@ -68,7 +68,6 @@ class MonsterEditorFragment : Fragment()  {
                 texts.forEach { edit -> edit.clear() }
             }
         })
-        binding.submitmonster.isEnabled = false
         return binding.root
     }
 }
