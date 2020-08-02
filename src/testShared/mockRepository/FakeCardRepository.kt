@@ -59,7 +59,7 @@ class FakeCardRepository(private val listdbCard: MutableList<DatabaseCard>) : IC
         }
     }
 
-    override fun getCardOnDetail(title: String): DatabaseCard? {
+    override suspend fun getCardOnDetail(title: String): DatabaseCard? {
         val index = cards.value!!.map{it.title}.indexOf(title)
         if(index>=0) {
             return cards.value!!.get(index)
@@ -69,7 +69,7 @@ class FakeCardRepository(private val listdbCard: MutableList<DatabaseCard>) : IC
         }
     }
 
-    override fun getDomainCards(): LiveData<List<Card>> {
+    override suspend fun getDomainCards(): LiveData<List<Card>> {
         return lcards
     }
 

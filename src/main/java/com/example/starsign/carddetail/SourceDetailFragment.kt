@@ -26,6 +26,7 @@ import org.koin.android.ext.android.inject
 class SourceDetailFragment : Fragment() {
     private lateinit var binding : FragmentSourceDetailBinding
     private val viewModel: EditorViewModel by inject()
+    private lateinit var dbSource : DatabaseSource
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -55,10 +56,9 @@ class SourceDetailFragment : Fragment() {
         val manaAdapter = source.manas.let{ManaDetailAdapter(it)}
         manaAdapter.submitList(source.manas.keys.toList())
         binding.manageneratorlist.adapter = manaAdapter
-        val dbSource = viewModel.getDbCard<DatabaseSource>(source.title)
-        binding.editbutton.setOnClickListener {
-            if(dbSource!=null){
-                it.findNavController().navigate(SourceDetailFragmentDirections.actionSourceDetailFragmentToSourceEditorFragment(dbSource))
+        viewModel.dbCardResult.observe(viewLifecycleOwner, Observer{
+            if(it.success!=null && it.success is DatabaseSource){
+                dbSource = it.success
             }
             else{
                 Toast.makeText(context, String.format("Error: The name of the monster got modified while you tried to modify it."), Toast.LENGTH_SHORT)
@@ -66,6 +66,9 @@ class SourceDetailFragment : Fragment() {
                 getActivity()?.supportFragmentManager?.beginTransaction()?.remove(this)
                     ?.commit()
             }
+        })
+        binding.editbutton.setOnClickListener {
+            it.findNavController().navigate(SourceDetailFragmentDirections.actionSourceDetailFragmentToSourceEditorFragment(dbSource))
         }
     }
 

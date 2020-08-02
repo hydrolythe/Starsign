@@ -25,6 +25,7 @@ import org.koin.android.ext.android.inject
 class SpellDetailFragment : Fragment() {
     private lateinit var binding : FragmentSpellDetailBinding
     private val viewModel: EditorViewModel by inject()
+    private lateinit var dbSpell : DatabaseMagic
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -60,10 +61,9 @@ class SpellDetailFragment : Fragment() {
         val spellAdapter = spell.spells.let{SpellDetailAdapter(it)}
         spellAdapter.submitList(spell.spells.keys.toList())
         binding.effectlist.adapter = spellAdapter
-        val dbSpell = viewModel.getDbCard<DatabaseMagic>(spell.title)
-        binding.edittextbutton.setOnClickListener {
-            if(dbSpell!=null){
-                it.findNavController().navigate(SpellDetailFragmentDirections.actionSpellDetailFragmentToSpellEditorFragment(dbSpell))
+        viewModel.dbCardResult.observe(viewLifecycleOwner, Observer{
+            if(it.success!=null && it.success is DatabaseMagic){
+                dbSpell = it.success
             }
             else{
                 Toast.makeText(context, String.format("Error: The name of the monster got modified while you tried to modify it."), Toast.LENGTH_SHORT)
@@ -71,6 +71,9 @@ class SpellDetailFragment : Fragment() {
                 getActivity()?.supportFragmentManager?.beginTransaction()?.remove(this)
                     ?.commit()
             }
+        })
+        binding.edittextbutton.setOnClickListener {
+            it.findNavController().navigate(SpellDetailFragmentDirections.actionSpellDetailFragmentToSpellEditorFragment(dbSpell))
         }
     }
 }

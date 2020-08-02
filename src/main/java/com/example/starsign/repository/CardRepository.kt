@@ -13,11 +13,6 @@ import retrofit2.Response
 
 class CardRepository(private val database: StarsignDatabase): ICardRepository {
 
-    val cards = MutableLiveData<List<Card>>(database.cardDao.getCards().asDomainModel())
-
-    val lcards : LiveData<List<Card>>
-    get() = cards
-
     override suspend fun addCard(card: Card): DatabaseCard {
         return withContext(Dispatchers.IO) {
             val insertProgress = Network.cardApiService.addCard(card)
@@ -38,12 +33,17 @@ class CardRepository(private val database: StarsignDatabase): ICardRepository {
         }
     }
 
-    override fun getCardOnDetail(title: String): DatabaseCard? {
-        return database.cardDao.getCard(title)
+    override suspend fun getCardOnDetail(title: String): DatabaseCard? {
+        return withContext(Dispatchers.IO) {
+            val dbCard = database.cardDao.getCard(title)
+            dbCard
+        }
     }
 
-    override fun getDomainCards(): LiveData<List<Card>> {
-        return lcards
+    override suspend fun getDomainCards(): LiveData<List<Card>> {
+        return withContext(Dispatchers.IO) {
+            MutableLiveData<List<Card>>(database.cardDao.getCards().asDomainModel())
+        }
     }
 
     override suspend fun removeCards(cards: List<Card>):List<DatabaseCard> {

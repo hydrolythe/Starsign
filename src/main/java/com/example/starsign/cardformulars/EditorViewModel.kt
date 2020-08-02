@@ -9,16 +9,20 @@ import com.example.starsign.repository.CardRepository
 import com.example.starsign.repository.ICardRepository
 import kotlinx.coroutines.*
 import java.lang.IllegalArgumentException
+import java.util.*
 
 class EditorViewModel(val cardRepository: ICardRepository): ViewModel() {
     private val viewModelJob = Job()
-    private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
+    val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
     private var _newCard = MutableLiveData<Card>()
     val newCard : LiveData<Card>
     get() = _newCard
     private var _cardEditResult = MutableLiveData<CardEditResult>()
     val cardEditResult : LiveData<CardEditResult>
     get() = _cardEditResult
+    private var _dbCardResult = MutableLiveData<DatabaseCardResult>()
+    val dbCardResult : LiveData<DatabaseCardResult>
+    get() = _dbCardResult
 
     init{
         runBlocking {
@@ -26,12 +30,14 @@ class EditorViewModel(val cardRepository: ICardRepository): ViewModel() {
         }
     }
 
-    inline fun <reified T:DatabaseCard?> getDbCard(title: String):T?{
-        val dbCard = cardRepository.getCardOnDetail(title)
-        if(dbCard is T){
-            return dbCard
-        } else{
-            return null
+    fun <T:DatabaseCard?> getDbCard(title: String){
+        uiScope.launch {
+            try {
+                val dbCard = cardRepository.getCardOnDetail(title)
+                _dbCardResult.value = DatabaseCardResult(success=dbCard)
+            } catch(e:Exception){
+                _dbCardResult.value = DatabaseCardResult(exception=e)
+            }
         }
     }
 

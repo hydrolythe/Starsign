@@ -20,6 +20,7 @@ class MonsterDetailFragment() : Fragment() {
 
     private lateinit var binding : MonsterDetailFragmentBinding
     private val viewModel: EditorViewModel by inject()
+    private lateinit var dbMonster : DatabaseMonster
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -50,10 +51,9 @@ class MonsterDetailFragment() : Fragment() {
         binding.magicattacktext.text = monster.magicattack.toString()
         binding.magicdefensetext.text = monster.magicdefense.toString()
         binding.mptext.text = monster.mp.toString()
-        val dbMonster = viewModel.getDbCard<DatabaseMonster>(monster.title)
-        binding.editbutton.setOnClickListener {
-            if(dbMonster != null) {
-                it.findNavController().navigate(MonsterDetailFragmentDirections.actionMonsterDetailFragmentToTrueMonsterFragment(dbMonster))
+        viewModel.dbCardResult.observe(viewLifecycleOwner, Observer{
+            if(it.success!=null && it.success is DatabaseMonster){
+                dbMonster = it.success
             }
             else{
                 Toast.makeText(context, String.format("Error: The name of the monster got modified while you tried to modify it."), Toast.LENGTH_SHORT)
@@ -61,6 +61,9 @@ class MonsterDetailFragment() : Fragment() {
                 getActivity()?.supportFragmentManager?.beginTransaction()?.remove(this)
                     ?.commit()
             }
+        })
+        binding.editbutton.setOnClickListener {
+            it.findNavController().navigate(MonsterDetailFragmentDirections.actionMonsterDetailFragmentToTrueMonsterFragment(dbMonster))
         }
     }
 

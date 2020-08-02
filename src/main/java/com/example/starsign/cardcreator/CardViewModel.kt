@@ -11,13 +11,13 @@ class CardViewModel(val cardRepository:ICardRepository): ViewModel() {
     private var _cardResult = MutableLiveData<CardResult>()
     val cardResult : LiveData<CardResult>
         get() = _cardResult
-    val cardList : LiveData<List<Card>>
-        get() = cardRepository.getDomainCards()
+    lateinit var cardList : LiveData<List<Card>>
     private val viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
     init{
         runBlocking {
             cardRepository.refreshCards()
+            cardList = cardRepository.getDomainCards()
         }
     }
     fun deleteCards(cardstodelete:List<Card>){

@@ -12,6 +12,6 @@ interface ICardRepository {
     suspend fun removeCards(cards: List<Card>):List<DatabaseCard>
     suspend fun editCard(card: DatabaseCard): Response<Any>
     suspend fun refreshCards()
-    fun getCardOnDetail(title: String): DatabaseCard?
-    fun getDomainCards(): LiveData<List<Card>>
+    suspend fun getCardOnDetail(title: String): DatabaseCard?
+    suspend fun getDomainCards(): LiveData<List<Card>>
 }

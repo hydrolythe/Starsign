@@ -10,6 +10,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import com.example.starsign.R
 import com.example.starsign.databinding.FragmentMenuBinding
+import kotlinx.coroutines.runBlocking
+import java.net.InetAddress
 
 /**
  * A simple [Fragment] subclass.
@@ -17,6 +19,7 @@ import com.example.starsign.databinding.FragmentMenuBinding
 class MenuFragment : Fragment() {
 
     private lateinit var binding: FragmentMenuBinding
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

@@ -35,7 +35,6 @@
             android:layout_marginEnd="30dp"
             android:layout_marginRight="30dp"
             android:background="#2E0946"
-            android:enabled="false"
             android:text="@string/removecard"
             android:textColor="#FC7F31"
             app:layout_constraintBottom_toBottomOf="parent"
