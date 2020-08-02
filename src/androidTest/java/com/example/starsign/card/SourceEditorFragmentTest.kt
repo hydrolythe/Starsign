@@ -76,7 +76,7 @@ class SourceEditorFragmentTest {
         Espresso.onView(
             withText(
                 String.format(
-                    "Successful edit"
+                    "Successful edit."
                 )
             )
         ).inRoot(ToastMatcher()).check(

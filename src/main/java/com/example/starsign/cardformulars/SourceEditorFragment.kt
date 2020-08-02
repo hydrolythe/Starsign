@@ -55,7 +55,7 @@ class SourceEditorFragment : Fragment() {
                 Toast.makeText(context, it.exception.message, Toast.LENGTH_SHORT).show()
             }
             if (it.success != null) {
-                Toast.makeText(context, String.format("Succesful edit."), Toast.LENGTH_SHORT)
+                Toast.makeText(context, String.format("Successful edit."), Toast.LENGTH_SHORT)
                     .show()
             }
         })
