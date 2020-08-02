@@ -82,8 +82,8 @@ class EditorViewModelTest {
     fun getDbCard_ValidTitle_ReturnsDbCard(){
         val selectedCard = listDbCards[1]
         val title = selectedCard.title
-        val result = viewModel.getDbCard<DatabaseCard>(title)
-        assertThat(result, `is`(selectedCard))
+        viewModel.getDbCard<DatabaseCard>(title)
+        assertThat(LiveDataTestUtil.getValue(viewModel.dbCardResult).success, `is`(selectedCard))
     }
 
     @ExperimentalCoroutinesApi
@@ -91,8 +91,8 @@ class EditorViewModelTest {
     fun getDbCard_InvalidTitle_ReturnsNull(){
         val fakeCard = Monster(title="Irrat", manarequirements = mapOf(Pair(Mana.VOID, 2)), life=15, attack = 5, defense = 5, magicdefense = 8, magicattack = 10, mp = 5, spells = null)
         val title = fakeCard.title
-        val result = viewModel.getDbCard<DatabaseCard>(title)
-        assertThat(result, nullValue())
+        viewModel.getDbCard<DatabaseCard>(title)
+        assertThat(LiveDataTestUtil.getValue(viewModel.dbCardResult).exception, not(nullValue()))
     }
 
     @ExperimentalCoroutinesApi

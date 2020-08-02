@@ -65,7 +65,7 @@ class FakeCardRepository(private val listdbCard: MutableList<DatabaseCard>) : IC
             return cards.value!!.get(index)
         }
         else{
-            return null
+            throw NullPointerException()
         }
     }
 
