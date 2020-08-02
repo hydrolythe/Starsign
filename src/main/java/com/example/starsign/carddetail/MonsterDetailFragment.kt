@@ -44,6 +44,7 @@ class MonsterDetailFragment() : Fragment() {
     }
 
     private fun createView(monster:Monster){
+        binding.editbutton.isEnabled = false
         binding.titlelabel.text = monster.title
         binding.healthtext.text = monster.life.toString()
         binding.attacktext.text = monster.attack.toString()
@@ -51,9 +52,11 @@ class MonsterDetailFragment() : Fragment() {
         binding.magicattacktext.text = monster.magicattack.toString()
         binding.magicdefensetext.text = monster.magicdefense.toString()
         binding.mptext.text = monster.mp.toString()
+        viewModel.getDbCard<DatabaseMonster>(monster.title)
         viewModel.dbCardResult.observe(viewLifecycleOwner, Observer{
             if(it.success!=null && it.success is DatabaseMonster){
                 dbMonster = it.success
+                binding.editbutton.isEnabled = true
             }
             else{
                 Toast.makeText(context, String.format("Error: The name of the monster got modified while you tried to modify it."), Toast.LENGTH_SHORT)

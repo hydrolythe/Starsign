@@ -36,7 +36,7 @@ class SourceEditorFragmentTest {
     private lateinit var bundle : Bundle
     private val title = "Miletus"
     private val source = mapOf(Pair(Mana.APEIRON, 3))
-    private val id = 2
+    private val id = 2L
 
     @Before
     fun before(){

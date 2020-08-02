@@ -49,6 +49,7 @@ class SpellDetailFragment : Fragment() {
     }
 
     private fun createView(spell: Magic){
+        binding.edittextbutton.isEnabled = false
         binding.titlelabel.text = spell.title
         binding.spelltypetext.text = spell.species.name
         val layoutManager = LinearLayoutManager(this.context)
@@ -61,9 +62,11 @@ class SpellDetailFragment : Fragment() {
         val spellAdapter = spell.spells.let{SpellDetailAdapter(it)}
         spellAdapter.submitList(spell.spells.keys.toList())
         binding.effectlist.adapter = spellAdapter
+        viewModel.getDbCard<DatabaseMagic>(spell.title)
         viewModel.dbCardResult.observe(viewLifecycleOwner, Observer{
             if(it.success!=null && it.success is DatabaseMagic){
                 dbSpell = it.success
+                binding.edittextbutton.isEnabled = true
             }
             else{
                 Toast.makeText(context, String.format("Error: The name of the monster got modified while you tried to modify it."), Toast.LENGTH_SHORT)

@@ -28,7 +28,7 @@ import org.mockito.Mockito
 class SpellEditorFragmentTest {
     private lateinit var scenario: FragmentScenario<SpellEditorFragment>
     private lateinit var bundle : Bundle
-    private val cardid = 1
+    private val cardid = 1L
     private val title = "Sword"
     private val species = SpellSpecies.EQUIPMENT
     private val manaamount = mapOf(Pair(Mana.ATOM,3))

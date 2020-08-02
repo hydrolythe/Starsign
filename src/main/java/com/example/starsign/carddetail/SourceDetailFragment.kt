@@ -50,15 +50,18 @@ class SourceDetailFragment : Fragment() {
     }
 
     private fun createView(source:Source){
+        binding.editbutton.isEnabled = false
         binding.manatitletext.text = source.title
         val layoutManager = LinearLayoutManager(this.context)
         binding.manageneratorlist.layoutManager = layoutManager
         val manaAdapter = source.manas.let{ManaDetailAdapter(it)}
         manaAdapter.submitList(source.manas.keys.toList())
         binding.manageneratorlist.adapter = manaAdapter
+        viewModel.getDbCard<DatabaseSource>(source.title)
         viewModel.dbCardResult.observe(viewLifecycleOwner, Observer{
             if(it.success!=null && it.success is DatabaseSource){
                 dbSource = it.success
+                binding.editbutton.isEnabled = true
             }
             else{
                 Toast.makeText(context, String.format("Error: The name of the monster got modified while you tried to modify it."), Toast.LENGTH_SHORT)
