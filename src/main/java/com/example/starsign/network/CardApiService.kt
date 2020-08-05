@@ -2,6 +2,7 @@ package com.example.starsign.network
 
 import com.example.starsign.database.Card
 import com.example.starsign.database.DatabaseCard
+import com.example.starsign.database.DatabaseMonster
 import kotlinx.coroutines.Deferred
 import okhttp3.ResponseBody
 import retrofit2.Response
@@ -11,7 +12,7 @@ interface CardApiService {
     @POST("card")
     fun addCard(@Body card: Card): Deferred<DatabaseCard>
     @GET("card")
-    fun getCards(): Deferred<List<DatabaseCard>>
+    fun getCards(): Deferred<List<DatabaseMonster>>
     @PUT("card")
     fun updateCard(@Body card: DatabaseCard):Deferred<Response<Any>>
     @DELETE("card")

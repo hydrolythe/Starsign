@@ -46,7 +46,7 @@ fun List<DatabaseCard>.asDomainModel(): List<Card>{
             is DatabaseMonster -> Monster(title = it.title, manarequirements = it.manarequirements, life = it.life, attack = it.attack, defense = it.defense, magicattack = it.magicattack, magicdefense = it.magicdefense, mp = it.mp, spells = it.spells)
             is DatabaseMagic -> Magic(title = it.title, manaamount = it.manaamount, species = it.species, spells = it.spells)
             is DatabaseSource -> Source(title = it.title, manas = it.manas)
-            else -> throw IllegalArgumentException("The type can not be converted")
+            else -> Card(title=it.title)
         }
     }
     return x
