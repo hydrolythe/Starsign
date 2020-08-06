@@ -12,7 +12,7 @@ interface CardApiService {
     @POST("card")
     fun addCard(@Body card: Card): Deferred<DatabaseCard>
     @GET("card")
-    fun getCards(): Deferred<List<DatabaseMonster>>
+    fun getCards(): Deferred<List<DatabaseCard>>
     @PUT("card")
     fun updateCard(@Body card: DatabaseCard):Deferred<Response<Any>>
     @DELETE("card")

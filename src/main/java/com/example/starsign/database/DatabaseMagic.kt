@@ -6,8 +6,8 @@ import androidx.room.PrimaryKey
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
+@Entity(inheritSuperIndices = true)
 class DatabaseMagic(
-    @PrimaryKey
     override val cardid: Long,
     override val title: String,
     val species: SpellSpecies,
