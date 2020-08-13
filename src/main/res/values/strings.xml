@@ -28,7 +28,7 @@
         Events are cards that activate an effect and get discarded after that effect has been used on the field.
     </string>
     <string name="ruleitem">Rules</string>
-    <string name="header_text">Obtained cards</string>
+    <string name="header_text">Cards made</string>
     <string name="type_card_title">Select what type of card you want to make</string>
     <string name="create_monster">Monster</string>
     <string name="create_spell">Spell</string>

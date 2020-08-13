@@ -44,7 +44,7 @@ class CardCreatorFragment : Fragment() {
         val layoutManager = LinearLayoutManager(this.context)
         binding.cardlist.layoutManager = layoutManager
         viewModel.cardList.observe(viewLifecycleOwner, Observer{
-            adapter.submitList(it)
+            adapter.addHeaderAndSubmitList(it)
         })
         binding.cardlist.adapter = adapter
         return binding.root
