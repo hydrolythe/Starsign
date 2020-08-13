@@ -57,13 +57,6 @@ class CardCreatorTest : KoinTest {
     }
 
     @Test
-    fun DeleteButton_onClick_toDeleteCardMenu(){
-        verify(navController).navigate(
-            CardCreatorFragmentDirections.actionCardCreatorBoxToCarddeleteFragment()
-        )
-    }
-
-    @Test
     fun Details_onClick_givesDetailsCard(){
         val selected = listDbCards[0].asDomainModel()
         onView(withId(R.id.cardlist)).perform(RecyclerViewActions.actionOnItemAtPosition<CardCreatorAdapter.ViewHolder>(0, click()))
