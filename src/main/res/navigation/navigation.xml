@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/menuFragment"
         android:name="com.example.starsign.menu.MenuFragment"
-        android:label="fragment_menu"
+        android:label="Main Menu"
         tools:layout="@layout/fragment_menu">
         <action
             android:id="@+id/action_menuFragment_to_cardCreatorBox"
@@ -17,7 +17,7 @@
     <fragment
         android:id="@+id/cardCreatorBox"
         android:name="com.example.starsign.cardcreator.CardCreatorFragment"
-        android:label="fragment_card_creator_box"
+        android:label="Card Menu"
         tools:layout="@layout/fragment_card_creator">
         <action
             android:id="@+id/action_cardCreatorBox_to_typeOfCardFragment"
@@ -31,9 +31,6 @@
         <action
             android:id="@+id/action_cardCreatorBox_to_monsterDetailFragment"
             app:destination="@id/monsterDetailFragment" />
-        <action
-            android:id="@+id/action_cardCreatorBox_to_carddeleteFragment"
-            app:destination="@id/carddeleteFragment" />
     </fragment>
     <fragment
         android:id="@+id/rulesFragment"
@@ -43,7 +40,7 @@
     <fragment
         android:id="@+id/typeOfCardFragment"
         android:name="com.example.starsign.typeofcardmenu.TypeOfCardFragment"
-        android:label="type_of_card_fragment"
+        android:label="Select type to add"
         tools:layout="@layout/type_of_card_fragment">
         <action
             android:id="@+id/action_typeOfCardFragment_to_spellCreator"
@@ -58,8 +55,8 @@
     <fragment
         android:id="@+id/monsterCreatorFragment"
         android:name="com.example.starsign.cardformulars.MonsterCreatorFragment"
-        android:label="monster_creator_fragment"
-        tools:layout="@layout/monster_creator_fragment" >
+        android:label="@string/create_monster"
+        tools:layout="@layout/monster_creator_fragment">
         <action
             android:id="@+id/action_monsterCreatorFragment_to_trueMonsterCreatorFragment"
             app:destination="@id/trueMonsterCreatorFragment" />
@@ -67,15 +64,15 @@
     <fragment
         android:id="@+id/sourceCreator"
         android:name="com.example.starsign.cardformulars.SourceCreator"
-        android:label="SourceCreator" />
+        android:label="@string/create_source" />
     <fragment
         android:id="@+id/spellCreator"
         android:name="com.example.starsign.cardformulars.SpellCreator"
-        android:label="SpellCreator" />
+        android:label="@string/create_spell" />
     <fragment
         android:id="@+id/sourceDetailFragment"
         android:name="com.example.starsign.carddetail.SourceDetailFragment"
-        android:label="fragment_source_detail"
+        android:label="Source"
         tools:layout="@layout/fragment_source_detail">
         <argument
             android:name="card"
@@ -87,7 +84,7 @@
     <fragment
         android:id="@+id/spellDetailFragment"
         android:name="com.example.starsign.carddetail.SpellDetailFragment"
-        android:label="fragment_spell_detail"
+        android:label="Spell"
         tools:layout="@layout/fragment_spell_detail">
         <argument
             android:name="card"
@@ -99,7 +96,7 @@
     <fragment
         android:id="@+id/monsterDetailFragment"
         android:name="com.example.starsign.carddetail.MonsterDetailFragment"
-        android:label="monster_detail_fragment"
+        android:label="Monster"
         tools:layout="@layout/monster_detail_fragment">
         <argument
             android:name="card"
@@ -111,7 +108,7 @@
     <fragment
         android:id="@+id/monsterEditorFragment"
         android:name="com.example.starsign.cardformulars.MonsterEditorFragment"
-        android:label="MonsterEditorFragment">
+        android:label="Edit Monster">
         <argument
             android:name="card"
             app:argType="com.example.starsign.database.NetworkMonster" />
@@ -122,7 +119,7 @@
     <fragment
         android:id="@+id/sourceEditorFragment"
         android:name="com.example.starsign.cardformulars.SourceEditorFragment"
-        android:label="SourceEditorFragment">
+        android:label="Edit source">
         <argument
             android:name="card"
             app:argType="com.example.starsign.database.NetworkSource" />
@@ -130,20 +127,17 @@
     <fragment
         android:id="@+id/spellEditorFragment"
         android:name="com.example.starsign.cardformulars.SpellEditorFragment"
-        android:label="SpellEditorFragment">
+        android:label="Edit Spell">
         <argument
             android:name="card"
             app:argType="com.example.starsign.database.NetworkMagic" />
     </fragment>
     <fragment
-        android:id="@+id/carddeleteFragment"
-        android:name="com.example.starsign.cardcreator.CarddeleteFragment"
-        android:label="CarddeleteFragment" />
-    <fragment
         android:id="@+id/trueMonsterEditorFragment"
         android:name="com.example.starsign.cardformulars.TrueMonsterEditorFragment"
-        android:label="TrueMonsterEditorFragment" >
-        <argument android:name="protomonster"
+        android:label="Edit Monster">
+        <argument
+            android:name="protomonster"
             app:argType="com.example.starsign.database.ProtoMonster" />
         <argument
             android:name="dbMonster"
@@ -152,7 +146,7 @@
     <fragment
         android:id="@+id/trueMonsterFragment"
         android:name="com.example.starsign.carddetail.TrueMonsterFragment"
-        android:label="TrueMonsterFragment" >
+        android:label="Monster">
         <action
             android:id="@+id/action_trueMonsterFragment_to_monsterEditorFragment"
             app:destination="@id/monsterEditorFragment" />
@@ -163,8 +157,8 @@
     <fragment
         android:id="@+id/trueMonsterCreatorFragment"
         android:name="com.example.starsign.cardformulars.TrueMonsterCreatorFragment"
-        android:label="fragment_true_monster_creator"
-        tools:layout="@layout/fragment_true_monster_creator" >
+        android:label="@string/create_monster"
+        tools:layout="@layout/fragment_true_monster_creator">
         <argument
             android:name="protomonster"
             app:argType="com.example.starsign.database.ProtoMonster" />
