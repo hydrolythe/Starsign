@@ -28,7 +28,7 @@
         Events are cards that activate an effect and get discarded after that effect has been used on the field.
     </string>
     <string name="ruleitem">Rules</string>
-    <string name="header_text">Cards made</string>
+    <string name="header_text">Your card collection</string>
     <string name="type_card_title">Select what type of card you want to make</string>
     <string name="create_monster">Monster</string>
     <string name="create_spell">Spell</string>
@@ -36,17 +36,17 @@
     <string name="monster_create_label">Create Monster</string>
     <string name="title_label">Title</string>
     <string name="mana_label">Mana</string>
-    <string name="life_label">Life</string>
-    <string name="attack_label">Attack</string>
-    <string name="defense_label">Defense</string>
-    <string name="magic_attack_label">Magic Attack</string>
-    <string name="magic_defense_label">Magic Defense</string>
-    <string name="mp_label">MP</string>
+    <string name="life_label">Life Points</string>
+    <string name="attack_label">Attack Points</string>
+    <string name="defense_label">Defense Points</string>
+    <string name="magic_attack_label">Magic Attack Points</string>
+    <string name="magic_defense_label">Magic Defense Points</string>
+    <string name="mp_label">Spellcast Points</string>
     <string name="spell_label">Spell</string>
     <string name="monster_add">Add Monster</string>
     <string name="spell_creator_label">Create Spell</string>
     <string name="spelltype_label">Type of spell</string>
-    <string name="spell_effect">Effect and power</string>
+    <string name="spell_effect">Effect and power points</string>
     <string name="spell_add">Add Spell</string>
     <string name="source_create_label">Create Source</string>
     <string name="source_type">What and how many mana it will generate</string>
@@ -76,5 +76,5 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="submit">Submit monster</string>
-    <string name="effects_and_mp">Effects and mp</string>
+    <string name="effects_and_mp">Effects and spellcast points</string>
 </resources>
