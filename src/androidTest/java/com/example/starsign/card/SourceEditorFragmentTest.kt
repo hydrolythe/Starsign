@@ -21,6 +21,7 @@ import com.example.starsign.cardformulars.AttributeViewHolder
 import com.example.starsign.cardformulars.SourceEditorFragment
 import com.example.starsign.database.DatabaseSource
 import com.example.starsign.database.Mana
+import com.example.starsign.database.NetworkSource
 import com.example.starsign.database.Source
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Before
@@ -43,7 +44,7 @@ class SourceEditorFragmentTest {
         stopKoin()
         startKoin{modules(fakeCardModule)}
         bundle = Bundle()
-        bundle.putParcelable("card", DatabaseSource(id, title, source))
+        bundle.putParcelable("card", NetworkSource(id, title, source))
         scenario = launchFragmentInContainer<SourceEditorFragment>(
             bundle,
             R.style.AppTheme

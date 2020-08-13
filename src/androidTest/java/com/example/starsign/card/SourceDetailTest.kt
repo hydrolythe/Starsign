@@ -64,7 +64,7 @@ class SourceDetailTest {
     fun onClick_goesToEditScreen(){
         onView(withId(R.id.editbutton)).perform(click())
         Mockito.verify(navController).navigate(
-            SourceDetailFragmentDirections.actionSourceDetailFragmentToSourceEditorFragment(listDbCards[2] as DatabaseSource)
+            SourceDetailFragmentDirections.actionSourceDetailFragmentToSourceEditorFragment(listDbCards[2] as NetworkSource)
         )
     }
 }

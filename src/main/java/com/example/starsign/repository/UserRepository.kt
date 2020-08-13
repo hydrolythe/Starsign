@@ -6,7 +6,7 @@ import com.example.starsign.network.JwtResponse
 import com.example.starsign.network.Network
 import com.example.starsign.network.UserDto
 
-class UserRepository() : IUserRepository {
+class UserRepository : IUserRepository {
     override suspend fun addUser(user: UserDto): Resulting<JwtResponse> {
         val postUserDeferred = Network.userApiService.register(user)
         try{

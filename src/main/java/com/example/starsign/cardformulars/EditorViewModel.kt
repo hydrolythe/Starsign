@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.starsign.database.Card
 import com.example.starsign.database.DatabaseCard
+import com.example.starsign.database.NetworkCard
 import com.example.starsign.repository.CardRepository
 import com.example.starsign.repository.ICardRepository
 import kotlinx.coroutines.*
@@ -30,7 +31,7 @@ class EditorViewModel(val cardRepository: ICardRepository): ViewModel() {
         }
     }
 
-    fun <T:DatabaseCard?> getDbCard(title: String){
+    fun <T: NetworkCard?> getDbCard(title: String){
         uiScope.launch {
             try {
                 val dbCard = cardRepository.getCardOnDetail(title)
@@ -41,7 +42,7 @@ class EditorViewModel(val cardRepository: ICardRepository): ViewModel() {
         }
     }
 
-    fun updateCard(card: DatabaseCard){
+    fun updateCard(card: NetworkCard){
         uiScope.launch{
             try{
                 val result = cardRepository.editCard(card)

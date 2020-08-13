@@ -13,12 +13,12 @@ import retrofit2.Response
 
 class CardRepository(private val database: StarsignDatabase): ICardRepository {
 
-    override suspend fun addCard(card: Card): DatabaseCard {
+    override suspend fun addCard(card: Card): NetworkCard {
         return withContext(Dispatchers.IO) {
             val insertProgress = Network.cardApiService.addCard(card)
             try {
                 val brandedCard = insertProgress.await()
-                database.cardDao.insert(brandedCard)
+                database.cardDao.insert(brandedCard.asDatabaseModel())
                 brandedCard
             } catch (e: Exception) {
                 throw e
@@ -29,14 +29,14 @@ class CardRepository(private val database: StarsignDatabase): ICardRepository {
     override suspend fun refreshCards(){
         withContext(Dispatchers.IO){
             val cards = Network.cardApiService.getCards().await()
-            database.cardDao.insertAll(cards)
+            database.cardDao.insertAll(cards.asDatabaseModel())
         }
     }
 
-    override suspend fun getCardOnDetail(title: String): DatabaseCard? {
+    override suspend fun getCardOnDetail(title: String): NetworkCard? {
         return withContext(Dispatchers.IO) {
             val dbCard = database.cardDao.getCard(title)
-            dbCard
+            dbCard?.asNetworkModel()
         }
     }
 
@@ -46,23 +46,11 @@ class CardRepository(private val database: StarsignDatabase): ICardRepository {
         }
     }
 
-    override suspend fun removeCards(cards: List<Card>):List<DatabaseCard> {
-        return withContext(Dispatchers.IO){
-            try{
-                val result = Network.cardApiService.deleteCards(cards.map{it.title}).await()
-                database.cardDao.deleteCards(result.map{it.cardid})
-                result
-            } catch(e:Exception){
-                throw e
-            }
-        }
-    }
-
-    override suspend fun editCard(card: DatabaseCard): Response<Any> {
+    override suspend fun editCard(card: NetworkCard): Response<Any> {
         return withContext(Dispatchers.IO){
             try {
                 val result = Network.cardApiService.updateCard(card).await()
-                database.cardDao.update(card)
+                database.cardDao.update(card.asDatabaseModel())
                 result
             } catch(e:Exception){
                 throw e

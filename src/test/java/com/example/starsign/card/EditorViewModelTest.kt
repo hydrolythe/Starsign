@@ -20,7 +20,7 @@ class EditorViewModelTest {
     private lateinit var viewModel: EditorViewModel
     private lateinit var cvm : CardViewModel
     private var listDbCards = mutableListOf(
-        DatabaseMonster(
+        NetworkMonster(
             cardid = 0,
             title = "Salamaximander",
             manarequirements = mapOf(Pair(Mana.APEIRON, 3)),
@@ -35,19 +35,19 @@ class EditorViewModelTest {
                 Pair(Spell.DRAW, 2)
             )
         ),
-        DatabaseMagic(
+        NetworkMagic(
             cardid = 1,
             title = "Sword",
             species = SpellSpecies.EQUIPMENT,
             manaamount = mapOf(Pair(Mana.ATOM, 3)),
             spells = mapOf(Pair(Spell.BOOSTATTACK, 2))
         ),
-        DatabaseSource(
+        NetworkSource(
             cardid = 3,
             title = "Miletus",
             manas = mapOf(Pair(Mana.APEIRON, 3))
         ),
-        DatabaseMonster(
+        NetworkMonster(
             cardid = 4,
             title = "Epeak",
             manarequirements = mapOf(Pair(Mana.ATOM, 5)),
@@ -82,7 +82,7 @@ class EditorViewModelTest {
     fun getDbCard_ValidTitle_ReturnsDbCard(){
         val selectedCard = listDbCards[1]
         val title = selectedCard.title
-        viewModel.getDbCard<DatabaseCard>(title)
+        viewModel.getDbCard<NetworkCard>(title)
         assertThat(LiveDataTestUtil.getValue(viewModel.dbCardResult).success, `is`(selectedCard))
     }
 
@@ -91,14 +91,14 @@ class EditorViewModelTest {
     fun getDbCard_InvalidTitle_ReturnsNull(){
         val fakeCard = Monster(title="Irrat", manarequirements = mapOf(Pair(Mana.VOID, 2)), life=15, attack = 5, defense = 5, magicdefense = 8, magicattack = 10, mp = 5, spells = null)
         val title = fakeCard.title
-        viewModel.getDbCard<DatabaseCard>(title)
+        viewModel.getDbCard<NetworkCard>(title)
         assertThat(LiveDataTestUtil.getValue(viewModel.dbCardResult).exception, not(nullValue()))
     }
 
     @ExperimentalCoroutinesApi
     @Test
     fun updateCard_invalidId_returnsIncorrectResultAndDoesNotUpdate(){
-        val fakeCard = DatabaseMonster(cardid = 10, title="Irrat", manarequirements = mapOf(Pair(Mana.VOID, 2)), life=15, attack = 5, defense = 5, magicdefense = 8, magicattack = 10, mp = 5, spells = null)
+        val fakeCard = NetworkMonster(cardid = 10, title="Irrat", manarequirements = mapOf(Pair(Mana.VOID, 2)), life=15, attack = 5, defense = 5, magicdefense = 8, magicattack = 10, mp = 5, spells = null)
         viewModel.updateCard(fakeCard)
         assertThat(LiveDataTestUtil.getValue(viewModel.cardEditResult).exception, not(nullValue()))
         assertThat(LiveDataTestUtil.getValue(viewModel.newCard), nullValue())
@@ -107,7 +107,7 @@ class EditorViewModelTest {
     @ExperimentalCoroutinesApi
     @Test
     fun updateCard_validId_returnsCorrectResultAndDoesUpdate(){
-        val trueCard = DatabaseMonster(
+        val trueCard = NetworkMonster(
             cardid = 0,
             title = "Epeak",
             manarequirements = mapOf(Pair(Mana.ATOM, 5)),

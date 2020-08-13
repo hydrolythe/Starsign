@@ -1,1 +1,1 @@
-data class JwtTokenHeader(val alg: String, val typ: String) {}
+data class JwtTokenHeader(val alg: String, val typ: String)

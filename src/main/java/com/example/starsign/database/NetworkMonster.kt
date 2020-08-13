@@ -1,12 +1,11 @@
 package com.example.starsign.database
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class Monster(
+class NetworkMonster(
+    override val cardid: Long,
     override val title: String,
     val manarequirements: Map<Mana,Int>,
     val life: Int,
@@ -16,4 +15,4 @@ data class Monster(
     val magicdefense: Int,
     val mp: Int,
     val spells: Map<Spell,Int>?
-):Card(title)
+):NetworkCard(cardid, title)

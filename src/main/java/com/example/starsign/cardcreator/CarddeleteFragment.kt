@@ -44,7 +44,7 @@ class CarddeleteFragment : Fragment() {
         })
         binding.cardView.adapter = adapter
         binding.cardRemovalbutton.setOnClickListener {
-            viewModel.deleteCards(deletionList)
+            //Removal
         }
         viewModel.cardResult.observe(viewLifecycleOwner, Observer{
             if(it.exception != null){
@@ -52,7 +52,7 @@ class CarddeleteFragment : Fragment() {
             }
             if(it.success != null){
                 Toast.makeText(context, String.format("Succesful edit."), Toast.LENGTH_SHORT).show()
-                getActivity()?.supportFragmentManager?.beginTransaction()?.remove(this)?.commit()
+                activity?.supportFragmentManager?.beginTransaction()?.remove(this)?.commit()
             }
         })
         return binding.root

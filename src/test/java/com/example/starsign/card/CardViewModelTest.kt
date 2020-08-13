@@ -18,7 +18,7 @@ class CardViewModelTest {
     private lateinit var cardRepository : FakeCardRepository
     private lateinit var cardViewModel : CardViewModel
     private var listDbCards = mutableListOf(
-        DatabaseMonster(
+        NetworkMonster(
             cardid = 0,
             title = "Salamaximander",
             manarequirements = mapOf(Pair(Mana.APEIRON, 3)),
@@ -33,19 +33,19 @@ class CardViewModelTest {
                 Pair(Spell.DRAW, 2)
             )
         ),
-        DatabaseMagic(
+        NetworkMagic(
             cardid = 1,
             title = "Sword",
             species = SpellSpecies.EQUIPMENT,
             manaamount = mapOf(Pair(Mana.ATOM, 3)),
             spells = mapOf(Pair(Spell.BOOSTATTACK, 2))
         ),
-        DatabaseSource(
+        NetworkSource(
             cardid = 3,
             title = "Miletus",
             manas = mapOf(Pair(Mana.APEIRON, 3))
         ),
-        DatabaseMonster(
+        NetworkMonster(
             cardid = 4,
             title = "Epeak",
             manarequirements = mapOf(Pair(Mana.ATOM, 5)),
@@ -80,27 +80,4 @@ class CardViewModelTest {
         assertThat(LiveDataTestUtil.getValue(cardViewModel.cardList).size, `is`(listDbCards.size))
     }
 
-    @ExperimentalCoroutinesApi
-    @Test
-    fun verwijderKaarten_FouteCollectie_SlaatFoutOp(){
-        val fakeCards = listOf(
-            Monster(title="Irrat", manarequirements = mapOf(Pair(Mana.VOID, 2)), life=15, attack = 5, defense = 5, magicdefense = 8, magicattack = 10, mp = 5, spells = null),
-            Magic(title="Void", manaamount = mapOf(Pair(Mana.TIME, 1), Pair(Mana.VOID, 2)), species = SpellSpecies.EVENT, spells = mapOf(Pair(Spell.DRAW, 2)))
-        )
-        cardViewModel.deleteCards(fakeCards)
-        assertThat(LiveDataTestUtil.getValue(cardViewModel.cardResult).exception, not(nullValue()))
-    }
-
-    @ExperimentalCoroutinesApi
-    @Test
-    fun verwijderKaarten_JuisteCollectie_GeeftJuisteverzamelingterug(){
-        val trueCards = listOf(
-            listDbCards[0],
-            listDbCards[1]
-        ).asDomainModel()
-        val size1 = listDbCards.size
-        cardViewModel.deleteCards(trueCards)
-        assertThat(LiveDataTestUtil.getValue(cardViewModel.cardResult).success?.size, `is`(trueCards.size))
-        assertThat(LiveDataTestUtil.getValue(cardViewModel.cardList).size, `is`(size1-trueCards.size))
-    }
 }

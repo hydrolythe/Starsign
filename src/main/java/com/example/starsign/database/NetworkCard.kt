@@ -2,19 +2,16 @@ package com.example.starsign.database
 
 import android.os.Parcelable
 import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.Index
-import androidx.room.PrimaryKey
 import kotlinx.android.parcel.Parcelize
-@Entity(tableName="Card", indices = arrayOf(Index(value = ["title"], unique=true)))
-open class DatabaseCard(
-    @PrimaryKey
-    open var cardid: Long,
-    open var title: String
-){
+
+@Parcelize
+open class NetworkCard(
+    open val cardid: Long,
+    open val title: String
+): Parcelable {
     fun asDomainModel(): Card {
         return when (this) {
-            is DatabaseMonster -> Monster(
+            is NetworkMonster -> Monster(
                 title = this.title,
                 manarequirements = this.manarequirements,
                 life = this.life,
@@ -25,21 +22,21 @@ open class DatabaseCard(
                 mp = this.mp,
                 spells = this.spells
             )
-            is DatabaseMagic -> Magic(
+            is NetworkMagic -> Magic(
                 title = this.title,
                 manaamount = this.manaamount,
                 species = this.species,
                 spells = this.spells
             )
-            is DatabaseSource -> Source(title = this.title, manas = this.manas)
+            is NetworkSource -> Source(title = this.title, manas = this.manas)
             else -> throw IllegalArgumentException("The type can not be converted")
         }
     }
-    fun asNetworkModel(): NetworkCard {
+    fun asDatabaseModel(): DatabaseCard {
         return when (this) {
-            is DatabaseMonster -> NetworkMonster(
-                cardid = this.cardid,
-                title = this.title,
+            is NetworkMonster -> DatabaseMonster(
+                monsterid = this.cardid,
+                monstertitle = this.title,
                 manarequirements = this.manarequirements,
                 life = this.life,
                 attack = this.attack,
@@ -49,26 +46,26 @@ open class DatabaseCard(
                 mp = this.mp,
                 spells = this.spells
             )
-            is DatabaseMagic -> NetworkMagic(
-                cardid = this.cardid,
-                title = this.title,
+            is NetworkMagic -> DatabaseMagic(
+                magicid = this.cardid,
+                magictitle = this.title,
                 manaamount = this.manaamount,
                 species = this.species,
                 spells = this.spells
             )
-            is DatabaseSource -> NetworkSource(cardid = this.cardid, title = this.title, manas = this.manas)
+            is NetworkSource -> DatabaseSource(sourceid = this.cardid, sourcetitle = this.title, manas = this.manas)
             else -> throw IllegalArgumentException("The type can not be converted")
         }
     }
 }
 
-fun List<DatabaseCard>.asDomainModel(): List<Card>{
+fun List<NetworkCard>.asDatabaseModel(): List<DatabaseCard>{
     val x = map{
         when(it){
-            is DatabaseMonster -> Monster(title = it.title, manarequirements = it.manarequirements, life = it.life, attack = it.attack, defense = it.defense, magicattack = it.magicattack, magicdefense = it.magicdefense, mp = it.mp, spells = it.spells)
-            is DatabaseMagic -> Magic(title = it.title, manaamount = it.manaamount, species = it.species, spells = it.spells)
-            is DatabaseSource -> Source(title = it.title, manas = it.manas)
-            else -> Card(title=it.title)
+            is NetworkMonster -> DatabaseMonster(monsterid = it.cardid, monstertitle = it.title, manarequirements = it.manarequirements, life = it.life, attack = it.attack, defense = it.defense, magicattack = it.magicattack, magicdefense = it.magicdefense, mp = it.mp, spells = it.spells)
+            is NetworkMagic -> DatabaseMagic(magicid = it.cardid, magictitle = it.title, manaamount = it.manaamount, species = it.species, spells = it.spells)
+            is NetworkSource -> DatabaseSource(sourceid = it.cardid, sourcetitle = it.title, manas = it.manas)
+            else -> DatabaseCard(cardid = it.cardid, title=it.title)
         }
     }
     return x

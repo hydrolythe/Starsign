@@ -12,10 +12,7 @@ import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers
 import com.example.starsign.R
 import com.example.starsign.carddetail.*
-import com.example.starsign.database.DatabaseMonster
-import com.example.starsign.database.Mana
-import com.example.starsign.database.Monster
-import com.example.starsign.database.Spell
+import com.example.starsign.database.*
 import com.example.starsign.fakeCardModule
 import com.example.starsign.listDbCards
 import com.example.starsign.withRecyclerViewText
@@ -36,7 +33,7 @@ class TrueMonsterDetailTest {
         stopKoin()
         startKoin{modules(fakeCardModule)}
         bundle = Bundle()
-        bundle.putParcelable("card", listDbCards[3] as DatabaseMonster)
+        bundle.putParcelable("card", listDbCards[3] as NetworkMonster)
         navController = Mockito.mock(NavController::class.java)
         scenario = launchFragmentInContainer<TrueMonsterFragment>(
             bundle,
@@ -100,7 +97,7 @@ class TrueMonsterDetailTest {
         Espresso.onView(ViewMatchers.withId(R.id.submit)).perform(ViewActions.click())
         Mockito.verify(navController).navigate(
             TrueMonsterFragmentDirections.actionTrueMonsterFragmentToMonsterEditorFragment(
-                listDbCards[3] as DatabaseMonster
+                listDbCards[3] as NetworkMonster
             )
         )
     }

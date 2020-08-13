@@ -75,7 +75,7 @@ class TrueMonsterCreatorFragment : Fragment() {
                     viewHolder.cleartext()
                 }
                 Toast.makeText(context, String.format("Card was successfully edited."), Toast.LENGTH_SHORT)
-                getActivity()?.supportFragmentManager?.beginTransaction()?.remove(this)
+                activity?.supportFragmentManager?.beginTransaction()?.remove(this)
                     ?.commit()
             }
         })

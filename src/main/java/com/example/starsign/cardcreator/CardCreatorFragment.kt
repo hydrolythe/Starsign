@@ -47,10 +47,6 @@ class CardCreatorFragment : Fragment() {
             adapter.submitList(it)
         })
         binding.cardlist.adapter = adapter
-        binding.deletecardsbutton.setOnClickListener {
-            it.findNavController().navigate(CardCreatorFragmentDirections.actionCardCreatorBoxToCarddeleteFragment())
-        }
         return binding.root
     }
-
 }

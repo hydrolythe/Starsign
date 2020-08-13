@@ -10,10 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.starsign.R
-import com.example.starsign.database.DatabaseMonster
-import com.example.starsign.database.Mana
-import com.example.starsign.database.Monster
-import com.example.starsign.database.Spell
+import com.example.starsign.database.*
 import com.example.starsign.databinding.FragmentTrueMonsterCreatorBinding
 import org.koin.android.ext.android.inject
 
@@ -60,7 +57,7 @@ class TrueMonsterEditorFragment : Fragment() {
                 }
             }
             viewModel.updateCard(
-                DatabaseMonster(originMonster.cardid, protoMonster.title, attributeRequirements, protoMonster.life, protoMonster.attack, protoMonster.defense, protoMonster.magicattack, protoMonster.magicdefense, protoMonster.mp, spells)
+                NetworkMonster(originMonster.cardid, protoMonster.title, attributeRequirements, protoMonster.life, protoMonster.attack, protoMonster.defense, protoMonster.magicattack, protoMonster.magicdefense, protoMonster.mp, spells)
             )
         }
         viewModel.cardEditResult.observe(viewLifecycleOwner, Observer{
@@ -73,7 +70,7 @@ class TrueMonsterEditorFragment : Fragment() {
                     viewHolder.cleartext()
                 }
                 Toast.makeText(context, String.format("Card was successfully edited."), Toast.LENGTH_SHORT)
-                getActivity()?.supportFragmentManager?.beginTransaction()?.remove(this)
+                activity?.supportFragmentManager?.beginTransaction()?.remove(this)
                     ?.commit()
             }
         })

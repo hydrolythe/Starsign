@@ -20,7 +20,7 @@ class CreatorViewModelTest {
     private lateinit var viewModel: CardCreatorViewModel
     private lateinit var cvm : CardViewModel
     private var listDbCards = mutableListOf(
-        DatabaseMonster(
+        NetworkMonster(
             cardid = 0,
             title = "Salamaximander",
             manarequirements = mapOf(Pair(Mana.APEIRON, 3)),
@@ -35,19 +35,19 @@ class CreatorViewModelTest {
                 Pair(Spell.DRAW, 2)
             )
         ),
-        DatabaseMagic(
+        NetworkMagic(
             cardid = 1,
             title = "Sword",
             species = SpellSpecies.EQUIPMENT,
             manaamount = mapOf(Pair(Mana.ATOM, 3)),
             spells = mapOf(Pair(Spell.BOOSTATTACK, 2))
         ),
-        DatabaseSource(
+        NetworkSource(
             cardid = 3,
             title = "Miletus",
             manas = mapOf(Pair(Mana.APEIRON, 3))
         ),
-        DatabaseMonster(
+        NetworkMonster(
             cardid = 4,
             title = "Epeak",
             manarequirements = mapOf(Pair(Mana.ATOM, 5)),

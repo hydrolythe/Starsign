@@ -72,7 +72,7 @@ class SpellDetailTest {
     fun onClick_GoesToEditScreen(){
         onView(withId(R.id.edittextbutton)).perform(click())
         Mockito.verify(navController).navigate(
-            SpellDetailFragmentDirections.actionSpellDetailFragmentToSpellEditorFragment(listDbCards[1] as DatabaseMagic)
+            SpellDetailFragmentDirections.actionSpellDetailFragmentToSpellEditorFragment(listDbCards[1] as NetworkMagic)
         )
     }
 }

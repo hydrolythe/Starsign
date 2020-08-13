@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.starsign.R
 import com.example.starsign.database.DatabaseSource
 import com.example.starsign.database.Mana
+import com.example.starsign.database.NetworkSource
 import com.example.starsign.database.Source
 import com.example.starsign.databinding.SourceCreatorFragmentBinding
 import org.koin.android.ext.android.inject
@@ -43,7 +44,7 @@ class SourceEditorFragment : Fragment() {
                 }
             }
             viewModel.updateCard(
-                DatabaseSource(
+                NetworkSource(
                     source.cardid,
                     binding.sourcetitletext.text.toString(),
                     attributeRequirements

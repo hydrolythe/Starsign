@@ -26,7 +26,7 @@ import org.koin.android.ext.android.inject
 class SourceDetailFragment : Fragment() {
     private lateinit var binding : FragmentSourceDetailBinding
     private val viewModel: EditorViewModel by inject()
-    private lateinit var dbSource : DatabaseSource
+    private lateinit var dbSource : NetworkSource
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -42,7 +42,7 @@ class SourceDetailFragment : Fragment() {
             else{
                 Toast.makeText(context, String.format("Error: The name of the spell got modified while you tried to modify it."), Toast.LENGTH_SHORT)
                     .show()
-                getActivity()?.supportFragmentManager?.beginTransaction()?.remove(this)
+                activity?.supportFragmentManager?.beginTransaction()?.remove(this)
                     ?.commit()
             }
         })
@@ -57,16 +57,16 @@ class SourceDetailFragment : Fragment() {
         val manaAdapter = source.manas.let{ManaDetailAdapter(it)}
         manaAdapter.submitList(source.manas.keys.toList())
         binding.manageneratorlist.adapter = manaAdapter
-        viewModel.getDbCard<DatabaseSource>(source.title)
+        viewModel.getDbCard<NetworkSource>(source.title)
         viewModel.dbCardResult.observe(viewLifecycleOwner, Observer{
-            if(it.success!=null && it.success is DatabaseSource){
+            if(it.success!=null && it.success is NetworkSource){
                 dbSource = it.success
                 binding.editbutton.isEnabled = true
             }
             else{
                 Toast.makeText(context, String.format("Error: The name of the monster got modified while you tried to modify it."), Toast.LENGTH_SHORT)
                     .show()
-                getActivity()?.supportFragmentManager?.beginTransaction()?.remove(this)
+                activity?.supportFragmentManager?.beginTransaction()?.remove(this)
                     ?.commit()
             }
         })

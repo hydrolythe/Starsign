@@ -10,5 +10,4 @@ class ProtoMonster(val title: String,
                    val defense: Int,
                    val magicattack: Int,
                    val magicdefense: Int,
-                   val mp: Int):Parcelable {
-                   }
+                   val mp: Int):Parcelable

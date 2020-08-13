@@ -25,7 +25,7 @@ import org.koin.android.ext.android.inject
 class SpellDetailFragment : Fragment() {
     private lateinit var binding : FragmentSpellDetailBinding
     private val viewModel: EditorViewModel by inject()
-    private lateinit var dbSpell : DatabaseMagic
+    private lateinit var dbSpell : NetworkMagic
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -41,7 +41,7 @@ class SpellDetailFragment : Fragment() {
             else{
                 Toast.makeText(context, String.format("Error: The name of the spell got modified while you tried to modify it."), Toast.LENGTH_SHORT)
                     .show()
-                getActivity()?.supportFragmentManager?.beginTransaction()?.remove(this)
+                activity?.supportFragmentManager?.beginTransaction()?.remove(this)
                     ?.commit()
             }
         })
@@ -62,16 +62,16 @@ class SpellDetailFragment : Fragment() {
         val spellAdapter = spell.spells.let{SpellDetailAdapter(it)}
         spellAdapter.submitList(spell.spells.keys.toList())
         binding.effectlist.adapter = spellAdapter
-        viewModel.getDbCard<DatabaseMagic>(spell.title)
+        viewModel.getDbCard<NetworkMagic>(spell.title)
         viewModel.dbCardResult.observe(viewLifecycleOwner, Observer{
-            if(it.success!=null && it.success is DatabaseMagic){
+            if(it.success!=null && it.success is NetworkMagic){
                 dbSpell = it.success
                 binding.edittextbutton.isEnabled = true
             }
             else{
                 Toast.makeText(context, String.format("Error: The name of the monster got modified while you tried to modify it."), Toast.LENGTH_SHORT)
                     .show()
-                getActivity()?.supportFragmentManager?.beginTransaction()?.remove(this)
+                activity?.supportFragmentManager?.beginTransaction()?.remove(this)
                     ?.commit()
             }
         })

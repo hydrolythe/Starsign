@@ -1,9 +1,10 @@
 package com.example.starsign.database
 
-import androidx.room.Entity
 import kotlinx.android.parcel.Parcelize
+
 @Parcelize
-data class Source(
+class NetworkSource(
+    override val cardid:Long,
     override val title : String,
     val manas: Map<Mana, Int>
-):Card(title)
+): NetworkCard(cardid, title)

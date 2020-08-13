@@ -10,16 +10,16 @@ import okhttp3.ResponseBody
 import retrofit2.Response
 import java.lang.NullPointerException
 
-class FakeCardRepository(private val listdbCard: MutableList<DatabaseCard>) : ICardRepository {
-    private val cards = MutableLiveData<MutableList<DatabaseCard>>()
+class FakeCardRepository(private val listdbCard: MutableList<NetworkCard>) : ICardRepository {
+    private val cards = MutableLiveData<MutableList<NetworkCard>>()
     val lcards: LiveData<List<Card>> = Transformations.map(cards){
-        it.asDomainModel()
+        it.asDatabaseModel().asDomainModel()
     }
 
-    override suspend fun addCard(card: Card): DatabaseCard {
+    override suspend fun addCard(card: Card): NetworkCard {
         val dbCard = fromCardToDatabaseCard(card)
         if (cards.value != null) {
-            if (cards.value?.asDomainModel()?.contains(card)!!) {
+            if (cards.value?.asDatabaseModel()?.asDomainModel()?.contains(card)!!) {
                 throw IllegalArgumentException()
             }
             else{
@@ -30,22 +30,7 @@ class FakeCardRepository(private val listdbCard: MutableList<DatabaseCard>) : IC
         return dbCard
     }
 
-    override suspend fun removeCards(cardstoRemove: List<Card>): List<DatabaseCard> {
-        cardstoRemove.forEach{
-            if(!cards.value?.asDomainModel()?.contains(it)!!){
-                throw NullPointerException()
-            }
-        }
-        val dbCards = mutableListOf<DatabaseCard>()
-        val listcards = cards.value?.asDomainModel()?.toMutableList()
-        cardstoRemove.forEach{
-            dbCards.add(cards.value?.get(listcards?.indexOf(it)!!)!!)
-            cards.value?.removeAt(listcards?.indexOf(it)!!)
-        }
-        return dbCards
-    }
-
-    override suspend fun editCard(card: DatabaseCard): Response<Any> {
+    override suspend fun editCard(card: NetworkCard): Response<Any> {
         if(!cards.value!!.map{it.cardid}.contains(card.cardid)){
             return Response.error(400, ResponseBody.create(MediaType.get("application/json"), "Bad request"))
         }
@@ -59,7 +44,7 @@ class FakeCardRepository(private val listdbCard: MutableList<DatabaseCard>) : IC
         }
     }
 
-    override suspend fun getCardOnDetail(title: String): DatabaseCard? {
+    override suspend fun getCardOnDetail(title: String): NetworkCard? {
         val index = cards.value!!.map{it.title}.indexOf(title)
         if(index>=0) {
             return cards.value!!.get(index)
@@ -73,9 +58,9 @@ class FakeCardRepository(private val listdbCard: MutableList<DatabaseCard>) : IC
         return lcards
     }
 
-    private fun fromCardToDatabaseCard(card:Card):DatabaseCard{
+    private fun fromCardToDatabaseCard(card:Card):NetworkCard{
         return when (card) {
-            is Monster -> DatabaseMonster(
+            is Monster -> NetworkMonster(
                 cardid = cards.value?.size?.toLong() ?: 0,
                 title = card.title,
                 manarequirements = card.manarequirements,
@@ -87,15 +72,15 @@ class FakeCardRepository(private val listdbCard: MutableList<DatabaseCard>) : IC
                 mp = card.mp,
                 spells = card.spells
             )
-            is Magic -> DatabaseMagic(
+            is Magic -> NetworkMagic(
                 cardid = cards.value?.size?.toLong() ?: 0,
                 title = card.title,
                 manaamount = card.manaamount,
-                species = card.species ?: throw NullPointerException(),
+                species = card.species,
                 spells = card.spells
             )
             is Source ->
-                DatabaseSource(cardid = cards.value?.size?.toLong() ?: 0, title = card.title, manas = card.manas)
+                NetworkSource(cardid = cards.value?.size?.toLong() ?: 0, title = card.title, manas = card.manas)
             else -> throw IllegalArgumentException("The type can not be converted")
         }
     }

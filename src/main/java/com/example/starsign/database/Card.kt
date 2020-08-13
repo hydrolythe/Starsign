@@ -9,4 +9,4 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 open class Card(
     open val title: String
-):Parcelable {}
+):Parcelable

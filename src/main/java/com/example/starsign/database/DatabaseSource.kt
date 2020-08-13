@@ -1,13 +1,16 @@
 package com.example.starsign.database
 
-import androidx.room.Entity
-import androidx.room.Index
+import androidx.room.*
 import kotlinx.android.parcel.Parcelize
 
-@Parcelize
-@Entity(inheritSuperIndices = true)
-class DatabaseSource(
-    override val cardid:Long,
-    override val title : String,
+
+@Entity(tableName="Source", inheritSuperIndices = true, indices = arrayOf(Index(value= ["sourceid"]), Index(value = ["sourcetitle"], unique=true)),
+    foreignKeys = arrayOf(ForeignKey(entity=DatabaseCard::class, parentColumns=arrayOf("cardid"), childColumns = arrayOf("sourceid"), onDelete= ForeignKey.CASCADE)))
+data class DatabaseSource(
+    @ColumnInfo(name="sourceid")
+    val sourceid:Long,
+    @ColumnInfo(name="sourcetitle")
+    val sourcetitle : String,
+    @ColumnInfo(name="manas")
     val manas: Map<Mana, Int>
-): DatabaseCard(cardid, title) {}
+): DatabaseCard(sourceid, sourcetitle)

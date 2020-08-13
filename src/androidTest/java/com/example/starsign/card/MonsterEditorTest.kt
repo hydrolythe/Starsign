@@ -41,7 +41,7 @@ class MonsterEditorTest {
         stopKoin()
         startKoin{modules(fakeCardModule)}
         bundle = Bundle()
-        bundle.putParcelable("card", listDbCards[3] as DatabaseMonster)
+        bundle.putParcelable("card", listDbCards[3] as NetworkMonster)
         navController = Mockito.mock(NavController::class.java)
         scenario = launchFragmentInContainer<MonsterEditorFragment>(
             bundle,
@@ -75,7 +75,7 @@ class MonsterEditorTest {
         Espresso.onView(ViewMatchers.withId(R.id.submitmonster)).perform(ViewActions.click())
         Mockito.verify(navController).navigate(
             MonsterEditorFragmentDirections.actionMonsterEditorFragmentToTrueMonsterEditorFragment(
-                ProtoMonster(title, life, attack, defense, magicattack, magicdefense, mp), listDbCards[3] as DatabaseMonster
+                ProtoMonster(title, life, attack, defense, magicattack, magicdefense, mp), listDbCards[3] as NetworkMonster
             )
         )
     }

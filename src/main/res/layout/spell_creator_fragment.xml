@@ -5,7 +5,7 @@
     android:orientation="vertical">
     <data>
         <variable name="spell"
-            type="com.example.starsign.database.DatabaseMagic"/>
+            type="com.example.starsign.database.NetworkMagic"/>
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -22,12 +22,12 @@
             android:text="@{spell.title}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/spelltitle"
+            app:layout_constraintTop_toBottomOf="@+id/spelltext"
             tools:ignore="LabelFor"
             tools:targetApi="o" />
 
         <TextView
-            android:id="@+id/spelltitle"
+            android:id="@+id/spelltext"
             android:layout_width="85dp"
             android:layout_height="18dp"
             android:text="@string/spell_creator_label"
@@ -61,12 +61,12 @@
         </RadioGroup>
 
         <TextView
-            android:id="@+id/spelleffectlabel"
+            android:id="@+id/manacostlabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
-            android:text="@string/spell_effect"
+            android:text="@string/mana_cost"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/spelltypelabel"
             app:layout_constraintTop_toBottomOf="@+id/spelltitletext" />
@@ -82,10 +82,10 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
-            android:id="@+id/manacosttitle"
+            android:id="@+id/magiceffectlabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/mana_cost"
+            android:text="@string/spell_effect"
             app:layout_constraintEnd_toStartOf="@+id/spelltypelabel"
             app:layout_constraintHorizontal_bias="0.51"
             app:layout_constraintStart_toStartOf="parent"
@@ -99,7 +99,7 @@
             app:layout_constraintEnd_toStartOf="@+id/radioGroup2"
             app:layout_constraintHorizontal_bias="0.42"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/manacosttitle" />
+            app:layout_constraintTop_toBottomOf="@+id/magiceffectlabel" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/manacost"
@@ -109,7 +109,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.534"
             app:layout_constraintStart_toEndOf="@+id/radioGroup2"
-            app:layout_constraintTop_toBottomOf="@+id/spelleffectlabel" />
+            app:layout_constraintTop_toBottomOf="@+id/manacostlabel" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

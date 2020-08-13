@@ -1,16 +1,20 @@
 package com.example.starsign.database
 
-import androidx.room.Entity
-import androidx.room.Index
-import androidx.room.PrimaryKey
+import androidx.room.*
 import kotlinx.android.parcel.Parcelize
 
-@Parcelize
-@Entity(inheritSuperIndices = true)
-class DatabaseMagic(
-    override val cardid: Long,
-    override val title: String,
+
+@Entity(tableName="Magic", inheritSuperIndices = true, indices = arrayOf(Index(value= ["magicid"]), Index(value = ["magictitle"], unique=true)),
+        foreignKeys = arrayOf(ForeignKey(entity=DatabaseCard::class, parentColumns=arrayOf("cardid"), childColumns = arrayOf("magicid"), onDelete=ForeignKey.CASCADE)))
+data class DatabaseMagic(
+    @ColumnInfo(name="magicid")
+    val magicid: Long,
+    @ColumnInfo(name="magictitle")
+    val magictitle: String,
+    @ColumnInfo(name="species")
     val species: SpellSpecies,
+    @ColumnInfo(name="spells")
     val spells: Map<Spell, Int>,
+    @ColumnInfo(name="manaamount")
     val manaamount: Map<Mana, Int>
-):DatabaseCard(cardid, title) {}
+):DatabaseCard(magicid, magictitle)

@@ -58,7 +58,6 @@ class CardCreatorTest : KoinTest {
 
     @Test
     fun DeleteButton_onClick_toDeleteCardMenu(){
-        onView(withId(R.id.deletecardsbutton)).perform(click())
         verify(navController).navigate(
             CardCreatorFragmentDirections.actionCardCreatorBoxToCarddeleteFragment()
         )

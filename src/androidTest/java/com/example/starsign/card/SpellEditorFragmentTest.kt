@@ -39,7 +39,7 @@ class SpellEditorFragmentTest {
         stopKoin()
         startKoin{modules(fakeCardModule)}
         bundle = Bundle()
-        bundle.putParcelable("card", DatabaseMagic(cardid, title, species, spells, manaamount))
+        bundle.putParcelable("card", NetworkMagic(cardid, title, species, spells, manaamount))
         scenario = launchFragmentInContainer<SpellEditorFragment>(
             bundle,
             R.style.AppTheme

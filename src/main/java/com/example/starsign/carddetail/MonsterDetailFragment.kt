@@ -16,11 +16,11 @@ import com.example.starsign.database.*
 import com.example.starsign.databinding.MonsterDetailFragmentBinding
 import org.koin.android.ext.android.inject
 
-class MonsterDetailFragment() : Fragment() {
+class MonsterDetailFragment : Fragment() {
 
     private lateinit var binding : MonsterDetailFragmentBinding
     private val viewModel: EditorViewModel by inject()
-    private lateinit var dbMonster : DatabaseMonster
+    private lateinit var dbMonster : NetworkMonster
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -36,7 +36,7 @@ class MonsterDetailFragment() : Fragment() {
             else{
                 Toast.makeText(context, String.format("Error: The name of the monster got modified while you tried to modify it."), Toast.LENGTH_SHORT)
                     .show()
-                getActivity()?.supportFragmentManager?.beginTransaction()?.remove(this)
+                activity?.supportFragmentManager?.beginTransaction()?.remove(this)
                     ?.commit()
             }
         })
@@ -52,16 +52,16 @@ class MonsterDetailFragment() : Fragment() {
         binding.magicattacktext.text = monster.magicattack.toString()
         binding.magicdefensetext.text = monster.magicdefense.toString()
         binding.mptext.text = monster.mp.toString()
-        viewModel.getDbCard<DatabaseMonster>(monster.title)
+        viewModel.getDbCard<NetworkMonster>(monster.title)
         viewModel.dbCardResult.observe(viewLifecycleOwner, Observer{
-            if(it.success!=null && it.success is DatabaseMonster){
+            if(it.success!=null && it.success is NetworkMonster){
                 dbMonster = it.success
                 binding.editbutton.isEnabled = true
             }
             else{
                 Toast.makeText(context, String.format("Error: The name of the monster got modified while you tried to modify it."), Toast.LENGTH_SHORT)
                     .show()
-                getActivity()?.supportFragmentManager?.beginTransaction()?.remove(this)
+                activity?.supportFragmentManager?.beginTransaction()?.remove(this)
                     ?.commit()
             }
         })

@@ -80,7 +80,7 @@ class MonsterDetailTest {
     fun onNavigation_navigatesToCorrectFragment(){
         onView(withId(R.id.editbutton)).perform(click())
         Mockito.verify(navController).navigate(
-            MonsterDetailFragmentDirections.actionMonsterDetailFragmentToTrueMonsterFragment(listDbCards[3] as DatabaseMonster)
+            MonsterDetailFragmentDirections.actionMonsterDetailFragmentToTrueMonsterFragment(listDbCards[3] as NetworkMonster)
         )
     }
 }

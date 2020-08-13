@@ -65,7 +65,7 @@ class SpellEditorFragment : Fragment() {
                 }
             }
             viewModel.updateCard(
-                DatabaseMagic(
+                NetworkMagic(
                     spell.cardid,
                     binding.spelltitletext.text.toString(),
                     selectedSpellspecie.value!!,

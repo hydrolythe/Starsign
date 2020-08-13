@@ -19,7 +19,7 @@ val fakeUserModule = module{
     viewModel{RegisterViewModel(get())}
 }
 val listDbCards = mutableListOf(
-    DatabaseMonster(
+    NetworkMonster(
         cardid = 0,
         title = "Salamaximander",
         manarequirements = mapOf(Pair(Mana.APEIRON, 3)),
@@ -34,19 +34,19 @@ val listDbCards = mutableListOf(
             Pair(Spell.DRAW, 2)
         )
     ),
-    DatabaseMagic(
+    NetworkMagic(
         cardid = 1,
         title = "Sword",
         species = SpellSpecies.EQUIPMENT,
         manaamount = mapOf(Pair(Mana.ATOM, 3)),
         spells = mapOf(Pair(Spell.BOOSTATTACK, 2))
     ),
-    DatabaseSource(
+    NetworkSource(
         cardid = 2,
         title = "Miletus",
         manas = mapOf(Pair(Mana.APEIRON, 3))
     ),
-    DatabaseMonster(
+    NetworkMonster(
         cardid = 3,
         title = "Epeak",
         manarequirements = mapOf(Pair(Mana.ATOM, 5)),
