@@ -32,7 +32,7 @@ open class DatabaseCard(
                 spells = this.spells
             )
             is DatabaseSource -> Source(title = this.title, manas = this.manas)
-            else -> throw IllegalArgumentException("The type can not be converted")
+            else -> Card(title=this.title)
         }
     }
     fun asNetworkModel(): NetworkCard {
@@ -57,7 +57,7 @@ open class DatabaseCard(
                 spells = this.spells
             )
             is DatabaseSource -> NetworkSource(cardid = this.cardid, title = this.title, manas = this.manas)
-            else -> throw IllegalArgumentException("The type can not be converted")
+            else -> NetworkCard(cardid = this.cardid, title = this.title)
         }
     }
 }
