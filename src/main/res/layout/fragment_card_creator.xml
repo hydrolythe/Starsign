@@ -18,9 +18,9 @@
 
         <Button
             android:id="@+id/createcardButton"
+            style="@style/menuTheme"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#F9A36E"
             android:text="@string/createcard"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

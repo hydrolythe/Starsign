@@ -7,5 +7,8 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+    <style name="menuTheme" parent="Widget.AppCompat.Button">
+        <item name="android:background">@color/gold</item>
+    </style>
 
 </resources>

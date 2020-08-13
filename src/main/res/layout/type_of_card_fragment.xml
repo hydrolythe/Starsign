@@ -27,6 +27,7 @@
         android:layout_height="41dp"
         android:layout_marginTop="30dp"
         android:text="@string/create_monster"
+        style="@style/menuTheme"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/TypeCardTitle" />
@@ -37,6 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="@string/create_spell"
+        style="@style/menuTheme"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/monstercreatorbutton" />
@@ -47,6 +49,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="@string/create_source"
+        style="@style/menuTheme"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spellcreatorbutton" />

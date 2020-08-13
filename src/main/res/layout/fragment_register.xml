@@ -12,7 +12,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#283E97"
+        android:background="@color/darkblue"
         tools:context=".register.RegisterFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -42,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:autofillHints="@string/usernamehints"
-                android:background="#FBEAF1"
+                android:background="@color/gold"
                 android:ems="10"
                 android:gravity="start"
                 android:hint="@string/usernamelabel"
@@ -73,7 +73,7 @@
                 android:id="@+id/registratebutton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="#CC924E"
+                style="@style/menuTheme"
                 android:text="@string/registerlabel"
                 android:textColor="#000000"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -86,7 +86,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:autofillHints="@string/passwordhints"
-                android:background="#FBEAF1"
+                android:background="@color/pink"
                 android:ems="10"
                 android:hint="@string/passwordlabel"
                 android:inputType="textPassword"
@@ -116,7 +116,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:autofillHints="Repeat Password"
-                android:background="#FBEAF1"
+                android:background="@color/pink"
                 android:ems="10"
                 android:hint="@string/repeat_password"
                 android:inputType="textPassword"
