@@ -37,9 +37,10 @@ class CardDaoTest{
         val databaseSource = DatabaseSource(1, "xenon", mapOf(Pair(Mana.APEIRON, 1)))
         database.cardDao.insert(databaseSource)
         val loadedCard = database.cardDao.getCard(databaseSource.title)
-        assertThat<DatabaseCard>(loadedCard as DatabaseCard, notNullValue())
+        assertThat<DatabaseCard>(loadedCard as DatabaseSource, notNullValue())
         assertThat(loadedCard.cardid, `is`(databaseSource.cardid))
         assertThat(loadedCard.title, `is`(databaseSource.title))
+        assertThat(loadedCard.manas, `is`(databaseSource.manas))
     }
 
     @Test
@@ -60,9 +61,10 @@ class CardDaoTest{
         val correctedDatabaseSource = DatabaseSource(1, "neon", mapOf(Pair(Mana.VOID, 2)))
         database.cardDao.update(correctedDatabaseSource)
         val loadedCard = database.cardDao.getCard(correctedDatabaseSource.title)
-        assertThat<DatabaseCard>(loadedCard as DatabaseCard, notNullValue())
+        assertThat<DatabaseCard>(loadedCard as DatabaseSource, notNullValue())
         assertThat(loadedCard.cardid, `is`(correctedDatabaseSource.cardid))
         assertThat(loadedCard.title, `is`(correctedDatabaseSource.title))
+        assertThat(loadedCard.manas, `is`(correctedDatabaseSource.manas))
     }
 
     @After

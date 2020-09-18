@@ -4,7 +4,7 @@ import androidx.room.*
 import kotlinx.android.parcel.Parcelize
 
 @Entity(tableName="Monster",inheritSuperIndices = true, indices = arrayOf(Index(value= ["monsterid"]), Index(value = ["monstertitle"], unique=true)),
-    foreignKeys = arrayOf(ForeignKey(entity=DatabaseCard::class, parentColumns=arrayOf("cardid"), childColumns = arrayOf("monsterid"), onDelete=ForeignKey.CASCADE)))
+    foreignKeys = arrayOf(ForeignKey(entity=DatabaseCard::class, parentColumns=arrayOf("cardid"), childColumns = arrayOf("cardid"), onDelete=ForeignKey.CASCADE)))
 data class DatabaseMonster(
     @ColumnInfo(name="monsterid")
     val monsterid: Long,
