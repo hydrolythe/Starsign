@@ -10,11 +10,13 @@ import kotlinx.coroutines.test.runBlockingTest
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.`is`
 import org.hamcrest.Matchers.notNullValue
+import org.hamcrest.core.IsInstanceOf
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import kotlin.reflect.typeOf
 
 @ExperimentalCoroutinesApi
 @RunWith(AndroidJUnit4::class)
@@ -47,6 +49,8 @@ class CardDaoTest{
         val loadedCards = database.cardDao.getCards()
         assertThat<List<DatabaseCard>>(loadedCards, notNullValue())
         assertThat(loadedCards.size, `is`(databasecards.size))
+        assertThat(loadedCards[0].title, `is`(databasecards[0].title))
+        assertThat(loadedCards[0], IsInstanceOf(DatabaseSource::class.java))
     }
 
     @Test
