@@ -6,9 +6,7 @@ import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
 import kotlinx.android.parcel.Parcelize
-@Entity(tableName="Card", indices = arrayOf(Index(value = ["title"], unique=true)))
 open class DatabaseCard(
-    @PrimaryKey
     open var cardid: Long,
     open var title: String
 ){

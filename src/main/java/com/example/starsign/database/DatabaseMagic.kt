@@ -4,10 +4,9 @@ import androidx.room.*
 import kotlinx.android.parcel.Parcelize
 
 
-@Entity(tableName="Magic", inheritSuperIndices = true, indices = arrayOf(Index(value= ["magicid"]), Index(value = ["magictitle"], unique=true)),
-        foreignKeys = arrayOf(ForeignKey(entity=DatabaseCard::class, parentColumns=arrayOf("cardid"), childColumns = arrayOf("cardid"), onDelete=ForeignKey.CASCADE)))
+@Entity(tableName="Magic", inheritSuperIndices = true, indices = arrayOf(Index(value= ["magicid"]), Index(value = ["magictitle"], unique=true)))
 data class DatabaseMagic(
-    @ColumnInfo(name="magicid")
+    @PrimaryKey
     val magicid: Long,
     @ColumnInfo(name="magictitle")
     val magictitle: String,

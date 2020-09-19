@@ -3,10 +3,9 @@ package com.example.starsign.database
 import androidx.room.*
 import kotlinx.android.parcel.Parcelize
 
-@Entity(tableName="Monster",inheritSuperIndices = true, indices = arrayOf(Index(value= ["monsterid"]), Index(value = ["monstertitle"], unique=true)),
-    foreignKeys = arrayOf(ForeignKey(entity=DatabaseCard::class, parentColumns=arrayOf("cardid"), childColumns = arrayOf("cardid"), onDelete=ForeignKey.CASCADE)))
+@Entity(tableName="Monster",inheritSuperIndices = true, indices = arrayOf(Index(value= ["monsterid"]), Index(value = ["monstertitle"], unique=true)))
 data class DatabaseMonster(
-    @ColumnInfo(name="monsterid")
+    @PrimaryKey
     val monsterid: Long,
     @ColumnInfo(name="monstertitle")
     val monstertitle: String,

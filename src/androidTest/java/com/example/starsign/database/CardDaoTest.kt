@@ -35,8 +35,8 @@ class CardDaoTest{
     @Test
     fun insertCard_getCardByTitle()= runBlockingTest{
         val databaseSource = DatabaseSource(1, "xenon", mapOf(Pair(Mana.APEIRON, 1)))
-        database.cardDao.insert(databaseSource)
-        val loadedCard = database.cardDao.getCard(databaseSource.title)
+        database.sourceDao.insert(databaseSource)
+        val loadedCard = database.sourceDao.getCard(databaseSource.title)
         assertThat<DatabaseCard>(loadedCard as DatabaseSource, notNullValue())
         assertThat(loadedCard.cardid, `is`(databaseSource.cardid))
         assertThat(loadedCard.title, `is`(databaseSource.title))
@@ -45,22 +45,22 @@ class CardDaoTest{
 
     @Test
     fun insertCards_getCards() = runBlockingTest{
-        val databasecards = listOf(DatabaseSource(1, "xenon", mapOf(Pair(Mana.APEIRON, 1))), DatabaseMagic(2, "Neohell", SpellSpecies.FIELD, mapOf(Pair(Spell.DAMAGE, 3)), mapOf(Pair(Mana.SOUL, 2))))
-        database.cardDao.insertAll(databasecards)
-        val loadedCards = database.cardDao.getCards()
+        val databasecards = listOf(DatabaseSource(1, "xenon", mapOf(Pair(Mana.APEIRON, 1))))
+        database.sourceDao.insertAll(databasecards)
+        val loadedCards = database.sourceDao.getCards()
         assertThat<List<DatabaseCard>>(loadedCards, notNullValue())
         assertThat(loadedCards.size, `is`(databasecards.size))
         assertThat(loadedCards[0].title, `is`(databasecards[0].title))
-        assertThat(loadedCards[0], IsInstanceOf(DatabaseSource::class.java))
+        assertThat(loadedCards[0], IsInstanceOf(databasecards[0]::class.java))
     }
 
     @Test
     fun updateCard_updatesCard() = runBlockingTest{
         val databaseSource = DatabaseSource(1, "xenon", mapOf(Pair(Mana.APEIRON, 1)))
-        database.cardDao.insert(databaseSource)
+        database.sourceDao.insert(databaseSource)
         val correctedDatabaseSource = DatabaseSource(1, "neon", mapOf(Pair(Mana.VOID, 2)))
-        database.cardDao.update(correctedDatabaseSource)
-        val loadedCard = database.cardDao.getCard(correctedDatabaseSource.title)
+        database.sourceDao.update(correctedDatabaseSource)
+        val loadedCard = database.sourceDao.getCard(correctedDatabaseSource.title)
         assertThat<DatabaseCard>(loadedCard as DatabaseSource, notNullValue())
         assertThat(loadedCard.cardid, `is`(correctedDatabaseSource.cardid))
         assertThat(loadedCard.title, `is`(correctedDatabaseSource.title))
