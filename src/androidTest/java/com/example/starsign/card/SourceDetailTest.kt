@@ -17,6 +17,7 @@ import com.example.starsign.carddetail.*
 import com.example.starsign.database.*
 import com.example.starsign.fakeCardModule
 import com.example.starsign.listDbCards
+import com.example.starsign.network.NetworkSource
 import com.example.starsign.withRecyclerViewText
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Before

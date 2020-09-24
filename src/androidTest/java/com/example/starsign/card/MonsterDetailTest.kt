@@ -1,7 +1,6 @@
 package com.example.starsign.card
 
 import android.os.Bundle
-import androidx.annotation.NonNull
 import androidx.fragment.app.testing.FragmentScenario
 import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.navigation.NavController
@@ -9,29 +8,21 @@ import androidx.navigation.Navigation
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.filters.MediumTest
 import com.example.starsign.R
-import com.example.starsign.carddetail.ManaDetailViewHolder
 import com.example.starsign.carddetail.MonsterDetailFragment
 import com.example.starsign.carddetail.MonsterDetailFragmentDirections
-import com.example.starsign.carddetail.SpellDetailViewHolder
-import com.example.starsign.cardformulars.AttributeViewHolder
-import com.example.starsign.cardformulars.CardCreatorViewModel
 import com.example.starsign.database.*
 import com.example.starsign.fakeCardModule
 import com.example.starsign.listDbCards
-import com.example.starsign.typeofcardmenu.TypeOfCardFragmentDirections
-import com.example.starsign.withRecyclerViewText
+import com.example.starsign.network.NetworkMonster
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Before
 import org.junit.Test
-import org.junit.runner.RunWith
 import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
-import org.mockito.ArgumentMatchers.anyString
 import org.mockito.Mockito
 
 @MediumTest

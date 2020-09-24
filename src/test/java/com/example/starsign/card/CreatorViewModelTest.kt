@@ -6,6 +6,9 @@ import com.example.starsign.MainCoroutineRule
 import com.example.starsign.cardcreator.CardViewModel
 import com.example.starsign.cardformulars.CardCreatorViewModel
 import com.example.starsign.database.*
+import com.example.starsign.network.NetworkMagic
+import com.example.starsign.network.NetworkMonster
+import com.example.starsign.network.NetworkSource
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import mockRepository.FakeCardRepository
 import org.hamcrest.CoreMatchers.*

@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.starsign.R
 import com.example.starsign.database.*
 import com.example.starsign.databinding.FragmentTrueMonsterCreatorBinding
+import com.example.starsign.network.NetworkMonster
 import org.koin.android.ext.android.inject
 
 /**

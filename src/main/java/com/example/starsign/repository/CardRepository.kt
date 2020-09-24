@@ -3,29 +3,35 @@ package com.example.starsign.repository
 import android.content.res.Resources
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
-import androidx.room.Database
 import com.example.starsign.database.*
-import com.example.starsign.network.Network
+import com.example.starsign.network.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import okhttp3.Challenge
-import okhttp3.ResponseBody
 import retrofit2.Response
 
 class CardRepository(private val database: StarsignDatabase): ICardRepository {
 
     override suspend fun addCard(card: Card): NetworkCard {
         return withContext(Dispatchers.IO) {
-            val insertProgress = Network.cardApiService.addCard(card)
             try {
-                val brandedCard = insertProgress.await()
-                when(brandedCard){
-                    is NetworkMonster -> database.monsterDao.insert(brandedCard.asDatabaseModel() as DatabaseMonster)
-                    is NetworkMagic -> database.magicDao.insert(brandedCard.asDatabaseModel() as DatabaseMagic)
-                    is NetworkSource -> database.sourceDao.insert(brandedCard.asDatabaseModel() as DatabaseSource)
+                when(card){
+                    is Monster -> {
+                        val nmonster = Network.cardApiService.addCard<NetworkMonster>(card).await()
+                        database.monsterDao.insert(nmonster.asDatabaseModel() as DatabaseMonster)
+                        nmonster
+                    }
+                    is Magic -> {
+                        val nmagic = Network.cardApiService.addCard<NetworkMagic>(card).await()
+                        database.magicDao.insert(nmagic.asDatabaseModel() as DatabaseMagic)
+                        nmagic
+                    }
+                    is Source -> {
+                        val nsource = Network.cardApiService.addCard<NetworkSource>(card).await()
+                        database.sourceDao.insert(nsource.asDatabaseModel() as DatabaseSource)
+                        nsource
+                    }
+                    else -> throw IllegalArgumentException("Not found")
                 }
-                brandedCard
             } catch (e: Exception) {
                 throw e
             }
@@ -34,14 +40,15 @@ class CardRepository(private val database: StarsignDatabase): ICardRepository {
 
     override suspend fun refreshCards(){
         withContext(Dispatchers.IO){
-            val cards = Network.cardApiService.getCards().await()
-            cards.forEach { nc ->
-                when(nc){
-                    is NetworkMonster -> database.monsterDao.insert(nc.asDatabaseModel() as DatabaseMonster)
-                    is NetworkMagic -> database.magicDao.insert(nc.asDatabaseModel() as DatabaseMagic)
-                    is NetworkSource -> database.sourceDao.insert(nc.asDatabaseModel() as DatabaseSource)
-                }
-            }
+            val nmonsters = Network.cardApiService.getCards<NetworkMonster>().await()
+            val nspells = Network.cardApiService.getCards<NetworkMagic>().await()
+            val nsources = Network.cardApiService.getCards<NetworkSource>().await()
+            val dbMonsters = com.example.starsign.network.asDatabaseModel()
+            val dbSpells = com.example.starsign.network.asDatabaseModel()
+            val dbSources = com.example.starsign.network.asDatabaseModel()
+            database.monsterDao.insertAll(dbMonsters)
+            database.magicDao.insertAll(dbSpells)
+            database.sourceDao.insertAll(dbSources)
         }
     }
 
@@ -67,7 +74,8 @@ class CardRepository(private val database: StarsignDatabase): ICardRepository {
 
     override suspend fun getDomainCards(): LiveData<List<Card>> {
         return withContext(Dispatchers.IO) {
-            MutableLiveData(listOf(database.monsterDao.getCards().asDomainModel(), database.magicDao.getCards().asDomainModel(), database.sourceDao.getCards().asDomainModel()).flatten())
+            val flatList = listOf(database.monsterDao.getCards().asDomainModel(), database.magicDao.getCards().asDomainModel(), database.sourceDao.getCards().asDomainModel()).flatten()
+            MutableLiveData<List<Card>>(flatList)
         }
     }
 

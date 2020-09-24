@@ -4,13 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.starsign.database.Card
-import com.example.starsign.database.DatabaseCard
-import com.example.starsign.database.NetworkCard
-import com.example.starsign.repository.CardRepository
+import com.example.starsign.network.NetworkCard
 import com.example.starsign.repository.ICardRepository
 import kotlinx.coroutines.*
-import java.lang.IllegalArgumentException
-import java.util.*
 
 class EditorViewModel(val cardRepository: ICardRepository): ViewModel() {
     private val viewModelJob = Job()

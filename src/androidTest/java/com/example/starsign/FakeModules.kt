@@ -5,6 +5,9 @@ import com.example.starsign.cardformulars.CardCreatorViewModel
 import com.example.starsign.cardformulars.EditorViewModel
 import com.example.starsign.database.*
 import com.example.starsign.mockRepository.FakeUserRepository
+import com.example.starsign.network.NetworkMagic
+import com.example.starsign.network.NetworkMonster
+import com.example.starsign.network.NetworkSource
 import com.example.starsign.register.RegisterViewModel
 import com.example.starsign.repository.ICardRepository
 import com.example.starsign.repository.IUserRepository

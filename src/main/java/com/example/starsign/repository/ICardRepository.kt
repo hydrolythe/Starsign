@@ -2,11 +2,8 @@ package com.example.starsign.repository
 
 import androidx.lifecycle.LiveData
 import com.example.starsign.database.Card
-import com.example.starsign.database.DatabaseCard
-import com.example.starsign.database.NetworkCard
-import com.example.starsign.database.User
+import com.example.starsign.network.NetworkCard
 import retrofit2.Response
-import okhttp3.ResponseBody
 
 interface ICardRepository {
     suspend fun addCard(card: Card): NetworkCard

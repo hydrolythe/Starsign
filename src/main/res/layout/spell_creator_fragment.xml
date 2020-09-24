@@ -5,7 +5,7 @@
     android:orientation="vertical">
     <data>
         <variable name="spell"
-            type="com.example.starsign.database.NetworkMagic"/>
+            type="com.example.starsign.network.NetworkMagic"/>
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

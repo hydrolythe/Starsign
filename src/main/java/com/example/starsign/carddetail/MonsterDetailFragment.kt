@@ -8,12 +8,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.navigation.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.starsign.R
 import com.example.starsign.cardformulars.EditorViewModel
 import com.example.starsign.database.*
 import com.example.starsign.databinding.MonsterDetailFragmentBinding
+import com.example.starsign.network.NetworkMonster
 import org.koin.android.ext.android.inject
 
 class MonsterDetailFragment : Fragment() {

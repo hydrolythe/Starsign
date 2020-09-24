@@ -6,7 +6,7 @@
     <data>
         <variable
             name="source"
-            type="com.example.starsign.database.NetworkSource"/>
+            type="com.example.starsign.network.NetworkSource"/>
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/monsterformulier"

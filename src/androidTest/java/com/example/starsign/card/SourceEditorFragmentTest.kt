@@ -1,34 +1,26 @@
 package com.example.starsign.card
 
 import android.os.Bundle
-import android.widget.TextView
-import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.testing.FragmentScenario
 import androidx.fragment.app.testing.launchFragmentInContainer
-import androidx.navigation.NavController
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.action.ViewActions.clearText
-import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.filters.MediumTest
 import com.example.starsign.*
-import com.example.starsign.carddetail.SourceDetailFragment
 import com.example.starsign.cardformulars.AttributeViewHolder
 import com.example.starsign.cardformulars.SourceEditorFragment
-import com.example.starsign.database.DatabaseSource
 import com.example.starsign.database.Mana
-import com.example.starsign.database.NetworkSource
-import com.example.starsign.database.Source
+import com.example.starsign.network.NetworkSource
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Before
 import org.junit.Test
 import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
-import org.mockito.Mockito
 
 @MediumTest
 @ExperimentalCoroutinesApi

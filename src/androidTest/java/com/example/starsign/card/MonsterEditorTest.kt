@@ -16,6 +16,7 @@ import com.example.starsign.cardformulars.MonsterEditorFragmentDirections
 import com.example.starsign.database.*
 import com.example.starsign.fakeCardModule
 import com.example.starsign.listDbCards
+import com.example.starsign.network.NetworkMonster
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Before
 import org.junit.Test

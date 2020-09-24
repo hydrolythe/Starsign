@@ -1,7 +1,7 @@
-package com.example.starsign.database
+package com.example.starsign.network
 
 import android.os.Parcelable
-import androidx.room.ColumnInfo
+import com.example.starsign.database.*
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize

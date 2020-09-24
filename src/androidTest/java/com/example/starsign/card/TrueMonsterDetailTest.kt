@@ -15,6 +15,7 @@ import com.example.starsign.carddetail.*
 import com.example.starsign.database.*
 import com.example.starsign.fakeCardModule
 import com.example.starsign.listDbCards
+import com.example.starsign.network.NetworkMonster
 import com.example.starsign.withRecyclerViewText
 import org.junit.Before
 import org.junit.Test

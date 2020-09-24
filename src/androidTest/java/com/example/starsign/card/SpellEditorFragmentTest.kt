@@ -1,13 +1,11 @@
 package com.example.starsign.card
 
 import android.os.Bundle
-import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.testing.FragmentScenario
 import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.action.ViewActions.clearText
 import androidx.test.espresso.action.ViewActions.click
-import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers
@@ -16,12 +14,12 @@ import androidx.test.filters.MediumTest
 import com.example.starsign.*
 import com.example.starsign.cardformulars.*
 import com.example.starsign.database.*
+import com.example.starsign.network.NetworkMagic
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Before
 import org.junit.Test
 import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
-import org.mockito.Mockito
 
 @MediumTest
 @ExperimentalCoroutinesApi

@@ -1,7 +1,6 @@
 package com.example.starsign.carddetail
 
 import android.os.Bundle
-import android.provider.ContactsContract
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -9,13 +8,13 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.starsign.R
 import com.example.starsign.cardformulars.EditorViewModel
 import com.example.starsign.database.*
 import com.example.starsign.databinding.FragmentSourceDetailBinding
 import com.example.starsign.databinding.SourceCreatorFragmentBinding
+import com.example.starsign.network.NetworkSource
 import org.koin.android.ext.android.inject
 
 /**

@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.starsign.R
 import com.example.starsign.database.*
 import com.example.starsign.databinding.SpellCreatorFragmentBinding
+import com.example.starsign.network.NetworkMagic
 import org.koin.android.ext.android.inject
 
 class SpellEditorFragment : Fragment() {

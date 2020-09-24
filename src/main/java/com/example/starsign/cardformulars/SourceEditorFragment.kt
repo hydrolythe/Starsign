@@ -10,10 +10,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.starsign.R
-import com.example.starsign.database.DatabaseSource
 import com.example.starsign.database.Mana
-import com.example.starsign.database.NetworkSource
-import com.example.starsign.database.Source
+import com.example.starsign.network.NetworkSource
 import com.example.starsign.databinding.SourceCreatorFragmentBinding
 import org.koin.android.ext.android.inject
 

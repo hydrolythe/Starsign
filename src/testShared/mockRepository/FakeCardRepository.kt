@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import com.example.starsign.database.*
+import com.example.starsign.network.*
 import com.example.starsign.repository.ICardRepository
 import okhttp3.MediaType
 import okhttp3.ResponseBody
@@ -58,7 +59,7 @@ class FakeCardRepository(private val listdbCard: MutableList<NetworkCard>) : ICa
         return lcards
     }
 
-    private fun fromCardToDatabaseCard(card:Card):NetworkCard{
+    private fun fromCardToDatabaseCard(card:Card): NetworkCard {
         return when (card) {
             is Monster -> NetworkMonster(
                 cardid = cards.value?.size?.toLong() ?: 0,
