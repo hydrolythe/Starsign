@@ -1,6 +1,5 @@
 package com.example.starsign.database
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
 
 interface CardDao<T:DatabaseCard> {

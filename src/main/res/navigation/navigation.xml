@@ -111,7 +111,7 @@
         android:label="Edit Monster">
         <argument
             android:name="card"
-            app:argType="com.example.starsign.database.NetworkMonster" />
+            app:argType="com.example.starsign.network.NetworkMonster" />
         <action
             android:id="@+id/action_monsterEditorFragment_to_trueMonsterEditorFragment"
             app:destination="@id/trueMonsterEditorFragment" />
@@ -122,7 +122,7 @@
         android:label="Edit source">
         <argument
             android:name="card"
-            app:argType="com.example.starsign.database.NetworkSource" />
+            app:argType="com.example.starsign.network.NetworkSource" />
     </fragment>
     <fragment
         android:id="@+id/spellEditorFragment"
@@ -130,7 +130,7 @@
         android:label="Edit Spell">
         <argument
             android:name="card"
-            app:argType="com.example.starsign.database.NetworkMagic" />
+            app:argType="com.example.starsign.network.NetworkMagic" />
     </fragment>
     <fragment
         android:id="@+id/trueMonsterEditorFragment"
@@ -141,7 +141,7 @@
             app:argType="com.example.starsign.database.ProtoMonster" />
         <argument
             android:name="dbMonster"
-            app:argType="com.example.starsign.database.NetworkMonster" />
+            app:argType="com.example.starsign.network.NetworkMonster" />
     </fragment>
     <fragment
         android:id="@+id/trueMonsterFragment"
@@ -152,7 +152,7 @@
             app:destination="@id/monsterEditorFragment" />
         <argument
             android:name="card"
-            app:argType="com.example.starsign.database.NetworkMonster" />
+            app:argType="com.example.starsign.network.NetworkMonster" />
     </fragment>
     <fragment
         android:id="@+id/trueMonsterCreatorFragment"

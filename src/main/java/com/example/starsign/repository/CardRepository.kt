@@ -16,17 +16,17 @@ class CardRepository(private val database: StarsignDatabase): ICardRepository {
             try {
                 when(card){
                     is Monster -> {
-                        val nmonster = Network.cardApiService.addCard<NetworkMonster>(card).await()
+                        val nmonster = Network.cardApiService.addCard(card).await()
                         database.monsterDao.insert(nmonster.asDatabaseModel() as DatabaseMonster)
                         nmonster
                     }
                     is Magic -> {
-                        val nmagic = Network.cardApiService.addCard<NetworkMagic>(card).await()
+                        val nmagic = Network.cardApiService.addCard(card).await()
                         database.magicDao.insert(nmagic.asDatabaseModel() as DatabaseMagic)
                         nmagic
                     }
                     is Source -> {
-                        val nsource = Network.cardApiService.addCard<NetworkSource>(card).await()
+                        val nsource = Network.cardApiService.addCard(card).await()
                         database.sourceDao.insert(nsource.asDatabaseModel() as DatabaseSource)
                         nsource
                     }
@@ -40,15 +40,13 @@ class CardRepository(private val database: StarsignDatabase): ICardRepository {
 
     override suspend fun refreshCards(){
         withContext(Dispatchers.IO){
-            val nmonsters = Network.cardApiService.getCards<NetworkMonster>().await()
-            val nspells = Network.cardApiService.getCards<NetworkMagic>().await()
-            val nsources = Network.cardApiService.getCards<NetworkSource>().await()
-            val dbMonsters = com.example.starsign.network.asDatabaseModel()
-            val dbSpells = com.example.starsign.network.asDatabaseModel()
-            val dbSources = com.example.starsign.network.asDatabaseModel()
-            database.monsterDao.insertAll(dbMonsters)
-            database.magicDao.insertAll(dbSpells)
-            database.sourceDao.insertAll(dbSources)
+            val ncards = Network.cardApiService.getCards().await()
+            val nmonsters = ncards.filterIsInstance<NetworkMonster>()
+            val nspells = ncards.filterIsInstance<NetworkMagic>()
+            val nsources = ncards.filterIsInstance<NetworkSource>()
+            database.monsterDao.insertAll(nmonsters.asDatabaseModel())
+            database.magicDao.insertAll(nspells.asDatabaseModel())
+            database.sourceDao.insertAll(nsources.asDatabaseModel())
         }
     }
 
