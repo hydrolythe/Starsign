@@ -49,12 +49,12 @@ open class DatabaseCard(
             is DatabaseMagic -> NetworkMagic(
                 cardid = this.cardid,
                 title = this.title,
-                manaamount = this.manaamount,
+                cost = this.manaamount,
                 species = this.species,
                 spells = this.spells
             )
-            is DatabaseSource -> NetworkSource(cardid = this.cardid, title = this.title, manas = this.manas)
-            else -> NetworkCard(cardid = this.cardid, title = this.title)
+            is DatabaseSource -> NetworkSource(cardid = this.cardid, title = this.title, source = this.manas)
+            else -> throw TypeCastException("Type doesn't exist")
         }
     }
 }

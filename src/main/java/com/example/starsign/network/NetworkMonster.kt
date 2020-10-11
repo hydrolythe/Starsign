@@ -3,32 +3,23 @@ package com.example.starsign.network
 import com.example.starsign.database.DatabaseMonster
 import com.example.starsign.database.Mana
 import com.example.starsign.database.Spell
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.JsonClass
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-class NetworkMonster(
-    @SerializedName("cardid")
+@JsonClass(generateAdapter = true)
+data class NetworkMonster(
     override val cardid: Long,
-    @SerializedName("title")
     override val title: String,
-    @SerializedName("manarequirements")
-    val manarequirements: Map<Mana,Int>,
-    @SerializedName("life")
-    val life: Int,
-    @SerializedName("attack")
-    val attack: Int,
-    @SerializedName("defense")
-    val defense: Int,
-    @SerializedName("magicattack")
-    val magicattack: Int,
-    @SerializedName("magicdefense")
-    val magicdefense: Int,
-    @SerializedName("mp")
-    val mp: Int,
-    @SerializedName("spells")
-    val spells: Map<Spell,Int>?
-): NetworkCard(cardid, title)
+    override val manarequirements: Map<Mana,Int>,
+    override val life: Int,
+    override val attack: Int,
+    override val defense: Int,
+    override val magicattack: Int,
+    override val magicdefense: Int,
+    override val mp: Int,
+    override val spells: Map<Spell,Int>?
+): NetworkCard("Monster", cardid, title)
 
 fun List<NetworkMonster>.asDatabaseModel(): List<DatabaseMonster>{
     val x = map{

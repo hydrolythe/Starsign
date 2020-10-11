@@ -41,12 +41,18 @@ class CardRepository(private val database: StarsignDatabase): ICardRepository {
     override suspend fun refreshCards(){
         withContext(Dispatchers.IO){
             val ncards = Network.cardApiService.getCards().await()
-            val nmonsters = ncards.filterIsInstance<NetworkMonster>()
-            val nspells = ncards.filterIsInstance<NetworkMagic>()
-            val nsources = ncards.filterIsInstance<NetworkSource>()
-            database.monsterDao.insertAll(nmonsters.asDatabaseModel())
-            database.magicDao.insertAll(nspells.asDatabaseModel())
-            database.sourceDao.insertAll(nsources.asDatabaseModel())
+            val nmonsters = ncards.filter{it.type=="Monster"}
+            val nspells = ncards.filter{it.type=="Magic"}
+            val nsources = ncards.filter{it.type=="Source"}
+            val monsters = mutableListOf<DatabaseMonster>()
+            nmonsters.forEach{monsters.add(DatabaseMonster(it.cardid,it.title,it.manarequirements!!,it.life,it.attack,it.defense,it.magicattack,it.magicdefense,it.mp,it.spells))}
+            val spells = mutableListOf<DatabaseMagic>()
+            nspells.forEach{spells.add(DatabaseMagic(it.cardid,it.title,it.species,it.spells!!,it.cost!!))}
+            val sources = mutableListOf<DatabaseSource>()
+            nsources.forEach{sources.add(DatabaseSource(it.cardid,it.title,it.source!!))}
+            database.monsterDao.insertAll(monsters)
+            database.magicDao.insertAll(spells)
+            database.sourceDao.insertAll(sources)
         }
     }
 
@@ -55,18 +61,9 @@ class CardRepository(private val database: StarsignDatabase): ICardRepository {
             val dbMonster = database.monsterDao.getCard(title)
             val dbMagic = database.magicDao.getCard(title)
             val dbSource = database.sourceDao.getCard(title)
-            if(dbMonster!=null){
-                dbMonster.asNetworkModel()
-            }
-            else if(dbMagic!=null){
-                dbMagic.asNetworkModel()
-            }
-            else if(dbSource!=null){
-                dbSource.asNetworkModel()
-            }
-            else{
-                throw Resources.NotFoundException("The card was not found")
-            }
+            dbMonster?.asNetworkModel()
+                ?: (dbMagic?.asNetworkModel()
+                    ?: (dbSource?.asNetworkModel() ?: throw Resources.NotFoundException("The card was not found")))
         }
     }
 

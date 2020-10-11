@@ -28,7 +28,7 @@ class SourceEditorFragment : Fragment() {
         binding.source = source
         val layoutManager = LinearLayoutManager(this.context)
         binding.sourcetypes.layoutManager = layoutManager
-        val requirementAdapter = AttributeAdapter(source.manas)
+        val requirementAdapter = AttributeAdapter(source.source)
         requirementAdapter.submitList(Mana.values().asList())
         binding.sourcetypes.adapter = requirementAdapter
         binding.sourcecreatorbutton.setOnClickListener {

@@ -9,10 +9,8 @@ import retrofit2.http.*
 interface CardApiService {
     @POST("card")
     fun addCard(@Body card: Card): Deferred<NetworkCard>
-    @GET
+    @GET("card")
     fun getCards():Deferred<List<NetworkCard>>
     @PUT("card")
     fun updateCard(@Body card: NetworkCard):Deferred<Response<Any>>
-    @DELETE("card")
-    fun deleteCards(@QueryName title: String):Deferred<NetworkCard>
 }

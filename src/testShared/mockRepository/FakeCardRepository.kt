@@ -76,12 +76,12 @@ class FakeCardRepository(private val listdbCard: MutableList<NetworkCard>) : ICa
             is Magic -> NetworkMagic(
                 cardid = cards.value?.size?.toLong() ?: 0,
                 title = card.title,
-                manaamount = card.manaamount,
+                cost = card.manaamount,
                 species = card.species,
                 spells = card.spells
             )
             is Source ->
-                NetworkSource(cardid = cards.value?.size?.toLong() ?: 0, title = card.title, manas = card.manas)
+                NetworkSource(cardid = cards.value?.size?.toLong() ?: 0, title = card.title, source = card.manas)
             else -> throw IllegalArgumentException("The type can not be converted")
         }
     }

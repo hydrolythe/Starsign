@@ -43,7 +43,7 @@ class SpellEditorFragment : Fragment() {
         binding.effectspells.adapter = magicadapter
         val layoutManager3 = LinearLayoutManager(this.context)
         binding.manacost.layoutManager = layoutManager3
-        val requirementAdapter = AttributeAdapter(spell.manaamount)
+        val requirementAdapter = AttributeAdapter(spell.cost)
         requirementAdapter.submitList(Mana.values().asList())
         binding.manacost.adapter = requirementAdapter
         binding.addspellbutton.setOnClickListener {

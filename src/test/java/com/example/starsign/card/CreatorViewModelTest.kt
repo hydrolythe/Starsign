@@ -42,13 +42,13 @@ class CreatorViewModelTest {
             cardid = 1,
             title = "Sword",
             species = SpellSpecies.EQUIPMENT,
-            manaamount = mapOf(Pair(Mana.ATOM, 3)),
+            cost = mapOf(Pair(Mana.ATOM, 3)),
             spells = mapOf(Pair(Spell.BOOSTATTACK, 2))
         ),
         NetworkSource(
             cardid = 3,
             title = "Miletus",
-            manas = mapOf(Pair(Mana.APEIRON, 3))
+            source = mapOf(Pair(Mana.APEIRON, 3))
         ),
         NetworkMonster(
             cardid = 4,

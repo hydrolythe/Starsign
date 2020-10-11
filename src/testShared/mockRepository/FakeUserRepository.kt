@@ -7,7 +7,9 @@ import com.example.starsign.network.JwtRequest
 import com.example.starsign.network.JwtResponse
 import com.example.starsign.network.UserDto
 import com.example.starsign.repository.IUserRepository
-import com.google.gson.GsonBuilder
+import com.squareup.moshi.JsonAdapter
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import java.lang.NullPointerException
 import java.time.LocalDateTime
 import java.time.ZoneOffset
@@ -16,9 +18,9 @@ import kotlin.NoSuchElementException
 
 class FakeUserRepository: IUserRepository {
     private val users = mutableListOf(JwtPayload("Nedl","Globoesporte", (LocalDateTime.now().plusHours(1L).toEpochSecond(ZoneOffset.UTC))/1000L), JwtPayload("Record", "Imagen3", (LocalDateTime.now().plusHours(1L).toEpochSecond(ZoneOffset.UTC))/1000L))
-    private val gson = GsonBuilder().create()
-    private val jsonAdapter = gson.getAdapter(JwtPayload::class.java)
-    private val headerAdapter = gson.getAdapter(JwtTokenHeader::class.java)
+    private val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
+    private val jsonAdapter = moshi.adapter(JwtPayload::class.java)
+    private val headerAdapter = moshi.adapter(JwtTokenHeader::class.java)
     private val jth = JwtTokenHeader("HS256","JWT")
 
     @ExperimentalStdlibApi
