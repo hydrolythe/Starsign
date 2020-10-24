@@ -35,7 +35,6 @@ class Converters {
             if(value?.rem(it)?.equals(0)!!){
                 var substitute = value
                 var indexnr = 1
-                substitute /= it
                 while(substitute.rem(it) == 0){
                     substitute /= it
                     indexnr++
@@ -52,11 +51,10 @@ class Converters {
         val spells = listOf(Spell.DAMAGE, Spell.BOOSTATTACK, Spell.DRAW, Spell.BOOSTSPECIALATTACK, Spell.BOOSTDEFENSE, Spell.BOOSTHEALTH, Spell.BOOSTMP, Spell.BOOSTSPECIALDEFENSE, Spell.SKIPTURN)
         var savedLong = 1
         mspint?.forEach {
-            var prime = primes[spells.indexOf(it.key)]
-            for(i in 1 until it.value){
-                prime *=prime
+            val prime = primes[spells.indexOf(it.key)]
+            for(i in 1 until it.value) {
+                savedLong*=prime
             }
-            savedLong*=prime
         }
         return savedLong
     }
@@ -70,7 +68,6 @@ class Converters {
             if(value?.rem(it)?.equals(0)!!){
                 var substitute = value
                 var indexnr = 1
-                substitute /= it
                 while(substitute.rem(it) == 0){
                     substitute /= it
                     indexnr++
@@ -87,11 +84,10 @@ class Converters {
         val manas = listOf(Mana.VOID, Mana.APEIRON, Mana.TIME, Mana.ATOM, Mana.FORM, Mana.SOUL)
         var savedLong = 1
         mmint?.forEach {
-            var prime = primes[manas.indexOf(it.key)]
+            val prime = primes[manas.indexOf(it.key)]
             for(i in 1 until it.value){
-                prime *=prime
+                savedLong *=prime
             }
-            savedLong*=prime
         }
         return savedLong
     }
